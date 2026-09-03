@@ -1,0 +1,35 @@
+{
+  "schema_version": "petroleum_fraction-experimental-db-evaluation.v1",
+  "created_at": "2026-09-26T17:32:30",
+  "top_k": 6,
+  "targets": [
+    "density_20c",
+    "saturates",
+    "BP_20",
+    "BP_35",
+    "BP_50",
+    "BP_65",
+    "BP_80"
+  ],
+  "sample_count": 68,
+  "train_count": 54,
+  "test_count": 14,
+  "feature_count": 81,
+  "spectral_latent_feature_count": 66,
+  "spectral_model_count": 0,
+  "spectral_model_artifact_count": 0,
+  "property_count": 7,
+  "outputs": [
+    "expert_reasoning_prompts.jsonl",
+    "feature_feature_redundancy_top_pairs.csv",
+    "feature_matrix_all.csv",
+    "feature_target_correlations.csv",
+    "feature_weight_top25_by_target.csv",
+    "metrics_by_property.csv",
+    "neighbor_evidence.csv",
+    "property_table_all.csv",
+    "sample_metadata.csv",
+    "spectral_latent_features.csv",
+    "test_predictions.csv"
+  ]
+}

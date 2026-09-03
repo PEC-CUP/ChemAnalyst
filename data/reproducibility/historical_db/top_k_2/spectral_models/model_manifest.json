@@ -1,0 +1,248 @@
+[
+  {
+    "analysis_type": "gc_fid",
+    "model_type": "PCA",
+    "artifact_file": "gc_fid__pca.npz",
+    "component_count": 5,
+    "train_sample_count": 54,
+    "available_sample_count": 68,
+    "grid_min": 0.000833333,
+    "grid_max": 25.666665137,
+    "grid_points": 600,
+    "explained_variance_ratio": [
+      0.411457,
+      0.231325,
+      0.134621,
+      0.072375,
+      0.03626
+    ]
+  },
+  {
+    "analysis_type": "gc_fid",
+    "model_type": "PLS",
+    "target_property": "density_20c",
+    "component_count": 4,
+    "train_sample_count": 54,
+    "y_mean": 0.896657,
+    "q_values": [
+      0.001328,
+      0.001706,
+      0.005054,
+      0.004862
+    ],
+    "artifact_file": "gc_fid__pls__density_20c.npz"
+  },
+  {
+    "analysis_type": "gc_fid",
+    "model_type": "PLS",
+    "target_property": "saturates",
+    "component_count": 4,
+    "train_sample_count": 54,
+    "y_mean": 77.208358,
+    "q_values": [
+      0.510119,
+      0.466533,
+      1.702725,
+      0.468406
+    ],
+    "artifact_file": "gc_fid__pls__saturates.npz"
+  },
+  {
+    "analysis_type": "gc_fid",
+    "model_type": "PLS",
+    "target_property": "BP_20",
+    "component_count": 4,
+    "train_sample_count": 54,
+    "y_mean": 370.822222,
+    "q_values": [
+      3.2424,
+      2.094052,
+      3.096685,
+      0.454247
+    ],
+    "artifact_file": "gc_fid__pls__bp_20.npz"
+  },
+  {
+    "analysis_type": "gc_fid",
+    "model_type": "PLS",
+    "target_property": "BP_35",
+    "component_count": 4,
+    "train_sample_count": 54,
+    "y_mean": 393.962963,
+    "q_values": [
+      3.32357,
+      1.904882,
+      2.592707,
+      0.50437
+    ],
+    "artifact_file": "gc_fid__pls__bp_35.npz"
+  },
+  {
+    "analysis_type": "gc_fid",
+    "model_type": "PLS",
+    "target_property": "BP_50",
+    "component_count": 4,
+    "train_sample_count": 54,
+    "y_mean": 412.785185,
+    "q_values": [
+      3.445219,
+      1.84742,
+      2.280865,
+      0.551744
+    ],
+    "artifact_file": "gc_fid__pls__bp_50.npz"
+  },
+  {
+    "analysis_type": "gc_fid",
+    "model_type": "PLS",
+    "target_property": "BP_65",
+    "component_count": 4,
+    "train_sample_count": 54,
+    "y_mean": 430.151852,
+    "q_values": [
+      3.561749,
+      1.881575,
+      2.251605,
+      0.747387
+    ],
+    "artifact_file": "gc_fid__pls__bp_65.npz"
+  },
+  {
+    "analysis_type": "gc_fid",
+    "model_type": "PLS",
+    "target_property": "BP_80",
+    "component_count": 4,
+    "train_sample_count": 54,
+    "y_mean": 450.388889,
+    "q_values": [
+      3.835154,
+      2.041572,
+      1.760971,
+      1.300797
+    ],
+    "artifact_file": "gc_fid__pls__bp_80.npz"
+  },
+  {
+    "analysis_type": "ir_spectrum",
+    "model_type": "PCA",
+    "artifact_file": "ir_spectrum__pca.npz",
+    "component_count": 5,
+    "train_sample_count": 52,
+    "available_sample_count": 64,
+    "grid_min": 399.835687,
+    "grid_max": 3998.356867,
+    "grid_points": 700,
+    "explained_variance_ratio": [
+      0.776471,
+      0.080364,
+      0.052798,
+      0.037337,
+      0.015878
+    ]
+  },
+  {
+    "analysis_type": "ir_spectrum",
+    "model_type": "PLS",
+    "target_property": "density_20c",
+    "component_count": 4,
+    "train_sample_count": 52,
+    "y_mean": 0.894413,
+    "q_values": [
+      0.001094,
+      0.004245,
+      0.001742,
+      0.00158
+    ],
+    "artifact_file": "ir_spectrum__pls__density_20c.npz"
+  },
+  {
+    "analysis_type": "ir_spectrum",
+    "model_type": "PLS",
+    "target_property": "saturates",
+    "component_count": 4,
+    "train_sample_count": 52,
+    "y_mean": 77.985295,
+    "q_values": [
+      0.370319,
+      1.451404,
+      0.972064,
+      0.437657
+    ],
+    "artifact_file": "ir_spectrum__pls__saturates.npz"
+  },
+  {
+    "analysis_type": "ir_spectrum",
+    "model_type": "PLS",
+    "target_property": "BP_20",
+    "component_count": 4,
+    "train_sample_count": 52,
+    "y_mean": 370.969231,
+    "q_values": [
+      6.36488,
+      0.991604,
+      6.178648,
+      2.142863
+    ],
+    "artifact_file": "ir_spectrum__pls__bp_20.npz"
+  },
+  {
+    "analysis_type": "ir_spectrum",
+    "model_type": "PLS",
+    "target_property": "BP_35",
+    "component_count": 4,
+    "train_sample_count": 52,
+    "y_mean": 393.788462,
+    "q_values": [
+      5.591151,
+      1.320084,
+      7.020754,
+      1.822555
+    ],
+    "artifact_file": "ir_spectrum__pls__bp_35.npz"
+  },
+  {
+    "analysis_type": "ir_spectrum",
+    "model_type": "PLS",
+    "target_property": "BP_50",
+    "component_count": 4,
+    "train_sample_count": 52,
+    "y_mean": 412.196154,
+    "q_values": [
+      5.395932,
+      1.45462,
+      8.006518,
+      1.381291
+    ],
+    "artifact_file": "ir_spectrum__pls__bp_50.npz"
+  },
+  {
+    "analysis_type": "ir_spectrum",
+    "model_type": "PLS",
+    "target_property": "BP_65",
+    "component_count": 4,
+    "train_sample_count": 52,
+    "y_mean": 429.015385,
+    "q_values": [
+      4.777633,
+      1.777716,
+      8.872812,
+      0.997547
+    ],
+    "artifact_file": "ir_spectrum__pls__bp_65.npz"
+  },
+  {
+    "analysis_type": "ir_spectrum",
+    "model_type": "PLS",
+    "target_property": "BP_80",
+    "component_count": 4,
+    "train_sample_count": 52,
+    "y_mean": 448.384615,
+    "q_values": [
+      3.748379,
+      2.496277,
+      9.572442,
+      1.355379
+    ],
+    "artifact_file": "ir_spectrum__pls__bp_80.npz"
+  }
+]

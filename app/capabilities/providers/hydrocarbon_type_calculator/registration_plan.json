@@ -1,0 +1,30 @@
+{
+  "status": "adapter_required",
+  "capability_id": "tool.hydrocarbon_type_calculator",
+  "steps": [
+    "review the tool script/API and define a safe execution adapter",
+    "register CapabilitySchema in CapabilityRegistry or a capability provider",
+    "map raw tool output to structured tool_evidence",
+    "add generated evaluation cases to the task-specific evaluation suite",
+    "run onboarding evaluation before enabling planner selection"
+  ],
+  "runtime_policy": {
+    "do_not_execute_unreviewed_uploaded_code": true,
+    "planner_selection_requires_registered_adapter": true
+  },
+  "workflow_relations": {
+    "upstream_capabilities": [],
+    "downstream_capabilities": [],
+    "input_bindings": {
+      "input_file": "uploaded_artifact.path"
+    },
+    "output_bindings": {
+      "tool_evidence.structured_result": "Evidence Bundle.tool_evidence.hydrocarbon_group_composition",
+      "artifacts.output_excel": "Evidence Bundle.tool_evidence.artifacts.output_excel"
+    }
+  },
+  "database_integration_contract": {
+    "enabled": false,
+    "purpose": "Optional. Describe how current-session tool evidence can be aligned with an Experimental DB channel; runtime tool execution does not ingest records automatically."
+  }
+}

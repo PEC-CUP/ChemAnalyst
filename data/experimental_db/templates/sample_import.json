@@ -1,0 +1,27 @@
+{
+  "sample_information": {
+    "sample_id": "sample_petroleum_fraction_001",
+    "sample_name": "petroleum fraction 001",
+    "sample_type": "petroleum fraction",
+    "origin": "pilot"
+  },
+  "bulk_properties": [
+    {
+      "property_name": "density_20c",
+      "value": 0.912,
+      "unit": "g_cm-3"
+    }
+  ],
+  "analyses": [
+    {
+      "analysis_type": "hydrocarbon_types",
+      "rows": [
+        {
+          "component": "paraffins",
+          "content": 36.2,
+          "unit": "wt_percent"
+        }
+      ]
+    }
+  ]
+}

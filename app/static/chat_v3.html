@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChemAnalyst</title>
+  <style>
+    :root{
+      --bg:#f5f8ff;
+      --sidebar:#eef4ff;
+      --panel:#ffffff;
+      --panel-soft:#f7faff;
+      --line:#d8e3f7;
+      --line-strong:#adc2ea;
+      --text:#102033;
+      --muted:#63738d;
+      --accent:#2563eb;
+      --accent-strong:#1d4ed8;
+      --user:#2563eb;
+      --assistant:#ffffff;
+      --danger:#b42318;
+      --shadow:0 18px 48px rgba(37,99,235,.10);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      overflow:hidden;
+    }
+    .shell{
+      width:100vw;
+      height:100vh;
+      display:grid;
+      grid-template-columns:282px minmax(0,1fr);
+      background:var(--bg);
+    }
+    .sidebar{
+      min-width:0;
+      height:100vh;
+      padding:14px 12px;
+      display:grid;
+      grid-template-rows:auto auto auto 1fr auto;
+      gap:14px;
+      background:var(--sidebar);
+      border-right:1px solid var(--line);
+      overflow:hidden;
+    }
+    .sidebar-top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 6px 0}
+    .sidebar-brand h1{margin:0;font-size:22px;font-weight:700;letter-spacing:0;line-height:1.1}
+    .sidebar-icon{
+      width:34px;height:34px;min-height:34px;padding:0;border:1px solid transparent;background:transparent;color:var(--muted);
+      display:inline-flex;align-items:center;justify-content:center;font-size:18px;border-radius:8px;
+    }
+    .sidebar-section{display:grid;gap:6px;min-width:0}
+    .sidebar-label{padding:0 8px;color:#8a918b;font-size:12px;line-height:1.4}
+    .sidebar-action,.sidebar-link,.history-item,.prompt-chip{
+      width:100%;min-height:38px;padding:0 10px;border:1px solid transparent;border-radius:8px;background:transparent;color:var(--text);
+      display:flex;align-items:center;gap:10px;text-align:left;font:inherit;font-size:14px;text-decoration:none;cursor:pointer;transition:.15s ease;
+    }
+    .sidebar-action{font-weight:600;background:#ffffff;color:var(--accent-strong)}
+    .sidebar-link.active{background:#ffffff;border-color:var(--line);font-weight:700;color:var(--accent-strong)}
+    .sidebar-link:hover,.history-item:hover,.prompt-chip:hover,.sidebar-action:hover,.sidebar-icon:hover{background:#ffffff;border-color:var(--line-strong);transform:none}
+    .sidebar-scroll{min-height:0;overflow:auto;padding-right:2px;display:grid;align-content:start;gap:14px}
+    .history-item{justify-content:flex-start;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#303532}
+    .history-item.active{background:#ffffff;border-color:var(--line-strong)}
+    .prompt-chip{line-height:1.35;min-height:44px;align-items:center;white-space:normal;color:#303532}
+    .sidebar-footer{display:grid;gap:8px;padding:8px 4px 0;border-top:1px solid var(--line)}
+    .main-area{min-width:0;height:100vh;display:grid;grid-template-rows:62px minmax(0,1fr);background:var(--panel)}
+    .topbar{
+      padding:0 32px;
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      gap:18px;
+      border-bottom:1px solid var(--line);
+      background:rgba(255,255,255,.92);
+    }
+    .toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    .pill,.doc-link,button,select{font:inherit}
+    .pill{
+      min-height:30px;padding:0 10px;display:inline-flex;align-items:center;gap:8px;color:var(--accent-strong);
+      background:#ffffff;border:1px solid var(--line);border-radius:8px;font-size:12px;
+    }
+    .pill.error{color:var(--danger);background:#fff7f6;border-color:#ffd4cf}
+    .doc-link,#orchestrator,#ragChain{
+      min-height:34px;height:34px;padding:0 12px;display:inline-flex;align-items:center;justify-content:center;gap:6px;
+      color:var(--text);background:var(--panel-soft);border:1px solid var(--line);border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;
+    }
+    .doc-link:hover,button:hover{border-color:var(--line-strong);transform:none;background:#ffffff}
+    .workspace{position:relative;overflow:hidden;min-height:0;display:grid;grid-template-rows:minmax(0,1fr) auto auto;background:var(--panel)}
+    .chat{position:relative;width:min(920px,100%);margin:0 auto;padding:28px 28px 22px;overflow:auto;display:flex;flex-direction:column;gap:20px;height:100%}
+    .empty{display:none}
+    .msg{display:flex;flex-direction:column;gap:8px;max-width:100%}
+    .msg.user{align-items:flex-end}.msg.assistant{align-items:flex-start}
+    .role{padding:0 2px;color:var(--muted);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+    .bubble{max-width:min(780px,92%);padding:14px 16px;border-radius:18px;white-space:pre-wrap;word-break:break-word;line-height:1.75;font-size:15px;border:1px solid transparent}
+    .user .bubble{background:var(--user);color:#fff;border-bottom-right-radius:6px;box-shadow:0 8px 22px rgba(37,99,235,.16)}
+    .assistant .bubble{background:var(--assistant);border-color:var(--line);border-bottom-left-radius:6px;box-shadow:0 8px 24px rgba(31,41,55,.05)}
+    .bubble p{margin:0}.bubble p + p,.bubble p + .table-wrap,.bubble .table-wrap + p,.bubble ul + p,.bubble p + ul{margin-top:12px}.bubble ul{margin:0;padding-left:20px}
+    .table-wrap{width:100%;overflow:auto;border:1px solid var(--line);border-radius:8px;background:#fff}.table-wrap.preview{max-height:420px;overflow:auto}.table-meta{margin:10px 2px 0;font-size:12px;color:var(--muted)}
+    .md-table{width:100%;border-collapse:collapse;font-size:14px;line-height:1.6;min-width:520px}.md-table th,.md-table td{padding:10px 12px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);text-align:left;vertical-align:top;white-space:normal}.md-table th:last-child,.md-table td:last-child{border-right:0}.md-table thead th{background:var(--panel-soft);color:var(--text);font-weight:700}.md-table tbody tr:last-child td{border-bottom:0}
+    .links{display:flex;flex-wrap:wrap;gap:8px;padding:0 2px}.links a{min-height:34px;padding:0 12px;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;color:var(--text);border-radius:8px;border:1px solid var(--line);background:#fff;font-size:13px}
+    .rag-citation{min-height:auto;margin:0 2px;padding:1px 7px;border:1px solid #cbd8ff;border-radius:999px;color:#1d4ed8;background:#eef3ff;font:inherit;font-size:.92em;line-height:1.45;cursor:pointer;vertical-align:baseline}.rag-citation:hover{border-color:#93b4ff;background:#e0e9ff;transform:none}.rag-citation.unavailable{color:var(--muted);border-color:var(--line);background:var(--panel-soft)}
+    .reference-modal{position:fixed;inset:0;z-index:80;display:grid;place-items:start center;padding:clamp(24px,12vh,108px) 18px 18px;background:rgba(17,24,39,.28);backdrop-filter:blur(4px)}.reference-modal[hidden]{display:none}.reference-card{width:min(760px,100%);max-height:min(78vh,760px);border:1px solid var(--line-strong);border-radius:14px;background:var(--panel);box-shadow:0 24px 68px rgba(17,24,39,.18);overflow:hidden}.reference-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 18px;border-bottom:1px solid var(--line)}.reference-head h2{margin:0;font-size:18px;letter-spacing:0}.reference-close{min-height:34px;padding:0 14px;color:var(--text);border-color:var(--line);background:var(--panel-soft);border-radius:8px}.reference-body{display:grid;gap:14px;padding:18px;max-height:calc(78vh - 72px);overflow:auto}.reference-field{display:grid;gap:4px}.reference-field span{color:var(--muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase}.reference-field p{margin:0;line-height:1.65;word-break:break-word}.reference-chunks{display:grid;gap:10px}.reference-chunk{border:1px solid var(--line);border-radius:8px;background:#fff;padding:10px 12px}.reference-chunk-head{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px;color:var(--muted);font-size:12px}.reference-chunk p{margin:0;line-height:1.6;white-space:pre-wrap}
+    .chart-frame{width:min(860px,96%);height:540px;border:1px solid var(--line);border-radius:12px;background:#fff;margin:0 2px;box-shadow:0 10px 24px rgba(31,41,55,.08)}
+    .upload{display:none;width:min(920px,100%);margin:0 auto 8px;padding:14px 18px;border-radius:12px;align-items:center;gap:12px;grid-template-columns:1fr auto auto;background:#f7faff;border:1px solid var(--line);box-shadow:0 8px 22px rgba(37,99,235,.08)}.upload.active{display:grid}.upload-title{margin:0 0 4px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-strong)}.upload-text{margin:0;color:var(--muted);font-size:13px;line-height:1.6}.upload-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}input[type=file]{max-width:280px;color:var(--muted);font:inherit}
+    .composer{width:min(920px,100%);margin:0 auto;padding:10px 28px 18px;display:grid;gap:6px;background:transparent;border:0;box-shadow:none}.composer-grid{display:grid;grid-template-columns:108px minmax(0,1fr);gap:10px;align-items:start}.composer-main{display:grid;gap:6px}.input-shell{position:relative;border:1px solid var(--line);border-radius:18px;background:#fff;padding:8px 10px 10px;box-shadow:0 12px 36px rgba(31,41,55,.09)}
+    select,textarea{width:100%;color:var(--text);background:transparent;border:0;outline:none}select{min-height:46px;height:46px;padding:0 12px;font-weight:600;background:#fff;border:1px solid var(--line);border-radius:12px}textarea{min-height:40px;max-height:90px;resize:none;border-radius:0;padding:6px 48px 6px 4px;line-height:1.4;font:inherit}textarea::placeholder{color:#7b837d}
+    .input-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:4px}.input-tools{display:flex;align-items:center;gap:8px;min-width:0;flex-wrap:wrap}.send-inline{position:absolute;right:10px;top:10px;width:36px;min-width:36px;min-height:36px;height:36px;padding:0;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;color:#fff;background:var(--accent);box-shadow:0 8px 20px rgba(37,99,235,.16);font-size:22px;font-weight:700;line-height:1}.send-inline:hover{background:var(--accent-strong)}.attach-input{display:none}.attach-btn,.clear-inline,.file-chip{min-height:30px;padding:0 10px;display:inline-flex;align-items:center;border-radius:8px;border:1px solid var(--line);background:var(--panel-soft);color:var(--text);font-size:12px}.attach-btn,.clear-inline{cursor:pointer;min-width:auto}.file-chip{max-width:min(540px,100%);gap:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.file-chip button{min-height:auto;padding:0;border:0;background:transparent;color:var(--muted);box-shadow:none}.hint{color:var(--muted);font-size:12px;letter-spacing:0;min-height:16px;padding-left:4px}button{min-height:40px;padding:0 16px;border:1px solid transparent;cursor:pointer;transition:.15s ease}.primary{color:#fff;background:var(--accent);box-shadow:0 8px 20px rgba(37,99,235,.14);border-radius:8px}.secondary{color:var(--text);background:var(--panel-soft);border-color:var(--line)}
+    @media (max-width:940px){.shell{grid-template-columns:78px minmax(0,1fr)}.sidebar{padding:12px 8px}.sidebar-brand h1,.sidebar-label,.history-list,.example-prompts .prompt-chip span,.sidebar-footer .doc-link span,.sidebar-link span,.sidebar-action span{display:none}.sidebar-action,.sidebar-link,.prompt-chip{justify-content:center;padding:0}.main-area{grid-template-rows:58px}.topbar{padding:0 16px}.upload{grid-template-columns:1fr}.upload-controls{justify-content:flex-start}}
+    @media (max-width:720px){body{overflow:auto}.shell{height:auto;min-height:100vh;grid-template-columns:1fr}.sidebar{height:auto;grid-template-rows:auto auto;grid-auto-flow:column;grid-auto-columns:max-content;overflow:auto;border-right:0;border-bottom:1px solid var(--line)}.sidebar-scroll,.sidebar-footer{display:none}.main-area{height:calc(100vh - 86px)}.topbar{align-items:flex-start;flex-direction:column;height:auto;padding:10px 14px}.toolbar{justify-content:flex-start}.composer{padding:10px 12px 14px}.composer-grid{grid-template-columns:1fr}.bubble,.chart-frame{max-width:100%;width:100%}.chat{min-height:56vh;padding:18px 12px}.input-toolbar{align-items:flex-start;flex-direction:column}.input-tools{width:100%}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar" aria-label="ChemAnalyst navigation">
+      <div class="sidebar-top">
+        <div class="sidebar-brand"><h1>ChemAnalyst</h1></div>
+        <a class="sidebar-icon" href="/support-layer" title="Support layer" aria-label="Support layer">&#9638;</a>
+      </div>
+      <button id="newChatBtn" class="sidebar-action" type="button"><span>+</span><span>New chat</span></button>
+      <nav class="sidebar-section" aria-label="Support layer">
+        <a class="sidebar-link active" href="/support-layer"><span>SL</span><span>Support layer</span></a>
+      </nav>
+      <div class="sidebar-scroll">
+        <section class="sidebar-section example-prompts" aria-label="Example tasks">
+          <div class="sidebar-label">Examples</div>
+          <button class="prompt-chip active" type="button" data-mode="rag" data-rag="qa_oriented" data-prompt="Explain the principles, application scenarios, relevant literature, and limitations of the Distillation Precipitation Fractionation Mass Spectrometry (DPF-MS) method."><span>DPF-MS method analysis</span></button>
+          <button class="prompt-chip" type="button" data-mode="rag" data-rag="iterative_review" data-prompt="Compare naive RAG and iterative review RAG for DPF-MS method interpretation using retrieved literature evidence."><span>RAG route comparison</span></button>
+          <button class="prompt-chip" type="button" data-mode="tool" data-rag="qa_oriented" data-prompt="Calculate hydrocarbon type composition from the uploaded workbook."><span>Hydrocarbon type calculation</span></button>
+        </section>
+        <section class="sidebar-section history-list" aria-label="Recent tasks">
+          <div class="sidebar-label">Recent</div>
+          <button class="history-item active" type="button">DPF-MS method analysis</button>
+          <button class="history-item" type="button">Petroleum KB query</button>
+          <button class="history-item" type="button">Historical DB inference</button>
+        </section>
+      </div>
+      <div class="sidebar-footer">
+        <span id="health" class="pill">Checking</span>
+        <a class="doc-link" href="/docs" target="_blank" rel="noreferrer"><span>API docs</span></a>
+      </div>
+    </aside>
+
+    <div class="main-area">
+      <header class="topbar">
+        <div class="toolbar">
+          <button id="orchestrator" class="doc-link" type="button" aria-label="Orchestration selector" data-value="default">Standard orchestration</button>
+          <button id="ragChain" class="doc-link" type="button" aria-label="RAG route selector" data-value="auto">RAG auto</button>
+        </div>
+      </header>
+
+      <section class="workspace">
+        <main id="chat" class="chat">
+          <div id="empty" class="empty"></div>
+        </main>
+
+        <section id="uploadCard" class="upload">
+        <div class="upload-copy">
+          <p class="upload-title">Continue file upload</p>
+          <p id="uploadText" class="upload-text">This task requires an Excel file. Select a file to continue.</p>
+        </div>
+        <div class="upload-controls">
+          <input id="fileInput" type="file" accept=".xlsx,.xls">
+          <button id="uploadBtn" class="primary">Upload and run</button>
+        </div>
+      </section>
+
+        <section class="composer">
+        <div class="composer-grid">
+          <select id="mode">
+            <option value="auto">Auto mode</option>
+            <option value="chat">Chat</option>
+            <option value="rag">RAG</option>
+            <option value="tool">Tool</option>
+            <option value="reasoning">Reasoning</option>
+          </select>
+          <div class="composer-main">
+            <div class="input-shell">
+              <textarea id="input" placeholder="Enter a question or task, for example: Explain the principles, application scenarios, relevant literature, and limitations of the Distillation Precipitation Fractionation Mass Spectrometry (DPF-MS) method."></textarea>
+              <button id="sendBtn" class="send-inline" type="button" aria-label="Send">&#8593;</button>
+              <div class="input-toolbar">
+                <div class="input-tools">
+                  <input id="directFileInput" class="attach-input" type="file" accept=".png,.jpg,.jpeg,.bmp,.tif,.tiff,.pdf,.docx,.txt,.md,.json,.csv,.xlsx,.xls">
+                  <button id="attachBtn" type="button" class="secondary attach-btn">Upload file or image</button>
+                  <div id="fileChip" class="file-chip" style="display:none;">
+                    <span id="fileChipText"></span>
+                    <button id="removeFileBtn" type="button" aria-label="Remove attachment">&times;</button>
+                  </div>
+                </div>
+                <button id="clearBtn" class="secondary clear-inline" type="button">Clear conversation</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="composer-bottom">
+          <span id="tip" class="hint"></span>
+        </div>
+        </section>
+      </section>
+    </div>
+  </div>
+  <section id="ragReferenceModal" class="reference-modal" hidden aria-hidden="true">
+    <div class="reference-card" role="dialog" aria-modal="true" aria-labelledby="ragReferenceTitle">
+      <div class="reference-head">
+        <h2 id="ragReferenceTitle">Reference</h2>
+        <button id="ragReferenceClose" class="reference-close" type="button">Close</button>
+      </div>
+      <div class="reference-body">
+        <div class="reference-field">
+          <span>Paper title</span>
+          <p id="ragReferencePaperTitle"></p>
+        </div>
+        <div class="reference-field">
+          <span>DOI</span>
+          <p id="ragReferenceDoi"></p>
+        </div>
+        <div class="reference-field">
+          <span>Metadata</span>
+          <p id="ragReferenceMeta"></p>
+        </div>
+        <div class="reference-field">
+          <span>Source</span>
+          <p id="ragReferenceSource"></p>
+        </div>
+        <div class="reference-field">
+          <span>Evidence chunks</span>
+          <div id="ragReferenceChunks" class="reference-chunks"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const chat = document.getElementById("chat");
+    const empty = document.getElementById("empty");
+    const health = document.getElementById("health");
+    const input = document.getElementById("input");
+    const mode = document.getElementById("mode");
+    const orchestrator = document.getElementById("orchestrator");
+    const ragChain = document.getElementById("ragChain");
+    const tip = document.getElementById("tip");
+    const sendBtn = document.getElementById("sendBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const newChatBtn = document.getElementById("newChatBtn");
+    const promptButtons = Array.from(document.querySelectorAll(".prompt-chip[data-prompt]"));
+    const attachBtn = document.getElementById("attachBtn");
+    const directFileInput = document.getElementById("directFileInput");
+    const fileChip = document.getElementById("fileChip");
+    const fileChipText = document.getElementById("fileChipText");
+    const removeFileBtn = document.getElementById("removeFileBtn");
+    const uploadCard = document.getElementById("uploadCard");
+    const uploadText = document.getElementById("uploadText");
+    const fileInput = document.getElementById("fileInput");
+    const uploadBtn = document.getElementById("uploadBtn");
+    const ragReferenceModal = document.getElementById("ragReferenceModal");
+    const ragReferenceClose = document.getElementById("ragReferenceClose");
+    const ragReferenceTitle = document.getElementById("ragReferenceTitle");
+    const ragReferencePaperTitle = document.getElementById("ragReferencePaperTitle");
+    const ragReferenceDoi = document.getElementById("ragReferenceDoi");
+    const ragReferenceMeta = document.getElementById("ragReferenceMeta");
+    const ragReferenceSource = document.getElementById("ragReferenceSource");
+    const ragReferenceChunks = document.getElementById("ragReferenceChunks");
+    let pendingTool = null;
+    let selectedDirectFile = null;
+    let sessionId = localStorage.getItem("chemanalyst_session_id") || (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()));
+    const savedOrchestrator = localStorage.getItem("chemanalyst_orchestrator");
+    function setOrchestrator(value){
+      if (!orchestrator) return;
+      const next = value === "planner" ? "planner" : "default";
+      orchestrator.dataset.value = next;
+      orchestrator.textContent = next === "planner" ? "Planner orchestration" : "Standard orchestration";
+      localStorage.setItem("chemanalyst_orchestrator", next);
+      tip.textContent = next === "planner" ? "Planner orchestration is active" : "Standard orchestration";
+    }
+    function getOrchestrator(){
+      return orchestrator && orchestrator.dataset.value === "planner" ? "planner" : "default";
+    }
+    if (savedOrchestrator && orchestrator) {
+      orchestrator.dataset.value = savedOrchestrator;
+    }
+    const savedRagChain = localStorage.getItem("chemanalyst_rag_chain");
+    function setRagChain(value){
+      if (!ragChain) return;
+      const v = (value || "qa_oriented").toLowerCase();
+      const next = v === "naive"
+        ? "naive"
+        : (v === "iterative_review" ? "iterative_review" : "qa_oriented");
+      ragChain.dataset.value = next;
+      ragChain.textContent = next === "iterative_review" ? "RAG iterative review" : (next === "naive" ? "RAG Naive" : "RAG QA-oriented");
+      localStorage.setItem("chemanalyst_rag_chain", next);
+    }
+    function getRagChain(){
+      return ragChain ? (ragChain.dataset.value || "qa_oriented") : "qa_oriented";
+    }
+    localStorage.setItem("chemanalyst_session_id", sessionId);
+    if (orchestrator) {
+      setOrchestrator(savedOrchestrator || orchestrator.dataset.value || "default");
+      orchestrator.addEventListener("click", () => {
+        setOrchestrator(getOrchestrator() === "planner" ? "default" : "planner");
+      });
+    }
+    if (ragChain) {
+      setRagChain(savedRagChain || ragChain.dataset.value || "qa_oriented");
+      ragChain.addEventListener("click", () => {
+        const cur = getRagChain();
+        const next = cur === "qa_oriented"
+          ? "iterative_review"
+          : (cur === "iterative_review" ? "naive" : "qa_oriented");
+        setRagChain(next);
+        tip.textContent = next === "iterative_review"
+          ? "Current RAG chain: Iterative review RAG"
+          : (next === "naive" ? "Current RAG chain: Naive RAG" : "Current RAG chain: QA-oriented RAG");
+      });
+    }
+
+    function scrollBottom(){ chat.scrollTop = chat.scrollHeight; }
+    function hideEmpty(){ if (empty) empty.style.display = "none"; }
+    function cleanAnswerText(text){
+      if (!text) return "";
+      return String(text)
+        .replace(/^#{1,6}\s*/gm, "")
+        .replace(/\*\*\*(.*?)\*\*\*/g, "$1")
+        .replace(/\*\*(.*?)\*\*/g, "$1")
+        .replace(/\*(.*?)\*/g, "$1")
+        .replace(/`{1,3}(.*?)`{1,3}/g, "$1")
+        .replace(/^\s*[-*]\s+/gm, "")
+        .replace(/\n{3,}/g, "\n\n")
+        .trim();
+    }
+    function escapeHtml(text){
+      return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+    function renderAssistantInline(text){
+      return escapeHtml(text).replace(/\[DOC\s+(\d+)\]/gi, (_, index) => {
+        const label = `DOC ${index}`;
+        return `<button type="button" class="rag-citation" data-doc-label="${label}" aria-label="Open ${label} reference">[${label}]</button>`;
+      });
+    }
+    function isMarkdownSeparatorRow(line){
+      const cells = line.trim().split("|").map(cell => cell.trim()).filter(Boolean);
+      return cells.length > 0 && cells.every(cell => /^:?-{3,}:?$/.test(cell));
+    }
+    function parseMarkdownTable(block){
+      const lines = block.split("\n").map(line => line.trim()).filter(Boolean);
+      if (lines.length < 2) return null;
+      if (!lines[0].includes("|") || !isMarkdownSeparatorRow(lines[1])) return null;
+      const parseRow = (line) => line.split("|").map(cell => cell.trim()).filter((_, idx, arr) => !(idx === 0 && arr[idx] === "") && !(idx === arr.length - 1 && arr[idx] === ""));
+      const headers = parseRow(lines[0]);
+      const rows = lines.slice(2).map(parseRow).filter(row => row.length);
+      if (!headers.length) return null;
+      const thead = `<thead><tr>${headers.map(cell => `<th>${renderAssistantInline(cell)}</th>`).join("")}</tr></thead>`;
+      const tbody = rows.length
+        ? `<tbody>${rows.map(row => `<tr>${headers.map((_, idx) => `<td>${renderAssistantInline(row[idx] || "")}</td>`).join("")}</tr>`).join("")}</tbody>`
+        : "";
+      return `<div class="table-wrap"><table class="md-table">${thead}${tbody}</table></div>`;
+    }
+    function renderAssistantHtml(text){
+      const cleaned = cleanAnswerText(text);
+      if (!cleaned) return "";
+      const blocks = cleaned.split(/\n\s*\n/);
+      return blocks.map(block => {
+        const tableHtml = parseMarkdownTable(block);
+        if (tableHtml) return tableHtml;
+        const lines = block.split("\n").map(line => line.trim()).filter(Boolean);
+        if (lines.length && lines.every(line => /^[-*]\s+/.test(line))) {
+          return `<ul>${lines.map(line => `<li>${renderAssistantInline(line.replace(/^[-*]\s+/, ""))}</li>`).join("")}</ul>`;
+        }
+        return `<p>${lines.map(line => renderAssistantInline(line)).join("<br>")}</p>`;
+      }).join("");
+    }
+    function resetUpload(){
+      pendingTool = null;
+      uploadCard.classList.remove("active");
+      fileInput.value = "";
+      fileInput.accept = "";
+      uploadText.textContent = "This task requires a file. Select a file to continue.";
+      attachBtn.textContent = "Upload file or image";
+    }
+    function syncPendingUploadUI(rawResult){
+      if (!rawResult) return;
+      pendingTool = rawResult.tool_name || pendingTool || null;
+      uploadText.textContent = rawResult.instructions || "Upload a file to continue.";
+      fileInput.accept = (rawResult.accepted_file_types || []).join(",");
+      uploadCard.classList.add("active");
+      attachBtn.textContent = pendingTool ? "Select and upload file" : "Upload file or image";
+      scrollBottom();
+    }
+    function updateFileChip(){
+      if (!selectedDirectFile) {
+        fileChip.style.display = "none";
+        fileChipText.textContent = "";
+        return;
+      }
+      fileChip.style.display = "inline-flex";
+      fileChipText.textContent = `${selectedDirectFile.name} (${Math.max(1, Math.round(selectedDirectFile.size / 1024))} KB)`;
+    }
+    function clearDirectFile(){
+      selectedDirectFile = null;
+      directFileInput.value = "";
+      updateFileChip();
+    }
+    function inferToolFromFile(file, query){
+      const name = (file?.name || "").toLowerCase();
+      const isExcel = name.endsWith(".xlsx") || name.endsWith(".xls");
+      if (isExcel) return "auto";
+      return "database.experimental_history";
+    }
+    async function uploadDirectFile(query){
+      if (!selectedDirectFile) return false;
+      const toolName = pendingTool || inferToolFromFile(selectedDirectFile, query);
+      const form = new FormData();
+      form.append("tool_name", toolName);
+      form.append("file", selectedDirectFile);
+      form.append("session_id", sessionId);
+      form.append("query", query || "Parse the uploaded file.");
+      addMsg("user", query ? `${query}\n\nAttachment: ${selectedDirectFile.name}` : `Uploaded file: ${selectedDirectFile.name}`);
+      tip.textContent = `${toolName} running...`;
+      sendBtn.disabled = true;
+      try {
+        const res = await fetch("/tools/upload", {method:"POST", body:form});
+        const data = await res.json();
+        if (data.session_id) {
+          sessionId = data.session_id;
+          localStorage.setItem("chemanalyst_session_id", sessionId);
+        }
+        if (res.ok && (data.status === "success" || data.status === "awaiting_upload")) {
+          const result = data.result || {};
+          addMsg("assistant", data.answer || "File processing completed.", result.download_urls || {}, result.chart_embed_url, result.preview_urls || {});
+          if (data.status === "awaiting_upload") {
+            syncPendingUploadUI({
+              tool_name: toolName,
+              instructions: data.answer || "Upload the required file to continue",
+              accepted_file_types: [".xlsx", ".xls"],
+            });
+            tip.textContent = "Upload the required file to continue";
+          } else {
+            tip.textContent = `${toolName} completed`;
+            resetUpload();
+          }
+          clearDirectFile();
+          return true;
+        }
+        addMsg("assistant", data.message || data.detail || "File processing failed.");
+        tip.textContent = "Upload the required file to continue";
+        return true;
+      } catch (e) {
+        addMsg("assistant", `Error: ${e.message}`);
+        tip.textContent = "Upload the required file to continue";
+        return true;
+      } finally {
+        sendBtn.disabled = false;
+      }
+    }
+    function createMsg(role, text){
+      hideEmpty();
+      const wrap = document.createElement("div");
+      wrap.className = `msg ${role}`;
+      const roleEl = document.createElement("div");
+      roleEl.className = "role";
+      roleEl.textContent = role === "user" ? "You" : "ChemAnalyst";
+      const bubble = document.createElement("div");
+      bubble.className = "bubble";
+      if (role === "assistant") {
+        bubble.innerHTML = renderAssistantHtml(text);
+      } else {
+        bubble.textContent = text;
+      }
+      wrap.append(roleEl, bubble);
+      chat.appendChild(wrap);
+      scrollBottom();
+      return {wrap, bubble};
+    }
+    function buildPreviewTableHtml(payload){
+      const sections = (payload.sheets || []).map(sheet => {
+        const headers = (sheet.columns || []).map(cell => `<th>${escapeHtml(String(cell || ""))}</th>`).join("");
+        const rows = (sheet.rows || []).map(row => {
+          const cells = (row || []).map(cell => `<td>${escapeHtml(String(cell || ""))}</td>`).join("");
+          return `<tr>${cells}</tr>`;
+        }).join("");
+        const meta = typeof sheet.total_rows === "number"
+          ? `<div class="table-meta">Showing ${sheet.displayed_rows || (sheet.rows || []).length} / ${sheet.total_rows} rows</div>`
+          : "";
+        return `
+          <p><strong>${escapeHtml(sheet.name || "Sheet")}</strong></p>
+          <div class="table-wrap preview">
+            <table class="md-table">
+              <thead><tr>${headers}</tr></thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>
+          ${meta}
+        `;
+      });
+      return sections.join("");
+    }
+    function renderPreviewInChat(payload, downloadUrl, downloadLabel, previewUrl){
+      if (!payload) return;
+      const title = payload.title ? `Preview: ${payload.title}` : "File preview";
+      let msg;
+      if (payload.kind === "Text") {
+        msg = addMsg("assistant", `${title}\n\n${payload.content || ""}`);
+        if (downloadUrl && msg && msg.wrap) {
+          const links = document.createElement("div");
+          links.className = "links";
+          const a = document.createElement("a");
+          a.href = downloadUrl;
+          a.textContent = downloadLabel || "Download original file";
+          a.download = "";
+          links.appendChild(a);
+          msg.wrap.appendChild(links);
+        }
+        return;
+      }
+      if (payload.kind === "table") {
+        msg = createMsg("assistant", "");
+        msg.bubble.innerHTML = `<p>${escapeHtml(title)}</p>${buildPreviewTableHtml(payload)}`;
+        if (downloadUrl && msg && msg.wrap) {
+          const links = document.createElement("div");
+          links.className = "links";
+          const a = document.createElement("a");
+          a.href = downloadUrl;
+          a.textContent = downloadLabel || "Download original file";
+          a.download = "";
+          links.appendChild(a);
+          if (payload.truncated && previewUrl) {
+            const more = document.createElement("a");
+            more.textContent = "View all";
+            more.addEventListener("click", (e) => {
+              e.preventDefault();
+              const fullUrl = previewUrl.includes("?") ? `${previewUrl}&all_rows=true` : `${previewUrl}?all_rows=true`;
+              previewArtifact(fullUrl, downloadUrl, downloadLabel, false);
+            });
+            links.appendChild(more);
+          }
+          msg.wrap.appendChild(links);
+        }
+        scrollBottom();
+      }
+    }
+    async function previewArtifact(previewUrl, downloadUrl, label, preferCompact = true){
+      tip.textContent = preferCompact ? "Loading preview..." : "Loading full table...";
+      try {
+        const resolvedUrl = preferCompact && !previewUrl.includes("all_rows=")
+          ? previewUrl
+          : previewUrl;
+        const res = await fetch(resolvedUrl);
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.detail || "Preview loading failed");
+        }
+        renderPreviewInChat(data, downloadUrl, label ? `Download ${label}` : "Download original file", previewUrl);
+        tip.textContent = preferCompact ? "Preview completed" : "Full table expanded";
+      } catch (e) {
+        addMsg("assistant", `Preview failed: ${e.message}`);
+        tip.textContent = "Upload the required file to continue";
+      }
+    }
+    function attachArtifacts(wrap, downloadUrls, chartEmbedUrl, previewUrls){
+      wrap.querySelectorAll(".links, .chart-frame").forEach(el => el.remove());
+      if (downloadUrls) {
+        const map = [
+          ["output_excel", "Download Excel"],
+          ["chart_html", "Open Chart"],
+          ["extracted_text_file", "Download Text"],
+          ["input_file", "Download File"],
+          ["template_input_file", "Download input template"],
+          ["template_reference_file", "Download reference template"],
+          ["manual_file", "Download manual"],
+          ["download_file", "Download source file"]
+        ];
+        const links = document.createElement("div");
+        links.className = "links";
+        map.forEach(([key, label]) => {
+          const href = downloadUrls[key];
+          if (!href) return;
+          const a = document.createElement("a");
+          a.href = href;
+          a.textContent = label;
+          if (key === "chart_html") {
+            a.target = "_blank";
+            a.rel = "noreferrer";
+          } else {
+            a.download = "";
+          }
+          links.appendChild(a);
+        });
+        const previewMap = [
+          ["template_input_file", "Preview input template"],
+          ["template_reference_file", "Preview reference template"],
+          ["manual_file", "Preview manual"]
+        ];
+          previewMap.forEach(([key, label]) => {
+            const href = previewUrls && previewUrls[key];
+            if (!href) return;
+            const previewLabels = {
+              template_input_file: "Preview input template",
+              template_reference_file: "Preview reference template",
+              manual_file: "Preview manual"
+            };
+            const a = document.createElement("a");
+            a.textContent = previewLabels[key] || label;
+            a.addEventListener("click", (e) => {
+              e.preventDefault();
+              previewArtifact(href, downloadUrls && downloadUrls[key], label);
+            });
+            links.appendChild(a);
+          });
+          if (links.children.length) wrap.appendChild(links);
+        }
+      if (chartEmbedUrl) {
+        const frame = document.createElement("iframe");
+        frame.className = "chart-frame";
+        frame.src = chartEmbedUrl;
+        wrap.appendChild(frame);
+      }
+      scrollBottom();
+    }
+    function normalizeReferenceLabel(label){
+      const match = String(label || "").toUpperCase().match(/DOC\s*(\d+)/);
+      return match ? `DOC ${match[1]}` : "";
+    }
+    function firstText(...values){
+      for (const value of values) {
+        if (value === null || value === undefined) continue;
+        const text = String(value).trim();
+        if (text) return text;
+      }
+      return "";
+    }
+    function asArray(value){
+      return Array.isArray(value) ? value : [];
+    }
+    function citationFromDoc(doc){
+      if (!doc || typeof doc !== "object") return {};
+      const citation = doc.citation && typeof doc.citation === "object" ? doc.citation : {};
+      const metadata = doc.metadata && typeof doc.metadata === "object" ? doc.metadata : {};
+      return {...metadata, ...citation, ...doc};
+    }
+    function chunkText(chunk){
+      if (!chunk || typeof chunk !== "object") return "";
+      return firstText(chunk.text, chunk.content, chunk.chunk_text, chunk.page_content, chunk.snippet);
+    }
+    function normalizeEvidenceDoc(doc, index){
+      if (!doc || typeof doc !== "object") return null;
+      const citation = citationFromDoc(doc);
+      const source = firstText(citation.source, doc.source, citation.path, doc.path);
+      const chunks = asArray(doc.chunks).length
+        ? asArray(doc.chunks)
+        : (chunkText(doc) ? [doc] : []);
+      return {
+        label: normalizeReferenceLabel(doc.label) || `DOC ${index}`,
+        doc_id: firstText(doc.doc_id, citation.doc_id),
+        title: firstText(citation.title, citation.paper_title, citation.file_name, doc.title, doc.file_name),
+        authors: asArray(citation.authors).length ? citation.authors : asArray(doc.authors),
+        year: firstText(citation.year, doc.year),
+        journal: firstText(citation.journal, doc.journal),
+        doi: firstText(citation.doi, doc.doi),
+        file_name: firstText(citation.file_name, doc.file_name, source ? source.split(/[\\/]/).pop() : ""),
+        source,
+        score: doc.score,
+        chunks,
+      };
+    }
+    function uniqueDocs(docs){
+      const seen = new Set();
+      const out = [];
+      docs.forEach((doc) => {
+        if (!doc) return;
+        const key = firstText(doc.doc_id, doc.doi, doc.title, doc.source, doc.file_name, doc.label);
+        if (key && seen.has(key)) return;
+        if (key) seen.add(key);
+        doc.label = `DOC ${out.length + 1}`;
+        out.push(doc);
+      });
+      return out;
+    }
+    function docsFromRawResult(rawResult){
+      if (!rawResult) return [];
+      if (Array.isArray(rawResult)) {
+        return rawResult.map((item, idx) => normalizeEvidenceDoc(item, idx + 1)).filter(Boolean);
+      }
+      if (typeof rawResult !== "object") return [];
+      const bundleRefs = rawResult.evidence_bundle
+        && rawResult.evidence_bundle.knowledge_evidence
+        && Array.isArray(rawResult.evidence_bundle.knowledge_evidence.references)
+        ? rawResult.evidence_bundle.knowledge_evidence.references
+        : [];
+      const bundleDocs = rawResult.evidence_bundle
+        && rawResult.evidence_bundle.knowledge_evidence
+        && Array.isArray(rawResult.evidence_bundle.knowledge_evidence.documents)
+        ? rawResult.evidence_bundle.knowledge_evidence.documents
+        : [];
+      const candidates = [
+        rawResult.synthesis_evidences,
+        rawResult.evidences,
+        rawResult.filtered_evidences,
+        rawResult.accumulated_evidences,
+        rawResult.documents,
+        bundleDocs,
+        bundleRefs,
+      ];
+      for (const value of candidates) {
+        if (Array.isArray(value) && value.length) {
+          return uniqueDocs(value.map((item, idx) => normalizeEvidenceDoc(item, idx + 1)).filter(Boolean));
+        }
+      }
+      return [];
+    }
+    function renderReferenceChunks(ref){
+      if (!ragReferenceChunks) return;
+      const chunks = asArray(ref && ref.chunks).slice(0, 4);
+      if (!chunks.length) {
+        ragReferenceChunks.innerHTML = `<div class="reference-chunk"><p>No chunk text was returned for this reference.</p></div>`;
+        return;
+      }
+      ragReferenceChunks.innerHTML = chunks.map((chunk, idx) => {
+        const meta = [
+          firstText(chunk.chunk_id) ? `chunk: ${firstText(chunk.chunk_id)}` : `chunk ${idx + 1}`,
+          firstText(chunk.section) ? `section: ${firstText(chunk.section)}` : "",
+          firstText(chunk.page) ? `page: ${firstText(chunk.page)}` : "",
+          firstText(chunk.score) ? `score: ${firstText(chunk.score)}` : "",
+        ].filter(Boolean).map(item => `<span>${escapeHtml(item)}</span>`).join("");
+        const text = chunkText(chunk) || "No text available.";
+        return `<div class="reference-chunk"><div class="reference-chunk-head">${meta}</div><p>${escapeHtml(text.slice(0, 1800))}${text.length > 1800 ? "..." : ""}</p></div>`;
+      }).join("");
+    }
+    function hideRagReference(){
+      ragReferenceModal.hidden = true;
+      ragReferenceModal.setAttribute("aria-hidden", "true");
+    }
+    function showRagReference(label, ref){
+      ragReferenceTitle.textContent = label || "Reference";
+      ragReferencePaperTitle.textContent = String(ref && ref.title || ref && ref.file_name || "Not available");
+      ragReferenceDoi.textContent = String(ref && ref.doi || "Not available");
+      if (ragReferenceMeta) {
+        const authors = asArray(ref && ref.authors).slice(0, 4).join("; ");
+        const meta = [
+          ref && ref.year ? `Year: ${ref.year}` : "",
+          ref && ref.journal ? `Journal: ${ref.journal}` : "",
+          authors ? `Authors: ${authors}${asArray(ref && ref.authors).length > 4 ? "; et al." : ""}` : "",
+          ref && ref.doc_id ? `Doc ID: ${ref.doc_id}` : "",
+        ].filter(Boolean).join(" | ");
+        ragReferenceMeta.textContent = meta || "Not available";
+      }
+      if (ragReferenceSource) {
+        ragReferenceSource.textContent = String(ref && (ref.source || ref.file_name) || "Not available");
+      }
+      renderReferenceChunks(ref || {});
+      ragReferenceModal.hidden = false;
+      ragReferenceModal.setAttribute("aria-hidden", "false");
+    }
+    function attachRagReferences(wrap, rawResult){
+      const refs = docsFromRawResult(rawResult);
+      const refMap = new Map(refs.map(ref => [normalizeReferenceLabel(ref && ref.label), ref]).filter(([label]) => label));
+      wrap.querySelectorAll(".rag-citation").forEach(button => {
+        const label = normalizeReferenceLabel(button.dataset.docLabel);
+        const ref = refMap.get(label);
+        button.classList.toggle("unavailable", !ref);
+        button.title = ref ? "Show reference metadata and evidence chunks" : "Reference metadata unavailable";
+        button.onclick = () => showRagReference(label, ref || {});
+      });
+    }
+    function addMsg(role, text, downloadUrls, chartEmbedUrl, previewUrls, rawResult){
+      const msg = createMsg(role, text);
+      const {wrap} = msg;
+      attachArtifacts(wrap, downloadUrls, chartEmbedUrl, previewUrls);
+      if (role === "assistant") attachRagReferences(wrap, rawResult);
+      return msg;
+    }
+    ragReferenceClose.addEventListener("click", hideRagReference);
+    ragReferenceModal.addEventListener("click", (event) => {
+      if (event.target === ragReferenceModal) hideRagReference();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !ragReferenceModal.hidden) hideRagReference();
+    });
+    async function checkHealth(){
+      try {
+        const res = await fetch("/health");
+        const data = await res.json();
+        health.textContent = `${data.app_name} online`;
+        health.classList.remove("error");
+      } catch (e) {
+        health.textContent = "service offline";
+        health.classList.add("error");
+      }
+    }
+    async function sendQuery(){
+      const query = input.value.trim();
+      if (!query && !selectedDirectFile) {
+        tip.textContent = "Enter a task.";
+        input.focus();
+        return;
+      }
+      if (selectedDirectFile) {
+        input.value = "";
+        await uploadDirectFile(query);
+        return;
+      }
+
+      addMsg("user", query);
+      input.value = "";
+      tip.textContent = "Processing...";
+      resetUpload();
+      sendBtn.disabled = true;
+
+      const streamMsg = createMsg("assistant", "");
+      let streamText = "";
+      let finalData = null;
+
+      try {
+        const streamEndpoint = getOrchestrator() === "planner"
+          ? "/planner/query/stream"
+          : "/query/stream";
+        const requestBody = getOrchestrator() === "planner"
+          ? {query, task_type:mode.value, rag_mode:getRagChain(), template_override:"auto", session_id: sessionId}
+          : {query, task_type:mode.value, rag_mode:getRagChain(), session_id: sessionId};
+        const res = await fetch(streamEndpoint, {
+          method:"POST",
+          headers:{"Content-Type":"application/json"},
+          body:JSON.stringify(requestBody)
+        });
+        if (!res.ok || !res.body) {
+          throw new Error(`HTTP ${res.status}`);
+        }
+
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder("utf-8");
+        let buffer = "";
+
+        while (true) {
+          const {value, done} = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, {stream:true});
+          const lines = buffer.split("\n");
+          buffer = lines.pop() || "";
+
+          for (const line of lines) {
+            if (!line.trim()) continue;
+            const event = JSON.parse(line);
+            if (event.type === "meta") {
+              if (event.session_id) {
+                sessionId = event.session_id;
+                localStorage.setItem("chemanalyst_session_id", sessionId);
+              }
+              continue;
+            }
+            if (event.type === "status") {
+              tip.textContent = event.message || "Processing...";
+              if (!streamText) {
+                streamMsg.bubble.innerHTML = renderAssistantHtml(event.message || "Processing...");
+              }
+              continue;
+            }
+            if (event.type === "delta") {
+              streamText += event.content || "";
+              streamMsg.bubble.innerHTML = renderAssistantHtml(streamText);
+              scrollBottom();
+              continue;
+            }
+            if (event.type === "final") {
+              finalData = event.data || null;
+            }
+          }
+        }
+
+        if (!finalData) {
+          throw new Error("No final result received");
+        }
+
+        if (finalData.session_id) {
+          sessionId = finalData.session_id;
+          localStorage.setItem("chemanalyst_session_id", sessionId);
+        }
+
+        streamMsg.bubble.innerHTML = renderAssistantHtml(finalData.answer || streamText || "No answer returned.");
+        attachArtifacts(
+          streamMsg.wrap,
+          finalData.raw_result && finalData.raw_result.download_urls,
+          finalData.raw_result && finalData.raw_result.chart_embed_url,
+          finalData.raw_result && finalData.raw_result.preview_urls
+        );
+        attachRagReferences(streamMsg.wrap, finalData.raw_result);
+
+        if (finalData.raw_result && (finalData.raw_result.status === "awaiting_upload" || (finalData.raw_result.tool_name && finalData.raw_result.accepted_file_types))) {
+          syncPendingUploadUI(finalData.raw_result);
+        } else {
+          resetUpload();
+        }
+
+        tip.textContent = finalData.task_type || "Done";
+      } catch (e) {
+        resetUpload();
+        streamMsg.bubble.innerHTML = renderAssistantHtml(`Request failed: ${e.message}`);
+        tip.textContent = "Upload the required file to continue";
+      } finally {
+        sendBtn.disabled = false;
+      }
+    }
+    async function uploadFile(){
+      const file = fileInput.files && fileInput.files[0];
+      if (!pendingTool) {
+        tip.textContent = "Upload the required file to continue";
+        return;
+      }
+      if (!file) {
+        tip.textContent = "Upload the required file to continue";
+        return;
+      }
+      const form = new FormData();
+      form.append("tool_name", pendingTool);
+      form.append("file", file);
+      form.append("session_id", sessionId);
+      form.append("query", "Process the file I just uploaded.");
+      addMsg("user", `Uploaded file: ${file.name}`);
+      tip.textContent = `${pendingTool} running...`;
+      uploadBtn.disabled = true;
+      try {
+        const res = await fetch("/tools/upload", {method:"POST", body:form});
+        const data = await res.json();
+        if (data.session_id) {
+          sessionId = data.session_id;
+          localStorage.setItem("chemanalyst_session_id", sessionId);
+        }
+        if (res.ok && (data.status === "success" || data.status === "awaiting_upload")) {
+          const result = data.result || {};
+          const fallback = ["File processing completed.", `Tool: ${pendingTool}`];
+          if (result.sample_name) {
+            fallback.push(`Sample name: ${result.sample_name}`);
+          }
+          if (result.compound_totals) {
+            fallback.push("", "Key component summary:");
+            Object.entries(result.compound_totals).forEach(([k, v]) => fallback.push(`- ${k}: ${v}`));
+          }
+          if (result.received_file) {
+            fallback.push(`Received file: ${result.received_file}`);
+          }
+          if (result.next_required) {
+            fallback.push(`Next step: continue uploading ${result.next_required}`);
+          }
+          addMsg("assistant", data.answer || fallback.join("\n"), result.download_urls || {}, result.chart_embed_url, result.preview_urls || {});
+          if (data.status === "awaiting_upload") {
+            syncPendingUploadUI({
+              tool_name: result.tool_name || pendingTool,
+              instructions: result.instructions || data.answer || "Upload the required file to continue",
+              accepted_file_types: result.accepted_file_types || [".xlsx", ".xls"],
+            });
+            tip.textContent = "Upload the required file to continue";
+          } else {
+            tip.textContent = `${pendingTool} completed`;
+            resetUpload();
+          }
+        } else {
+          addMsg("assistant", data.message || data.detail || "File processing failed.");
+          tip.textContent = "Upload the required file to continue";
+        }
+      } catch (e) {
+        resetUpload();
+        addMsg("assistant", `Upload failed: ${e.message}`);
+        tip.textContent = "Upload the required file to continue";
+      } finally {
+        uploadBtn.disabled = false;
+      }
+    }
+    function clearChat(){
+      chat.innerHTML = "";
+      chat.appendChild(empty);
+      empty.style.display = "block";
+      tip.textContent = "";
+      resetUpload();
+      clearDirectFile();
+    }
+    sendBtn.addEventListener("click", sendQuery);
+    clearBtn.addEventListener("click", clearChat);
+    if (newChatBtn) newChatBtn.addEventListener("click", () => {
+      clearChat();
+      input.focus();
+    });
+    promptButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        promptButtons.forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+        input.value = button.dataset.prompt || "";
+        if (button.dataset.mode) mode.value = button.dataset.mode;
+        if (button.dataset.rag) setRagChain(button.dataset.rag);
+        tip.textContent = "Example loaded";
+        input.focus();
+      });
+    });
+    uploadBtn.addEventListener("click", uploadFile);
+    attachBtn.addEventListener("click", () => directFileInput.click());
+    directFileInput.addEventListener("change", () => {
+      selectedDirectFile = directFileInput.files && directFileInput.files[0] ? directFileInput.files[0] : null;
+      updateFileChip();
+      if (selectedDirectFile) {
+        tip.textContent = "Attachment added. You can send the message now.";
+      }
+    });
+    removeFileBtn.addEventListener("click", clearDirectFile);
+    input.addEventListener("paste", (e) => {
+      const items = e.clipboardData && e.clipboardData.items ? Array.from(e.clipboardData.items) : [];
+      const fileItem = items.find(item => item.kind === "file");
+      if (!fileItem) return;
+      const file = fileItem.getAsFile();
+      if (!file) return;
+      selectedDirectFile = new File([file], file.name || `pasted-image-${Date.now()}.png`, {type: file.type || "image/png"});
+      updateFileChip();
+      tip.textContent = "Attachment added. You can send the message now.";
+      e.preventDefault();
+    });
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        sendQuery();
+      }
+    });
+    checkHealth();
+  </script>
+</body>
+</html>

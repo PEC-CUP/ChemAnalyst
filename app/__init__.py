@@ -1,0 +1,1 @@
+"""ChemAnalyst application package."""

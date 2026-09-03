@@ -1,0 +1,1901 @@
+{
+  "schema_version": "petroleum-fraction-spectral-experimental-db-evidence.v1",
+  "status": "success",
+  "message": "uploaded_query_workbook_compared_to_train_historical_db_with_saved_spectral_models",
+  "source": "sample_centered_experimental_db",
+  "sample_id": "query_petroleum_fraction_db_007_gc_ir_only",
+  "query": "Using only the uploaded GC-FID chromatogram and IR spectrum as analytical input, infer density at 20 deg C, distillation distribution (BP20, BP35, BP50, BP65, BP80), and saturates for this unknown petroleum fraction sample with the historical experimental database. Then use literature evidence to explain whether the inferred boiling range and composition are chemically consistent, discuss likely processing implications, and identify limitations or follow-up measurements.",
+  "result_dir": "data/reproducibility/historical_db/top_k_10",
+  "feature_basis": [
+    "uploaded_transient_query_workbook",
+    "saved_training_spectral_models",
+    "gc_fid_pca_pls_latent_features",
+    "ir_spectrum_pca_pls_latent_features"
+  ],
+  "evidence_channels": [
+    "gc_fid",
+    "ir_spectrum"
+  ],
+  "target_properties": [
+    "density_20c",
+    "BP_20",
+    "BP_35",
+    "BP_50",
+    "BP_65",
+    "BP_80",
+    "saturates"
+  ],
+  "query_profile": {
+    "sample_id": "query_petroleum_fraction_db_007_gc_ir_only",
+    "raw_sample_id": "petroleum_fraction_db_007",
+    "available_channels": [
+      "gc_fid",
+      "ir_spectrum"
+    ],
+    "feature_count": 66,
+    "feature_examples": [
+      "gc_fid:pca:pc1",
+      "gc_fid:pca:pc2",
+      "gc_fid:pca:pc3",
+      "gc_fid:pca:pc4",
+      "gc_fid:pca:pc5",
+      "gc_fid:pls:density_20c:lv1",
+      "gc_fid:pls:density_20c:lv2",
+      "gc_fid:pls:density_20c:lv3",
+      "gc_fid:pls:density_20c:lv4",
+      "gc_fid:pls:saturates:lv1",
+      "gc_fid:pls:saturates:lv2",
+      "gc_fid:pls:saturates:lv3",
+      "gc_fid:pls:saturates:lv4",
+      "gc_fid:pls:bp_20:lv1",
+      "gc_fid:pls:bp_20:lv2",
+      "gc_fid:pls:bp_20:lv3",
+      "gc_fid:pls:bp_20:lv4",
+      "gc_fid:pls:bp_35:lv1",
+      "gc_fid:pls:bp_35:lv2",
+      "gc_fid:pls:bp_35:lv3"
+    ]
+  },
+  "neighbor_count": 10,
+  "neighbors": [
+    {
+      "sample_id": "petroleum_fraction_db_009",
+      "sample_type": "petroleum fraction",
+      "origin": "petroleum fraction train split",
+      "distance": 0.279951,
+      "shared_feature_count": 66,
+      "shared_feature_examples": [
+        "gc_fid:pca:pc1",
+        "gc_fid:pca:pc2",
+        "gc_fid:pca:pc3",
+        "gc_fid:pca:pc4",
+        "gc_fid:pca:pc5",
+        "gc_fid:pls:bp_20:lv1",
+        "gc_fid:pls:bp_20:lv2",
+        "gc_fid:pls:bp_20:lv3",
+        "gc_fid:pls:bp_20:lv4",
+        "gc_fid:pls:bp_35:lv1",
+        "gc_fid:pls:bp_35:lv2",
+        "gc_fid:pls:bp_35:lv3"
+      ],
+      "top_weighted_shared_features": [
+        {
+          "feature": "gc_fid:pls:density_20c:lv1",
+          "weight": 0.979972,
+          "normalized_delta": 0.019975
+        },
+        {
+          "feature": "gc_fid:pls:saturates:lv1",
+          "weight": 0.965185,
+          "normalized_delta": 0.048049
+        },
+        {
+          "feature": "gc_fid:pls:bp_80:lv1",
+          "weight": 0.952487,
+          "normalized_delta": 0.050326
+        },
+        {
+          "feature": "gc_fid:pls:bp_65:lv1",
+          "weight": 0.951297,
+          "normalized_delta": 0.046724
+        },
+        {
+          "feature": "gc_fid:pls:bp_50:lv1",
+          "weight": 0.951029,
+          "normalized_delta": 0.044008
+        },
+        {
+          "feature": "gc_fid:pls:bp_35:lv1",
+          "weight": 0.950774,
+          "normalized_delta": 0.042635
+        },
+        {
+          "feature": "gc_fid:pls:bp_20:lv1",
+          "weight": 0.948802,
+          "normalized_delta": 0.044323
+        },
+        {
+          "feature": "gc_fid:pca:pc1",
+          "weight": 0.92277,
+          "normalized_delta": 0.070047
+        },
+        {
+          "feature": "ir_spectrum:pca:pc3",
+          "weight": 0.777935,
+          "normalized_delta": 0.282066
+        },
+        {
+          "feature": "ir_spectrum:pls:bp_20:lv1",
+          "weight": 0.740268,
+          "normalized_delta": 0.018028
+        }
+      ],
+      "available_channels": [
+        "gc_fid",
+        "ir_spectrum"
+      ],
+      "bulk_properties": {
+        "density_20c": 0.8498,
+        "BP_20": 358.4,
+        "BP_35": 378.0,
+        "BP_50": 395.6,
+        "BP_65": 412.8,
+        "BP_80": 434.0,
+        "saturates": 88.648789
+      }
+    },
+    {
+      "sample_id": "petroleum_fraction_db_002",
+      "sample_type": "petroleum fraction",
+      "origin": "petroleum fraction train split",
+      "distance": 0.43026,
+      "shared_feature_count": 66,
+      "shared_feature_examples": [
+        "gc_fid:pca:pc1",
+        "gc_fid:pca:pc2",
+        "gc_fid:pca:pc3",
+        "gc_fid:pca:pc4",
+        "gc_fid:pca:pc5",
+        "gc_fid:pls:bp_20:lv1",
+        "gc_fid:pls:bp_20:lv2",
+        "gc_fid:pls:bp_20:lv3",
+        "gc_fid:pls:bp_20:lv4",
+        "gc_fid:pls:bp_35:lv1",
+        "gc_fid:pls:bp_35:lv2",
+        "gc_fid:pls:bp_35:lv3"
+      ],
+      "top_weighted_shared_features": [
+        {
+          "feature": "gc_fid:pls:density_20c:lv1",
+          "weight": 0.979972,
+          "normalized_delta": 0.43156
+        },
+        {
+          "feature": "gc_fid:pls:saturates:lv1",
+          "weight": 0.965185,
+          "normalized_delta": 0.32375
+        },
+        {
+          "feature": "gc_fid:pls:bp_80:lv1",
+          "weight": 0.952487,
+          "normalized_delta": 0.504673
+        },
+        {
+          "feature": "gc_fid:pls:bp_65:lv1",
+          "weight": 0.951297,
+          "normalized_delta": 0.505398
+        },
+        {
+          "feature": "gc_fid:pls:bp_50:lv1",
+          "weight": 0.951029,
+          "normalized_delta": 0.504341
+        },
+        {
+          "feature": "gc_fid:pls:bp_35:lv1",
+          "weight": 0.950774,
+          "normalized_delta": 0.505101
+        },
+        {
+          "feature": "gc_fid:pls:bp_20:lv1",
+          "weight": 0.948802,
+          "normalized_delta": 0.507055
+        },
+        {
+          "feature": "gc_fid:pca:pc1",
+          "weight": 0.92277,
+          "normalized_delta": 0.530788
+        },
+        {
+          "feature": "ir_spectrum:pca:pc3",
+          "weight": 0.777935,
+          "normalized_delta": 0.009189
+        },
+        {
+          "feature": "ir_spectrum:pls:bp_20:lv1",
+          "weight": 0.740268,
+          "normalized_delta": 0.074937
+        }
+      ],
+      "available_channels": [
+        "gc_fid",
+        "ir_spectrum"
+      ],
+      "bulk_properties": {
+        "density_20c": 0.8864,
+        "BP_20": 367.6,
+        "BP_35": 394.6,
+        "BP_50": 416.6,
+        "BP_65": 439.8,
+        "BP_80": 469.2,
+        "saturates": 78.864444
+      }
+    },
+    {
+      "sample_id": "petroleum_fraction_db_029",
+      "sample_type": "petroleum fraction",
+      "origin": "petroleum fraction train split",
+      "distance": 0.434299,
+      "shared_feature_count": 66,
+      "shared_feature_examples": [
+        "gc_fid:pca:pc1",
+        "gc_fid:pca:pc2",
+        "gc_fid:pca:pc3",
+        "gc_fid:pca:pc4",
+        "gc_fid:pca:pc5",
+        "gc_fid:pls:bp_20:lv1",
+        "gc_fid:pls:bp_20:lv2",
+        "gc_fid:pls:bp_20:lv3",
+        "gc_fid:pls:bp_20:lv4",
+        "gc_fid:pls:bp_35:lv1",
+        "gc_fid:pls:bp_35:lv2",
+        "gc_fid:pls:bp_35:lv3"
+      ],
+      "top_weighted_shared_features": [
+        {
+          "feature": "gc_fid:pls:density_20c:lv1",
+          "weight": 0.979972,
+          "normalized_delta": 0.034746
+        },
+        {
+          "feature": "gc_fid:pls:saturates:lv1",
+          "weight": 0.965185,
+          "normalized_delta": 0.029214
+        },
+        {
+          "feature": "gc_fid:pls:bp_80:lv1",
+          "weight": 0.952487,
+          "normalized_delta": 0.119863
+        },
+        {
+          "feature": "gc_fid:pls:bp_65:lv1",
+          "weight": 0.951297,
+          "normalized_delta": 0.106486
+        },
+        {
+          "feature": "gc_fid:pls:bp_50:lv1",
+          "weight": 0.951029,
+          "normalized_delta": 0.09635
+        },
+        {
+          "feature": "gc_fid:pls:bp_35:lv1",
+          "weight": 0.950774,
+          "normalized_delta": 0.091981
+        },
+        {
+          "feature": "gc_fid:pls:bp_20:lv1",
+          "weight": 0.948802,
+          "normalized_delta": 0.095611
+        },
+        {
+          "feature": "gc_fid:pca:pc1",
+          "weight": 0.92277,
+          "normalized_delta": 0.167605
+        },
+        {
+          "feature": "ir_spectrum:pca:pc3",
+          "weight": 0.777935,
+          "normalized_delta": 0.300834
+        },
+        {
+          "feature": "ir_spectrum:pls:bp_20:lv1",
+          "weight": 0.740268,
+          "normalized_delta": 0.078841
+        }
+      ],
+      "available_channels": [
+        "gc_fid",
+        "ir_spectrum"
+      ],
+      "bulk_properties": {
+        "density_20c": 0.8748,
+        "BP_20": 366.4,
+        "BP_35": 382.6,
+        "BP_50": 398.6,
+        "BP_65": 411.6,
+        "BP_80": 429.0,
+        "saturates": 84.599376
+      }
+    },
+    {
+      "sample_id": "petroleum_fraction_db_031",
+      "sample_type": "petroleum fraction",
+      "origin": "petroleum fraction train split",
+      "distance": 0.444856,
+      "shared_feature_count": 66,
+      "shared_feature_examples": [
+        "gc_fid:pca:pc1",
+        "gc_fid:pca:pc2",
+        "gc_fid:pca:pc3",
+        "gc_fid:pca:pc4",
+        "gc_fid:pca:pc5",
+        "gc_fid:pls:bp_20:lv1",
+        "gc_fid:pls:bp_20:lv2",
+        "gc_fid:pls:bp_20:lv3",
+        "gc_fid:pls:bp_20:lv4",
+        "gc_fid:pls:bp_35:lv1",
+        "gc_fid:pls:bp_35:lv2",
+        "gc_fid:pls:bp_35:lv3"
+      ],
+      "top_weighted_shared_features": [
+        {
+          "feature": "gc_fid:pls:density_20c:lv1",
+          "weight": 0.979972,
+          "normalized_delta": 0.410808
+        },
+        {
+          "feature": "gc_fid:pls:saturates:lv1",
+          "weight": 0.965185,
+          "normalized_delta": 0.347536
+        },
+        {
+          "feature": "gc_fid:pls:bp_80:lv1",
+          "weight": 0.952487,
+          "normalized_delta": 0.572743
+        },
+        {
+          "feature": "gc_fid:pls:bp_65:lv1",
+          "weight": 0.951297,
+          "normalized_delta": 0.579682
+        },
+        {
+          "feature": "gc_fid:pls:bp_50:lv1",
+          "weight": 0.951029,
+          "normalized_delta": 0.583787
+        },
+        {
+          "feature": "gc_fid:pls:bp_35:lv1",
+          "weight": 0.950774,
+          "normalized_delta": 0.58281
+        },
+        {
+          "feature": "gc_fid:pls:bp_20:lv1",
+          "weight": 0.948802,
+          "normalized_delta": 0.579594
+        },
+        {
+          "feature": "gc_fid:pca:pc1",
+          "weight": 0.92277,
+          "normalized_delta": 0.625022
+        },
+        {
+          "feature": "ir_spectrum:pca:pc3",
+          "weight": 0.777935,
+          "normalized_delta": 0.313812
+        },
+        {
+          "feature": "ir_spectrum:pls:bp_20:lv1",
+          "weight": 0.740268,
+          "normalized_delta": 0.485193
+        }
+      ],
+      "available_channels": [
+        "gc_fid",
+        "ir_spectrum"
+      ],
+      "bulk_properties": {
+        "density_20c": 0.8653,
+        "BP_20": 366.0,
+        "BP_35": 400.2,
+        "BP_50": 428.0,
+        "BP_65": 449.4,
+        "BP_80": 483.2,
+        "saturates": 84.039121
+      }
+    },
+    {
+      "sample_id": "petroleum_fraction_db_026",
+      "sample_type": "petroleum fraction",
+      "origin": "petroleum fraction train split",
+      "distance": 0.48114,
+      "shared_feature_count": 33,
+      "shared_feature_examples": [
+        "gc_fid:pca:pc1",
+        "gc_fid:pca:pc2",
+        "gc_fid:pca:pc3",
+        "gc_fid:pca:pc4",
+        "gc_fid:pca:pc5",
+        "gc_fid:pls:bp_20:lv1",
+        "gc_fid:pls:bp_20:lv2",
+        "gc_fid:pls:bp_20:lv3",
+        "gc_fid:pls:bp_20:lv4",
+        "gc_fid:pls:bp_35:lv1",
+        "gc_fid:pls:bp_35:lv2",
+        "gc_fid:pls:bp_35:lv3"
+      ],
+      "top_weighted_shared_features": [
+        {
+          "feature": "gc_fid:pls:density_20c:lv1",
+          "weight": 0.979972,
+          "normalized_delta": 0.403531
+        },
+        {
+          "feature": "gc_fid:pls:saturates:lv1",
+          "weight": 0.965185,
+          "normalized_delta": 0.341309
+        },
+        {
+          "feature": "gc_fid:pls:bp_80:lv1",
+          "weight": 0.952487,
+          "normalized_delta": 0.305396
+        },
+        {
+          "feature": "gc_fid:pls:bp_65:lv1",
+          "weight": 0.951297,
+          "normalized_delta": 0.291189
+        },
+        {
+          "feature": "gc_fid:pls:bp_50:lv1",
+          "weight": 0.951029,
+          "normalized_delta": 0.278831
+        },
+        {
+          "feature": "gc_fid:pls:bp_35:lv1",
+          "weight": 0.950774,
+          "normalized_delta": 0.269439
+        },
+        {
+          "feature": "gc_fid:pls:bp_20:lv1",
+          "weight": 0.948802,
+          "normalized_delta": 0.262063
+        },
+        {
+          "feature": "gc_fid:pca:pc1",
+          "weight": 0.92277,
+          "normalized_delta": 0.256255
+        },
+        {
+          "feature": "gc_fid:pls:density_20c:lv3",
+          "weight": 0.477642,
+          "normalized_delta": 0.937741
+        },
+        {
+          "feature": "gc_fid:pca:pc3",
+          "weight": 0.469368,
+          "normalized_delta": 0.210363
+        }
+      ],
+      "available_channels": [
+        "gc_fid",
+        "ir_spectrum"
+      ],
+      "bulk_properties": {
+        "density_20c": 0.8348,
+        "BP_20": 351.2,
+        "BP_35": 381.2,
+        "BP_50": 402.8,
+        "BP_65": 420.8,
+        "BP_80": 437.4,
+        "saturates": 96.271711
+      }
+    },
+    {
+      "sample_id": "petroleum_fraction_db_035",
+      "sample_type": "petroleum fraction",
+      "origin": "petroleum fraction train split",
+      "distance": 0.494655,
+      "shared_feature_count": 66,
+      "shared_feature_examples": [
+        "gc_fid:pca:pc1",
+        "gc_fid:pca:pc2",
+        "gc_fid:pca:pc3",
+        "gc_fid:pca:pc4",
+        "gc_fid:pca:pc5",
+        "gc_fid:pls:bp_20:lv1",
+        "gc_fid:pls:bp_20:lv2",
+        "gc_fid:pls:bp_20:lv3",
+        "gc_fid:pls:bp_20:lv4",
+        "gc_fid:pls:bp_35:lv1",
+        "gc_fid:pls:bp_35:lv2",
+        "gc_fid:pls:bp_35:lv3"
+      ],
+      "top_weighted_shared_features": [
+        {
+          "feature": "gc_fid:pls:density_20c:lv1",
+          "weight": 0.979972,
+          "normalized_delta": 0.111983
+        },
+        {
+          "feature": "gc_fid:pls:saturates:lv1",
+          "weight": 0.965185,
+          "normalized_delta": 0.084194
+        },
+        {
+          "feature": "gc_fid:pls:bp_80:lv1",
+          "weight": 0.952487,
+          "normalized_delta": 0.357473
+        },
+        {
+          "feature": "gc_fid:pls:bp_65:lv1",
+          "weight": 0.951297,
+          "normalized_delta": 0.363352
+        },
+        {
+          "feature": "gc_fid:pls:bp_50:lv1",
+          "weight": 0.951029,
+          "normalized_delta": 0.371425
+        },
+        {
+          "feature": "gc_fid:pls:bp_35:lv1",
+          "weight": 0.950774,
+          "normalized_delta": 0.384125
+        },
+        {
+          "feature": "gc_fid:pls:bp_20:lv1",
+          "weight": 0.948802,
+          "normalized_delta": 0.405733
+        },
+        {
+          "feature": "gc_fid:pca:pc1",
+          "weight": 0.92277,
+          "normalized_delta": 0.498104
+        },
+        {
+          "feature": "ir_spectrum:pca:pc3",
+          "weight": 0.777935,
+          "normalized_delta": 0.313415
+        },
+        {
+          "feature": "ir_spectrum:pls:bp_20:lv1",
+          "weight": 0.740268,
+          "normalized_delta": 0.47726
+        }
+      ],
+      "available_channels": [
+        "gc_fid",
+        "ir_spectrum"
+      ],
+      "bulk_properties": {
+        "density_20c": 0.9004,
+        "BP_20": 378.4,
+        "BP_35": 411.2,
+        "BP_50": 438.0,
+        "BP_65": 467.2,
+        "BP_80": 499.8,
+        "saturates": 71.554633
+      }
+    },
+    {
+      "sample_id": "petroleum_fraction_db_066",
+      "sample_type": "petroleum fraction",
+      "origin": "petroleum fraction train split",
+      "distance": 0.535845,
+      "shared_feature_count": 66,
+      "shared_feature_examples": [
+        "gc_fid:pca:pc1",
+        "gc_fid:pca:pc2",
+        "gc_fid:pca:pc3",
+        "gc_fid:pca:pc4",
+        "gc_fid:pca:pc5",
+        "gc_fid:pls:bp_20:lv1",
+        "gc_fid:pls:bp_20:lv2",
+        "gc_fid:pls:bp_20:lv3",
+        "gc_fid:pls:bp_20:lv4",
+        "gc_fid:pls:bp_35:lv1",
+        "gc_fid:pls:bp_35:lv2",
+        "gc_fid:pls:bp_35:lv3"
+      ],
+      "top_weighted_shared_features": [
+        {
+          "feature": "gc_fid:pls:density_20c:lv1",
+          "weight": 0.979972,
+          "normalized_delta": 0.04974
+        },
+        {
+          "feature": "gc_fid:pls:saturates:lv1",
+          "weight": 0.965185,
+          "normalized_delta": 0.044065
+        },
+        {
+          "feature": "gc_fid:pls:bp_80:lv1",
+          "weight": 0.952487,
+          "normalized_delta": 0.148307
+        },
+        {
+          "feature": "gc_fid:pls:bp_65:lv1",
+          "weight": 0.951297,
+          "normalized_delta": 0.169874
+        },
+        {
+          "feature": "gc_fid:pls:bp_50:lv1",
+          "weight": 0.951029,
+          "normalized_delta": 0.190419
+        },
+        {
+          "feature": "gc_fid:pls:bp_35:lv1",
+          "weight": 0.950774,
+          "normalized_delta": 0.209763
+        },
+        {
+          "feature": "gc_fid:pls:bp_20:lv1",
+          "weight": 0.948802,
+          "normalized_delta": 0.233388
+        },
+        {
+          "feature": "gc_fid:pca:pc1",
+          "weight": 0.92277,
+          "normalized_delta": 0.291663
+        },
+        {
+          "feature": "ir_spectrum:pca:pc3",
+          "weight": 0.777935,
+          "normalized_delta": 0.931082
+        },
+        {
+          "feature": "ir_spectrum:pls:bp_20:lv1",
+          "weight": 0.740268,
+          "normalized_delta": 0.624664
+        }
+      ],
+      "available_channels": [
+        "gc_fid",
+        "ir_spectrum"
+      ],
+      "bulk_properties": {
+        "density_20c": 0.8712,
+        "BP_20": 399.6,
+        "BP_35": 415.8,
+        "BP_50": 427.2,
+        "BP_65": 438.2,
+        "BP_80": 450.8,
+        "saturates": 90.26486
+      }
+    },
+    {
+      "sample_id": "petroleum_fraction_db_010",
+      "sample_type": "petroleum fraction",
+      "origin": "petroleum fraction train split",
+      "distance": 0.599858,
+      "shared_feature_count": 66,
+      "shared_feature_examples": [
+        "gc_fid:pca:pc1",
+        "gc_fid:pca:pc2",
+        "gc_fid:pca:pc3",
+        "gc_fid:pca:pc4",
+        "gc_fid:pca:pc5",
+        "gc_fid:pls:bp_20:lv1",
+        "gc_fid:pls:bp_20:lv2",
+        "gc_fid:pls:bp_20:lv3",
+        "gc_fid:pls:bp_20:lv4",
+        "gc_fid:pls:bp_35:lv1",
+        "gc_fid:pls:bp_35:lv2",
+        "gc_fid:pls:bp_35:lv3"
+      ],
+      "top_weighted_shared_features": [
+        {
+          "feature": "gc_fid:pls:density_20c:lv1",
+          "weight": 0.979972,
+          "normalized_delta": 0.120154
+        },
+        {
+          "feature": "gc_fid:pls:saturates:lv1",
+          "weight": 0.965185,
+          "normalized_delta": 0.072562
+        },
+        {
+          "feature": "gc_fid:pls:bp_80:lv1",
+          "weight": 0.952487,
+          "normalized_delta": 0.441813
+        },
+        {
+          "feature": "gc_fid:pls:bp_65:lv1",
+          "weight": 0.951297,
+          "normalized_delta": 0.418567
+        },
+        {
+          "feature": "gc_fid:pls:bp_50:lv1",
+          "weight": 0.951029,
+          "normalized_delta": 0.4039
+        },
+        {
+          "feature": "gc_fid:pls:bp_35:lv1",
+          "weight": 0.950774,
+          "normalized_delta": 0.399573
+        },
+        {
+          "feature": "gc_fid:pls:bp_20:lv1",
+          "weight": 0.948802,
+          "normalized_delta": 0.413869
+        },
+        {
+          "feature": "gc_fid:pca:pc1",
+          "weight": 0.92277,
+          "normalized_delta": 0.560152
+        },
+        {
+          "feature": "ir_spectrum:pca:pc3",
+          "weight": 0.777935,
+          "normalized_delta": 0.07983
+        },
+        {
+          "feature": "ir_spectrum:pls:bp_20:lv1",
+          "weight": 0.740268,
+          "normalized_delta": 0.156623
+        }
+      ],
+      "available_channels": [
+        "gc_fid",
+        "ir_spectrum"
+      ],
+      "bulk_properties": {
+        "density_20c": 0.8619,
+        "BP_20": 336.4,
+        "BP_35": 352.0,
+        "BP_50": 365.8,
+        "BP_65": 379.2,
+        "BP_80": 395.6,
+        "saturates": 88.042705
+      }
+    },
+    {
+      "sample_id": "petroleum_fraction_db_011",
+      "sample_type": "petroleum fraction",
+      "origin": "petroleum fraction train split",
+      "distance": 0.603772,
+      "shared_feature_count": 66,
+      "shared_feature_examples": [
+        "gc_fid:pca:pc1",
+        "gc_fid:pca:pc2",
+        "gc_fid:pca:pc3",
+        "gc_fid:pca:pc4",
+        "gc_fid:pca:pc5",
+        "gc_fid:pls:bp_20:lv1",
+        "gc_fid:pls:bp_20:lv2",
+        "gc_fid:pls:bp_20:lv3",
+        "gc_fid:pls:bp_20:lv4",
+        "gc_fid:pls:bp_35:lv1",
+        "gc_fid:pls:bp_35:lv2",
+        "gc_fid:pls:bp_35:lv3"
+      ],
+      "top_weighted_shared_features": [
+        {
+          "feature": "gc_fid:pls:density_20c:lv1",
+          "weight": 0.979972,
+          "normalized_delta": 0.196935
+        },
+        {
+          "feature": "gc_fid:pls:saturates:lv1",
+          "weight": 0.965185,
+          "normalized_delta": 0.093139
+        },
+        {
+          "feature": "gc_fid:pls:bp_80:lv1",
+          "weight": 0.952487,
+          "normalized_delta": 0.427623
+        },
+        {
+          "feature": "gc_fid:pls:bp_65:lv1",
+          "weight": 0.951297,
+          "normalized_delta": 0.455628
+        },
+        {
+          "feature": "gc_fid:pls:bp_50:lv1",
+          "weight": 0.951029,
+          "normalized_delta": 0.479012
+        },
+        {
+          "feature": "gc_fid:pls:bp_35:lv1",
+          "weight": 0.950774,
+          "normalized_delta": 0.502494
+        },
+        {
+          "feature": "gc_fid:pls:bp_20:lv1",
+          "weight": 0.948802,
+          "normalized_delta": 0.528762
+        },
+        {
+          "feature": "gc_fid:pca:pc1",
+          "weight": 0.92277,
+          "normalized_delta": 0.602286
+        },
+        {
+          "feature": "ir_spectrum:pca:pc3",
+          "weight": 0.777935,
+          "normalized_delta": 0.500439
+        },
+        {
+          "feature": "ir_spectrum:pls:bp_20:lv1",
+          "weight": 0.740268,
+          "normalized_delta": 0.377846
+        }
+      ],
+      "available_channels": [
+        "gc_fid",
+        "ir_spectrum"
+      ],
+      "bulk_properties": {
+        "density_20c": 0.8603,
+        "BP_20": 398.6,
+        "BP_35": 415.4,
+        "BP_50": 430.8,
+        "BP_65": 445.6,
+        "BP_80": 465.4,
+        "saturates": 90.174817
+      }
+    },
+    {
+      "sample_id": "petroleum_fraction_db_033",
+      "sample_type": "petroleum fraction",
+      "origin": "petroleum fraction train split",
+      "distance": 0.63796,
+      "shared_feature_count": 66,
+      "shared_feature_examples": [
+        "gc_fid:pca:pc1",
+        "gc_fid:pca:pc2",
+        "gc_fid:pca:pc3",
+        "gc_fid:pca:pc4",
+        "gc_fid:pca:pc5",
+        "gc_fid:pls:bp_20:lv1",
+        "gc_fid:pls:bp_20:lv2",
+        "gc_fid:pls:bp_20:lv3",
+        "gc_fid:pls:bp_20:lv4",
+        "gc_fid:pls:bp_35:lv1",
+        "gc_fid:pls:bp_35:lv2",
+        "gc_fid:pls:bp_35:lv3"
+      ],
+      "top_weighted_shared_features": [
+        {
+          "feature": "gc_fid:pls:density_20c:lv1",
+          "weight": 0.979972,
+          "normalized_delta": 0.219199
+        },
+        {
+          "feature": "gc_fid:pls:saturates:lv1",
+          "weight": 0.965185,
+          "normalized_delta": 0.160422
+        },
+        {
+          "feature": "gc_fid:pls:bp_80:lv1",
+          "weight": 0.952487,
+          "normalized_delta": 0.592355
+        },
+        {
+          "feature": "gc_fid:pls:bp_65:lv1",
+          "weight": 0.951297,
+          "normalized_delta": 0.58761
+        },
+        {
+          "feature": "gc_fid:pls:bp_50:lv1",
+          "weight": 0.951029,
+          "normalized_delta": 0.589071
+        },
+        {
+          "feature": "gc_fid:pls:bp_35:lv1",
+          "weight": 0.950774,
+          "normalized_delta": 0.60036
+        },
+        {
+          "feature": "gc_fid:pls:bp_20:lv1",
+          "weight": 0.948802,
+          "normalized_delta": 0.629571
+        },
+        {
+          "feature": "gc_fid:pca:pc1",
+          "weight": 0.92277,
+          "normalized_delta": 0.777343
+        },
+        {
+          "feature": "ir_spectrum:pca:pc3",
+          "weight": 0.777935,
+          "normalized_delta": 0.394379
+        },
+        {
+          "feature": "ir_spectrum:pls:bp_20:lv1",
+          "weight": 0.740268,
+          "normalized_delta": 0.462685
+        }
+      ],
+      "available_channels": [
+        "gc_fid",
+        "ir_spectrum"
+      ],
+      "bulk_properties": {
+        "density_20c": 0.9002,
+        "BP_20": 368.0,
+        "BP_35": 398.6,
+        "BP_50": 421.8,
+        "BP_65": 444.2,
+        "BP_80": 471.0,
+        "saturates": 78.729593
+      }
+    }
+  ],
+  "property_summary": {
+    "density_20c": {
+      "weighted_estimate": 0.8688,
+      "evidence_range": [
+        0.8348,
+        0.9004
+      ],
+      "neighbor_count": 10,
+      "supporting_samples": [
+        "petroleum_fraction_db_009",
+        "petroleum_fraction_db_002",
+        "petroleum_fraction_db_029",
+        "petroleum_fraction_db_031",
+        "petroleum_fraction_db_026",
+        "petroleum_fraction_db_035",
+        "petroleum_fraction_db_066",
+        "petroleum_fraction_db_010"
+      ],
+      "validation_actual": null,
+      "absolute_error": null,
+      "absolute_percentage_error": null,
+      "estimation_method": "inverse_distance_weighted_interpolation_over_top_k_neighbors"
+    },
+    "BP_20": {
+      "weighted_estimate": 367.99,
+      "evidence_range": [
+        336.4,
+        399.6
+      ],
+      "neighbor_count": 10,
+      "supporting_samples": [
+        "petroleum_fraction_db_009",
+        "petroleum_fraction_db_002",
+        "petroleum_fraction_db_029",
+        "petroleum_fraction_db_031",
+        "petroleum_fraction_db_026",
+        "petroleum_fraction_db_035",
+        "petroleum_fraction_db_066",
+        "petroleum_fraction_db_010"
+      ],
+      "validation_actual": null,
+      "absolute_error": null,
+      "absolute_percentage_error": null,
+      "estimation_method": "inverse_distance_weighted_interpolation_over_top_k_neighbors"
+    },
+    "BP_35": {
+      "weighted_estimate": 391.81,
+      "evidence_range": [
+        352.0,
+        415.8
+      ],
+      "neighbor_count": 10,
+      "supporting_samples": [
+        "petroleum_fraction_db_009",
+        "petroleum_fraction_db_002",
+        "petroleum_fraction_db_029",
+        "petroleum_fraction_db_031",
+        "petroleum_fraction_db_026",
+        "petroleum_fraction_db_035",
+        "petroleum_fraction_db_066",
+        "petroleum_fraction_db_010"
+      ],
+      "validation_actual": null,
+      "absolute_error": null,
+      "absolute_percentage_error": null,
+      "estimation_method": "inverse_distance_weighted_interpolation_over_top_k_neighbors"
+    },
+    "BP_50": {
+      "weighted_estimate": 411.46,
+      "evidence_range": [
+        365.8,
+        438.0
+      ],
+      "neighbor_count": 10,
+      "supporting_samples": [
+        "petroleum_fraction_db_009",
+        "petroleum_fraction_db_002",
+        "petroleum_fraction_db_029",
+        "petroleum_fraction_db_031",
+        "petroleum_fraction_db_026",
+        "petroleum_fraction_db_035",
+        "petroleum_fraction_db_066",
+        "petroleum_fraction_db_010"
+      ],
+      "validation_actual": null,
+      "absolute_error": null,
+      "absolute_percentage_error": null,
+      "estimation_method": "inverse_distance_weighted_interpolation_over_top_k_neighbors"
+    },
+    "BP_65": {
+      "weighted_estimate": 429.88,
+      "evidence_range": [
+        379.2,
+        467.2
+      ],
+      "neighbor_count": 10,
+      "supporting_samples": [
+        "petroleum_fraction_db_009",
+        "petroleum_fraction_db_002",
+        "petroleum_fraction_db_029",
+        "petroleum_fraction_db_031",
+        "petroleum_fraction_db_026",
+        "petroleum_fraction_db_035",
+        "petroleum_fraction_db_066",
+        "petroleum_fraction_db_010"
+      ],
+      "validation_actual": null,
+      "absolute_error": null,
+      "absolute_percentage_error": null,
+      "estimation_method": "inverse_distance_weighted_interpolation_over_top_k_neighbors"
+    },
+    "BP_80": {
+      "weighted_estimate": 452.7,
+      "evidence_range": [
+        395.6,
+        499.8
+      ],
+      "neighbor_count": 10,
+      "supporting_samples": [
+        "petroleum_fraction_db_009",
+        "petroleum_fraction_db_002",
+        "petroleum_fraction_db_029",
+        "petroleum_fraction_db_031",
+        "petroleum_fraction_db_026",
+        "petroleum_fraction_db_035",
+        "petroleum_fraction_db_066",
+        "petroleum_fraction_db_010"
+      ],
+      "validation_actual": null,
+      "absolute_error": null,
+      "absolute_percentage_error": null,
+      "estimation_method": "inverse_distance_weighted_interpolation_over_top_k_neighbors"
+    },
+    "saturates": {
+      "weighted_estimate": 85.26,
+      "evidence_range": [
+        71.55,
+        96.27
+      ],
+      "neighbor_count": 10,
+      "supporting_samples": [
+        "petroleum_fraction_db_009",
+        "petroleum_fraction_db_002",
+        "petroleum_fraction_db_029",
+        "petroleum_fraction_db_031",
+        "petroleum_fraction_db_026",
+        "petroleum_fraction_db_035",
+        "petroleum_fraction_db_066",
+        "petroleum_fraction_db_010"
+      ],
+      "validation_actual": null,
+      "absolute_error": null,
+      "absolute_percentage_error": null,
+      "estimation_method": "inverse_distance_weighted_interpolation_over_top_k_neighbors"
+    }
+  },
+  "spectral_model_summary": [
+    {
+      "analysis_type": "gc_fid",
+      "model_type": "PCA",
+      "target_property": null,
+      "component_count": 5,
+      "train_sample_count": 54,
+      "artifact_file": "gc_fid__pca.npz"
+    },
+    {
+      "analysis_type": "gc_fid",
+      "model_type": "PLS",
+      "target_property": "density_20c",
+      "component_count": 4,
+      "train_sample_count": 54,
+      "artifact_file": "gc_fid__pls__density_20c.npz"
+    },
+    {
+      "analysis_type": "gc_fid",
+      "model_type": "PLS",
+      "target_property": "kinematic_viscosity_50c",
+      "component_count": 4,
+      "train_sample_count": 54,
+      "artifact_file": "gc_fid__pls__kinematic_viscosity_50c.npz"
+    },
+    {
+      "analysis_type": "gc_fid",
+      "model_type": "PLS",
+      "target_property": "saturates",
+      "component_count": 4,
+      "train_sample_count": 54,
+      "artifact_file": "gc_fid__pls__saturates.npz"
+    },
+    {
+      "analysis_type": "gc_fid",
+      "model_type": "PLS",
+      "target_property": "aromatics",
+      "component_count": 4,
+      "train_sample_count": 54,
+      "artifact_file": "gc_fid__pls__aromatics.npz"
+    },
+    {
+      "analysis_type": "gc_fid",
+      "model_type": "PLS",
+      "target_property": "BP_20",
+      "component_count": 4,
+      "train_sample_count": 54,
+      "artifact_file": "gc_fid__pls__bp_20.npz"
+    },
+    {
+      "analysis_type": "gc_fid",
+      "model_type": "PLS",
+      "target_property": "BP_35",
+      "component_count": 4,
+      "train_sample_count": 54,
+      "artifact_file": "gc_fid__pls__bp_35.npz"
+    },
+    {
+      "analysis_type": "gc_fid",
+      "model_type": "PLS",
+      "target_property": "BP_50",
+      "component_count": 4,
+      "train_sample_count": 54,
+      "artifact_file": "gc_fid__pls__bp_50.npz"
+    },
+    {
+      "analysis_type": "gc_fid",
+      "model_type": "PLS",
+      "target_property": "BP_65",
+      "component_count": 4,
+      "train_sample_count": 54,
+      "artifact_file": "gc_fid__pls__bp_65.npz"
+    },
+    {
+      "analysis_type": "gc_fid",
+      "model_type": "PLS",
+      "target_property": "BP_80",
+      "component_count": 4,
+      "train_sample_count": 54,
+      "artifact_file": "gc_fid__pls__bp_80.npz"
+    },
+    {
+      "analysis_type": "ir_spectrum",
+      "model_type": "PCA",
+      "target_property": null,
+      "component_count": 5,
+      "train_sample_count": 52,
+      "artifact_file": "ir_spectrum__pca.npz"
+    },
+    {
+      "analysis_type": "ir_spectrum",
+      "model_type": "PLS",
+      "target_property": "density_20c",
+      "component_count": 4,
+      "train_sample_count": 52,
+      "artifact_file": "ir_spectrum__pls__density_20c.npz"
+    },
+    {
+      "analysis_type": "ir_spectrum",
+      "model_type": "PLS",
+      "target_property": "kinematic_viscosity_50c",
+      "component_count": 4,
+      "train_sample_count": 52,
+      "artifact_file": "ir_spectrum__pls__kinematic_viscosity_50c.npz"
+    },
+    {
+      "analysis_type": "ir_spectrum",
+      "model_type": "PLS",
+      "target_property": "saturates",
+      "component_count": 4,
+      "train_sample_count": 52,
+      "artifact_file": "ir_spectrum__pls__saturates.npz"
+    },
+    {
+      "analysis_type": "ir_spectrum",
+      "model_type": "PLS",
+      "target_property": "aromatics",
+      "component_count": 4,
+      "train_sample_count": 52,
+      "artifact_file": "ir_spectrum__pls__aromatics.npz"
+    },
+    {
+      "analysis_type": "ir_spectrum",
+      "model_type": "PLS",
+      "target_property": "BP_20",
+      "component_count": 4,
+      "train_sample_count": 52,
+      "artifact_file": "ir_spectrum__pls__bp_20.npz"
+    },
+    {
+      "analysis_type": "ir_spectrum",
+      "model_type": "PLS",
+      "target_property": "BP_35",
+      "component_count": 4,
+      "train_sample_count": 52,
+      "artifact_file": "ir_spectrum__pls__bp_35.npz"
+    },
+    {
+      "analysis_type": "ir_spectrum",
+      "model_type": "PLS",
+      "target_property": "BP_50",
+      "component_count": 4,
+      "train_sample_count": 52,
+      "artifact_file": "ir_spectrum__pls__bp_50.npz"
+    },
+    {
+      "analysis_type": "ir_spectrum",
+      "model_type": "PLS",
+      "target_property": "BP_65",
+      "component_count": 4,
+      "train_sample_count": 52,
+      "artifact_file": "ir_spectrum__pls__bp_65.npz"
+    },
+    {
+      "analysis_type": "ir_spectrum",
+      "model_type": "PLS",
+      "target_property": "BP_80",
+      "component_count": 4,
+      "train_sample_count": 52,
+      "artifact_file": "ir_spectrum__pls__bp_80.npz"
+    }
+  ],
+  "retrieval_policy": {
+    "query_sample_role": "uploaded_transient_query_not_inserted_into_historical_db",
+    "historical_records_source": "train split of petroleum fraction experimental DB evaluation output",
+    "use_saved_training_spectral_models": true,
+    "selected_channels": [
+      "gc_fid",
+      "ir_spectrum"
+    ],
+    "selected_target_properties": [
+      "density_20c",
+      "BP_20",
+      "BP_35",
+      "BP_50",
+      "BP_65",
+      "BP_80",
+      "saturates"
+    ],
+    "pca_pls_features_only": true,
+    "target_values_masked_from_query": true,
+    "neighbor_ranking": "weighted_shared_pca_pls_latent_feature_distance",
+    "property_estimation": "inverse_distance_weighted_interpolation_over_top_k_neighbors",
+    "weighted_estimates_are_evidence_not_final_labels": true
+  },
+  "presentation": {
+    "workflow": [
+      {
+        "step": 1,
+        "title": "Prepare transient query sample",
+        "detail": "Use uploaded query workbook query_petroleum_fraction_07_gc_ir_case; it is not inserted into the historical train database."
+      },
+      {
+        "step": 2,
+        "title": "Apply saved spectral preprocessing",
+        "detail": "Project GC-FID and IR curves into PCA/PLS latent variables fitted on the training split."
+      },
+      {
+        "step": 3,
+        "title": "Retrieve train-split historical neighbors",
+        "detail": "Ranked 10 train samples using weighted shared PCA/PLS latent-feature distance."
+      },
+      {
+        "step": 4,
+        "title": "Interpolate property evidence",
+        "detail": "Prepared inverse-distance weighted interpolation evidence for density_20c, BP_20, BP_35, BP_50, BP_65, BP_80, saturates; validation values are hidden from retrieval."
+      }
+    ],
+    "query_snapshot": {
+      "sample_id": "query_petroleum_fraction_07_gc_ir_case",
+      "feature_count": 66,
+      "channels": [
+        "gc_fid",
+        "ir_spectrum"
+      ],
+      "feature_examples": [
+        "gc_fid:pca:pc1",
+        "gc_fid:pca:pc2",
+        "gc_fid:pca:pc3",
+        "gc_fid:pca:pc4",
+        "gc_fid:pca:pc5",
+        "gc_fid:pls:density_20c:lv1",
+        "gc_fid:pls:density_20c:lv2",
+        "gc_fid:pls:density_20c:lv3",
+        "gc_fid:pls:density_20c:lv4",
+        "gc_fid:pls:saturates:lv1",
+        "gc_fid:pls:saturates:lv2",
+        "gc_fid:pls:saturates:lv3"
+      ]
+    },
+    "neighbor_table": [
+      {
+        "rank": 1,
+        "sample_id": "petroleum_fraction_db_009",
+        "sample_type": "petroleum fraction",
+        "origin": "petroleum fraction train split",
+        "distance": 0.279951,
+        "shared_feature_count": 66,
+        "shared_feature_examples": [
+          "gc_fid:pca:pc1",
+          "gc_fid:pca:pc2",
+          "gc_fid:pca:pc3",
+          "gc_fid:pca:pc4",
+          "gc_fid:pca:pc5",
+          "gc_fid:pls:bp_20:lv1",
+          "gc_fid:pls:bp_20:lv2",
+          "gc_fid:pls:bp_20:lv3",
+          "gc_fid:pls:bp_20:lv4",
+          "gc_fid:pls:bp_35:lv1",
+          "gc_fid:pls:bp_35:lv2",
+          "gc_fid:pls:bp_35:lv3"
+        ],
+        "analysis_channels": [
+          "gc_fid",
+          "ir_spectrum"
+        ]
+      },
+      {
+        "rank": 2,
+        "sample_id": "petroleum_fraction_db_002",
+        "sample_type": "petroleum fraction",
+        "origin": "petroleum fraction train split",
+        "distance": 0.43026,
+        "shared_feature_count": 66,
+        "shared_feature_examples": [
+          "gc_fid:pca:pc1",
+          "gc_fid:pca:pc2",
+          "gc_fid:pca:pc3",
+          "gc_fid:pca:pc4",
+          "gc_fid:pca:pc5",
+          "gc_fid:pls:bp_20:lv1",
+          "gc_fid:pls:bp_20:lv2",
+          "gc_fid:pls:bp_20:lv3",
+          "gc_fid:pls:bp_20:lv4",
+          "gc_fid:pls:bp_35:lv1",
+          "gc_fid:pls:bp_35:lv2",
+          "gc_fid:pls:bp_35:lv3"
+        ],
+        "analysis_channels": [
+          "gc_fid",
+          "ir_spectrum"
+        ]
+      },
+      {
+        "rank": 3,
+        "sample_id": "petroleum_fraction_db_029",
+        "sample_type": "petroleum fraction",
+        "origin": "petroleum fraction train split",
+        "distance": 0.434299,
+        "shared_feature_count": 66,
+        "shared_feature_examples": [
+          "gc_fid:pca:pc1",
+          "gc_fid:pca:pc2",
+          "gc_fid:pca:pc3",
+          "gc_fid:pca:pc4",
+          "gc_fid:pca:pc5",
+          "gc_fid:pls:bp_20:lv1",
+          "gc_fid:pls:bp_20:lv2",
+          "gc_fid:pls:bp_20:lv3",
+          "gc_fid:pls:bp_20:lv4",
+          "gc_fid:pls:bp_35:lv1",
+          "gc_fid:pls:bp_35:lv2",
+          "gc_fid:pls:bp_35:lv3"
+        ],
+        "analysis_channels": [
+          "gc_fid",
+          "ir_spectrum"
+        ]
+      },
+      {
+        "rank": 4,
+        "sample_id": "petroleum_fraction_db_031",
+        "sample_type": "petroleum fraction",
+        "origin": "petroleum fraction train split",
+        "distance": 0.444856,
+        "shared_feature_count": 66,
+        "shared_feature_examples": [
+          "gc_fid:pca:pc1",
+          "gc_fid:pca:pc2",
+          "gc_fid:pca:pc3",
+          "gc_fid:pca:pc4",
+          "gc_fid:pca:pc5",
+          "gc_fid:pls:bp_20:lv1",
+          "gc_fid:pls:bp_20:lv2",
+          "gc_fid:pls:bp_20:lv3",
+          "gc_fid:pls:bp_20:lv4",
+          "gc_fid:pls:bp_35:lv1",
+          "gc_fid:pls:bp_35:lv2",
+          "gc_fid:pls:bp_35:lv3"
+        ],
+        "analysis_channels": [
+          "gc_fid",
+          "ir_spectrum"
+        ]
+      },
+      {
+        "rank": 5,
+        "sample_id": "petroleum_fraction_db_026",
+        "sample_type": "petroleum fraction",
+        "origin": "petroleum fraction train split",
+        "distance": 0.48114,
+        "shared_feature_count": 33,
+        "shared_feature_examples": [
+          "gc_fid:pca:pc1",
+          "gc_fid:pca:pc2",
+          "gc_fid:pca:pc3",
+          "gc_fid:pca:pc4",
+          "gc_fid:pca:pc5",
+          "gc_fid:pls:bp_20:lv1",
+          "gc_fid:pls:bp_20:lv2",
+          "gc_fid:pls:bp_20:lv3",
+          "gc_fid:pls:bp_20:lv4",
+          "gc_fid:pls:bp_35:lv1",
+          "gc_fid:pls:bp_35:lv2",
+          "gc_fid:pls:bp_35:lv3"
+        ],
+        "analysis_channels": [
+          "gc_fid",
+          "ir_spectrum"
+        ]
+      },
+      {
+        "rank": 6,
+        "sample_id": "petroleum_fraction_db_035",
+        "sample_type": "petroleum fraction",
+        "origin": "petroleum fraction train split",
+        "distance": 0.494655,
+        "shared_feature_count": 66,
+        "shared_feature_examples": [
+          "gc_fid:pca:pc1",
+          "gc_fid:pca:pc2",
+          "gc_fid:pca:pc3",
+          "gc_fid:pca:pc4",
+          "gc_fid:pca:pc5",
+          "gc_fid:pls:bp_20:lv1",
+          "gc_fid:pls:bp_20:lv2",
+          "gc_fid:pls:bp_20:lv3",
+          "gc_fid:pls:bp_20:lv4",
+          "gc_fid:pls:bp_35:lv1",
+          "gc_fid:pls:bp_35:lv2",
+          "gc_fid:pls:bp_35:lv3"
+        ],
+        "analysis_channels": [
+          "gc_fid",
+          "ir_spectrum"
+        ]
+      },
+      {
+        "rank": 7,
+        "sample_id": "petroleum_fraction_db_066",
+        "sample_type": "petroleum fraction",
+        "origin": "petroleum fraction train split",
+        "distance": 0.535845,
+        "shared_feature_count": 66,
+        "shared_feature_examples": [
+          "gc_fid:pca:pc1",
+          "gc_fid:pca:pc2",
+          "gc_fid:pca:pc3",
+          "gc_fid:pca:pc4",
+          "gc_fid:pca:pc5",
+          "gc_fid:pls:bp_20:lv1",
+          "gc_fid:pls:bp_20:lv2",
+          "gc_fid:pls:bp_20:lv3",
+          "gc_fid:pls:bp_20:lv4",
+          "gc_fid:pls:bp_35:lv1",
+          "gc_fid:pls:bp_35:lv2",
+          "gc_fid:pls:bp_35:lv3"
+        ],
+        "analysis_channels": [
+          "gc_fid",
+          "ir_spectrum"
+        ]
+      },
+      {
+        "rank": 8,
+        "sample_id": "petroleum_fraction_db_010",
+        "sample_type": "petroleum fraction",
+        "origin": "petroleum fraction train split",
+        "distance": 0.599858,
+        "shared_feature_count": 66,
+        "shared_feature_examples": [
+          "gc_fid:pca:pc1",
+          "gc_fid:pca:pc2",
+          "gc_fid:pca:pc3",
+          "gc_fid:pca:pc4",
+          "gc_fid:pca:pc5",
+          "gc_fid:pls:bp_20:lv1",
+          "gc_fid:pls:bp_20:lv2",
+          "gc_fid:pls:bp_20:lv3",
+          "gc_fid:pls:bp_20:lv4",
+          "gc_fid:pls:bp_35:lv1",
+          "gc_fid:pls:bp_35:lv2",
+          "gc_fid:pls:bp_35:lv3"
+        ],
+        "analysis_channels": [
+          "gc_fid",
+          "ir_spectrum"
+        ]
+      },
+      {
+        "rank": 9,
+        "sample_id": "petroleum_fraction_db_011",
+        "sample_type": "petroleum fraction",
+        "origin": "petroleum fraction train split",
+        "distance": 0.603772,
+        "shared_feature_count": 66,
+        "shared_feature_examples": [
+          "gc_fid:pca:pc1",
+          "gc_fid:pca:pc2",
+          "gc_fid:pca:pc3",
+          "gc_fid:pca:pc4",
+          "gc_fid:pca:pc5",
+          "gc_fid:pls:bp_20:lv1",
+          "gc_fid:pls:bp_20:lv2",
+          "gc_fid:pls:bp_20:lv3",
+          "gc_fid:pls:bp_20:lv4",
+          "gc_fid:pls:bp_35:lv1",
+          "gc_fid:pls:bp_35:lv2",
+          "gc_fid:pls:bp_35:lv3"
+        ],
+        "analysis_channels": [
+          "gc_fid",
+          "ir_spectrum"
+        ]
+      },
+      {
+        "rank": 10,
+        "sample_id": "petroleum_fraction_db_033",
+        "sample_type": "petroleum fraction",
+        "origin": "petroleum fraction train split",
+        "distance": 0.63796,
+        "shared_feature_count": 66,
+        "shared_feature_examples": [
+          "gc_fid:pca:pc1",
+          "gc_fid:pca:pc2",
+          "gc_fid:pca:pc3",
+          "gc_fid:pca:pc4",
+          "gc_fid:pca:pc5",
+          "gc_fid:pls:bp_20:lv1",
+          "gc_fid:pls:bp_20:lv2",
+          "gc_fid:pls:bp_20:lv3",
+          "gc_fid:pls:bp_20:lv4",
+          "gc_fid:pls:bp_35:lv1",
+          "gc_fid:pls:bp_35:lv2",
+          "gc_fid:pls:bp_35:lv3"
+        ],
+        "analysis_channels": [
+          "gc_fid",
+          "ir_spectrum"
+        ]
+      }
+    ],
+    "property_table": [
+      {
+        "property_name": "density_20c",
+        "weighted_estimate": 0.8688,
+        "range_min": 0.8348,
+        "range_max": 0.9004,
+        "neighbor_count": 10,
+        "supporting_samples": [
+          "petroleum_fraction_db_009",
+          "petroleum_fraction_db_002",
+          "petroleum_fraction_db_029",
+          "petroleum_fraction_db_031",
+          "petroleum_fraction_db_026",
+          "petroleum_fraction_db_035",
+          "petroleum_fraction_db_066",
+          "petroleum_fraction_db_010"
+        ],
+        "actual_for_validation": null,
+        "absolute_error": null,
+        "absolute_percentage_error": null
+      },
+      {
+        "property_name": "BP_20",
+        "weighted_estimate": 367.99,
+        "range_min": 336.4,
+        "range_max": 399.6,
+        "neighbor_count": 10,
+        "supporting_samples": [
+          "petroleum_fraction_db_009",
+          "petroleum_fraction_db_002",
+          "petroleum_fraction_db_029",
+          "petroleum_fraction_db_031",
+          "petroleum_fraction_db_026",
+          "petroleum_fraction_db_035",
+          "petroleum_fraction_db_066",
+          "petroleum_fraction_db_010"
+        ],
+        "actual_for_validation": null,
+        "absolute_error": null,
+        "absolute_percentage_error": null
+      },
+      {
+        "property_name": "BP_35",
+        "weighted_estimate": 391.81,
+        "range_min": 352.0,
+        "range_max": 415.8,
+        "neighbor_count": 10,
+        "supporting_samples": [
+          "petroleum_fraction_db_009",
+          "petroleum_fraction_db_002",
+          "petroleum_fraction_db_029",
+          "petroleum_fraction_db_031",
+          "petroleum_fraction_db_026",
+          "petroleum_fraction_db_035",
+          "petroleum_fraction_db_066",
+          "petroleum_fraction_db_010"
+        ],
+        "actual_for_validation": null,
+        "absolute_error": null,
+        "absolute_percentage_error": null
+      },
+      {
+        "property_name": "BP_50",
+        "weighted_estimate": 411.46,
+        "range_min": 365.8,
+        "range_max": 438.0,
+        "neighbor_count": 10,
+        "supporting_samples": [
+          "petroleum_fraction_db_009",
+          "petroleum_fraction_db_002",
+          "petroleum_fraction_db_029",
+          "petroleum_fraction_db_031",
+          "petroleum_fraction_db_026",
+          "petroleum_fraction_db_035",
+          "petroleum_fraction_db_066",
+          "petroleum_fraction_db_010"
+        ],
+        "actual_for_validation": null,
+        "absolute_error": null,
+        "absolute_percentage_error": null
+      },
+      {
+        "property_name": "BP_65",
+        "weighted_estimate": 429.88,
+        "range_min": 379.2,
+        "range_max": 467.2,
+        "neighbor_count": 10,
+        "supporting_samples": [
+          "petroleum_fraction_db_009",
+          "petroleum_fraction_db_002",
+          "petroleum_fraction_db_029",
+          "petroleum_fraction_db_031",
+          "petroleum_fraction_db_026",
+          "petroleum_fraction_db_035",
+          "petroleum_fraction_db_066",
+          "petroleum_fraction_db_010"
+        ],
+        "actual_for_validation": null,
+        "absolute_error": null,
+        "absolute_percentage_error": null
+      },
+      {
+        "property_name": "BP_80",
+        "weighted_estimate": 452.7,
+        "range_min": 395.6,
+        "range_max": 499.8,
+        "neighbor_count": 10,
+        "supporting_samples": [
+          "petroleum_fraction_db_009",
+          "petroleum_fraction_db_002",
+          "petroleum_fraction_db_029",
+          "petroleum_fraction_db_031",
+          "petroleum_fraction_db_026",
+          "petroleum_fraction_db_035",
+          "petroleum_fraction_db_066",
+          "petroleum_fraction_db_010"
+        ],
+        "actual_for_validation": null,
+        "absolute_error": null,
+        "absolute_percentage_error": null
+      },
+      {
+        "property_name": "saturates",
+        "weighted_estimate": 85.26,
+        "range_min": 71.55,
+        "range_max": 96.27,
+        "neighbor_count": 10,
+        "supporting_samples": [
+          "petroleum_fraction_db_009",
+          "petroleum_fraction_db_002",
+          "petroleum_fraction_db_029",
+          "petroleum_fraction_db_031",
+          "petroleum_fraction_db_026",
+          "petroleum_fraction_db_035",
+          "petroleum_fraction_db_066",
+          "petroleum_fraction_db_010"
+        ],
+        "actual_for_validation": null,
+        "absolute_error": null,
+        "absolute_percentage_error": null
+      }
+    ],
+    "constrained_reasoning": {
+      "status": "spectral_pca_pls_evidence_prepared_for_expert_reasoning",
+      "neighbor_count": 10,
+      "diagnostics": {
+        "neighbor_count": 10,
+        "distance_min": 0.279951,
+        "distance_max": 0.63796,
+        "shared_feature_count_min": 33,
+        "shared_feature_count_max": 66,
+        "property_support_counts": {
+          "density_20c": 10,
+          "BP_20": 10,
+          "BP_35": 10,
+          "BP_50": 10,
+          "BP_65": 10,
+          "BP_80": 10,
+          "saturates": 10
+        },
+        "diagnostic_role": "validation actuals are not used for retrieval"
+      },
+      "final_answer": "For test sample query_petroleum_fraction_07_gc_ir_case, GC-FID and IR PCA/PLS latent evidence retrieved 10 train-split historical neighbors. The evidence estimates are: density_20c=0.8688 (range 0.8348-0.9004, validation actual=NA); BP_20=367.99 (range 336.40-399.60, validation actual=NA); BP_35=391.81 (range 352.00-415.80, validation actual=NA); BP_50=411.46 (range 365.80-438.00, validation actual=NA); BP_65=429.88 (range 379.20-467.20, validation actual=NA); BP_80=452.70 (range 395.60-499.80, validation actual=NA); saturates=85.26 (range 71.55-96.27, validation actual=NA). The petroleum expert reasoning step should judge chemical relevance of the spectral latent features before treating these values as conclusions.",
+      "property_claims": [
+        {
+          "property_name": "density_20c",
+          "evidence_center": 0.8688,
+          "evidence_range": [
+            0.8348,
+            0.9004
+          ],
+          "support_count": 10,
+          "supporting_samples": [
+            "petroleum_fraction_db_009",
+            "petroleum_fraction_db_002",
+            "petroleum_fraction_db_029",
+            "petroleum_fraction_db_031",
+            "petroleum_fraction_db_026",
+            "petroleum_fraction_db_035",
+            "petroleum_fraction_db_066",
+            "petroleum_fraction_db_010"
+          ],
+          "interpretation": "density_20c: spectral evidence center=0.8688, neighbor range=0.8348-0.9004, support_count=10, validation actual=NA, absolute relative error=NA%."
+        },
+        {
+          "property_name": "BP_20",
+          "evidence_center": 367.99,
+          "evidence_range": [
+            336.4,
+            399.6
+          ],
+          "support_count": 10,
+          "supporting_samples": [
+            "petroleum_fraction_db_009",
+            "petroleum_fraction_db_002",
+            "petroleum_fraction_db_029",
+            "petroleum_fraction_db_031",
+            "petroleum_fraction_db_026",
+            "petroleum_fraction_db_035",
+            "petroleum_fraction_db_066",
+            "petroleum_fraction_db_010"
+          ],
+          "interpretation": "BP_20: spectral evidence center=367.99, neighbor range=336.40-399.60, support_count=10, validation actual=NA, absolute relative error=NA%."
+        },
+        {
+          "property_name": "BP_35",
+          "evidence_center": 391.81,
+          "evidence_range": [
+            352.0,
+            415.8
+          ],
+          "support_count": 10,
+          "supporting_samples": [
+            "petroleum_fraction_db_009",
+            "petroleum_fraction_db_002",
+            "petroleum_fraction_db_029",
+            "petroleum_fraction_db_031",
+            "petroleum_fraction_db_026",
+            "petroleum_fraction_db_035",
+            "petroleum_fraction_db_066",
+            "petroleum_fraction_db_010"
+          ],
+          "interpretation": "BP_35: spectral evidence center=391.81, neighbor range=352.00-415.80, support_count=10, validation actual=NA, absolute relative error=NA%."
+        },
+        {
+          "property_name": "BP_50",
+          "evidence_center": 411.46,
+          "evidence_range": [
+            365.8,
+            438.0
+          ],
+          "support_count": 10,
+          "supporting_samples": [
+            "petroleum_fraction_db_009",
+            "petroleum_fraction_db_002",
+            "petroleum_fraction_db_029",
+            "petroleum_fraction_db_031",
+            "petroleum_fraction_db_026",
+            "petroleum_fraction_db_035",
+            "petroleum_fraction_db_066",
+            "petroleum_fraction_db_010"
+          ],
+          "interpretation": "BP_50: spectral evidence center=411.46, neighbor range=365.80-438.00, support_count=10, validation actual=NA, absolute relative error=NA%."
+        },
+        {
+          "property_name": "BP_65",
+          "evidence_center": 429.88,
+          "evidence_range": [
+            379.2,
+            467.2
+          ],
+          "support_count": 10,
+          "supporting_samples": [
+            "petroleum_fraction_db_009",
+            "petroleum_fraction_db_002",
+            "petroleum_fraction_db_029",
+            "petroleum_fraction_db_031",
+            "petroleum_fraction_db_026",
+            "petroleum_fraction_db_035",
+            "petroleum_fraction_db_066",
+            "petroleum_fraction_db_010"
+          ],
+          "interpretation": "BP_65: spectral evidence center=429.88, neighbor range=379.20-467.20, support_count=10, validation actual=NA, absolute relative error=NA%."
+        },
+        {
+          "property_name": "BP_80",
+          "evidence_center": 452.7,
+          "evidence_range": [
+            395.6,
+            499.8
+          ],
+          "support_count": 10,
+          "supporting_samples": [
+            "petroleum_fraction_db_009",
+            "petroleum_fraction_db_002",
+            "petroleum_fraction_db_029",
+            "petroleum_fraction_db_031",
+            "petroleum_fraction_db_026",
+            "petroleum_fraction_db_035",
+            "petroleum_fraction_db_066",
+            "petroleum_fraction_db_010"
+          ],
+          "interpretation": "BP_80: spectral evidence center=452.70, neighbor range=395.60-499.80, support_count=10, validation actual=NA, absolute relative error=NA%."
+        },
+        {
+          "property_name": "saturates",
+          "evidence_center": 85.26,
+          "evidence_range": [
+            71.55,
+            96.27
+          ],
+          "support_count": 10,
+          "supporting_samples": [
+            "petroleum_fraction_db_009",
+            "petroleum_fraction_db_002",
+            "petroleum_fraction_db_029",
+            "petroleum_fraction_db_031",
+            "petroleum_fraction_db_026",
+            "petroleum_fraction_db_035",
+            "petroleum_fraction_db_066",
+            "petroleum_fraction_db_010"
+          ],
+          "interpretation": "saturates: spectral evidence center=85.26, neighbor range=71.55-96.27, support_count=10, validation actual=NA, absolute relative error=NA%."
+        }
+      ],
+      "prompt_policy": [
+        "Use GC-FID and IR PCA/PLS latent variables as spectral evidence, not as raw curve statistics.",
+        "Do not use the test-set actual values in reasoning; they are validation annotations only.",
+        "Explain that the numeric evidence centers are obtained by inverse-distance weighted interpolation over top-k historical neighbors.",
+        "For density, consider spectral similarity together with petroleum-property relationships.",
+        "For distillation distribution, discuss BP_20/BP_35/BP_50/BP_65/BP_80 as a curve rather than isolated labels.",
+        "Write boiling-point values as table values or explicit intervals; do not use shorthand such as '420s °C', 'mid-450s °C', or 'around 470 °C' when numerical evidence is available.",
+        "For saturates, evaluate whether spectral-neighbor evidence is chemically consistent with composition evidence."
+      ],
+      "expert_reasoning_prompt": "You are a petroleum-chemistry expert. Use only the GC-FID and IR PCA/PLS Experimental DB evidence. Explain density, distillation distribution, and saturates inference from train-split historical neighbors. Explicitly state that property centers are inverse-distance weighted interpolations over the retrieved top-k historical samples. For BP_20/BP_35/BP_50/BP_65/BP_80, report the numeric evidence center or an explicit numeric interval, and do not use decade shorthand such as '420s °C' or vague phrases such as 'mid-450s °C'. Do not use validation actual values except to comment on method performance if they are explicitly marked as validation. User query: Using only the uploaded GC-FID chromatogram and IR spectrum as analytical input, infer density at 20 deg C, distillation distribution (BP20, BP35, BP50, BP65, BP80), and saturates for this unknown petroleum fraction sample with the historical experimental database. Then use literature evidence to explain whether the inferred boiling range and composition are chemically consistent, discuss likely processing implications, and identify limitations or follow-up measurements.",
+      "expert_reasoning": null
+    },
+    "evidence_statement": "For petroleum fraction test sample query_petroleum_fraction_07_gc_ir_case, the Experimental DB evidence test used saved gc_fid, ir_spectrum PCA/PLS latent features to infer density_20c, BP_20, BP_35, BP_50, BP_65, BP_80, saturates. The nearest train-split support sample is petroleum_fraction_db_009 (distance=0.279951, shared_features=66). Evidence centers: density_20c=0.8688; BP_20=367.99; BP_35=391.81; BP_50=411.46; BP_65=429.88; BP_80=452.70; saturates=85.26.",
+    "reasoning_notes": [
+      "This is the Experimental DB evidence-test path with a petroleum fraction spectral validation branch.",
+      "Saved PCA/PLS features were loaded from outputs\\petroleum_fraction_experimental_db\\feature_models\\20260712_201723.",
+      "Only GC-FID and IR-spectrum PCA/PLS latent variables are used for this query.",
+      "Training-set neighbor properties are evidence carriers; validation actual values are reported only for method checking."
+    ]
+  },
+  "database_status": {
+    "status": "ready",
+    "train_sample_count": 54,
+    "spectral_model_count": 40,
+    "result_dir": "outputs\\petroleum_fraction_experimental_db\\feature_models\\20260712_201723"
+  }
+}

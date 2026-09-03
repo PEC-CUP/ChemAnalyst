@@ -1,0 +1,633 @@
+{
+  "schema_version": "chemanalyst-petroleum-fraction-dataset.v1",
+  "sample_count": 68,
+  "train_count": 54,
+  "test_count": 14,
+  "target_properties": [
+    "density_20c",
+    "saturates",
+    "BP_20",
+    "BP_35",
+    "BP_50",
+    "BP_65",
+    "BP_80"
+  ],
+  "analysis_sheets": [
+    "gc_fid",
+    "ir_spectrum"
+  ],
+  "samples": [
+    {
+      "sample_id": "petroleum_fraction_db_007",
+      "sample_name": "Petroleum fraction 007",
+      "file": "data/experimental_db/petroleum_fraction_dataset/test/petroleum_fraction_db_007.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "test",
+      "raw_sample_id": "petroleum_fraction_db_007"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_013",
+      "sample_name": "Petroleum fraction 013",
+      "file": "data/experimental_db/petroleum_fraction_dataset/test/petroleum_fraction_db_013.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "test",
+      "raw_sample_id": "petroleum_fraction_db_013"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_015",
+      "sample_name": "Petroleum fraction 015",
+      "file": "data/experimental_db/petroleum_fraction_dataset/test/petroleum_fraction_db_015.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "test",
+      "raw_sample_id": "petroleum_fraction_db_015"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_024",
+      "sample_name": "Petroleum fraction 024",
+      "file": "data/experimental_db/petroleum_fraction_dataset/test/petroleum_fraction_db_024.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "test",
+      "raw_sample_id": "petroleum_fraction_db_024"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_027",
+      "sample_name": "Petroleum fraction 027",
+      "file": "data/experimental_db/petroleum_fraction_dataset/test/petroleum_fraction_db_027.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "test",
+      "raw_sample_id": "petroleum_fraction_db_027"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_039",
+      "sample_name": "Petroleum fraction 039",
+      "file": "data/experimental_db/petroleum_fraction_dataset/test/petroleum_fraction_db_039.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "test",
+      "raw_sample_id": "petroleum_fraction_db_039"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_041",
+      "sample_name": "Petroleum fraction 041",
+      "file": "data/experimental_db/petroleum_fraction_dataset/test/petroleum_fraction_db_041.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "test",
+      "raw_sample_id": "petroleum_fraction_db_041"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_047",
+      "sample_name": "Petroleum fraction 047",
+      "file": "data/experimental_db/petroleum_fraction_dataset/test/petroleum_fraction_db_047.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "test",
+      "raw_sample_id": "petroleum_fraction_db_047"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_048",
+      "sample_name": "Petroleum fraction 048",
+      "file": "data/experimental_db/petroleum_fraction_dataset/test/petroleum_fraction_db_048.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "test",
+      "raw_sample_id": "petroleum_fraction_db_048"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_053",
+      "sample_name": "Petroleum fraction 053",
+      "file": "data/experimental_db/petroleum_fraction_dataset/test/petroleum_fraction_db_053.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "test",
+      "raw_sample_id": "petroleum_fraction_db_053"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_056",
+      "sample_name": "Petroleum fraction 056",
+      "file": "data/experimental_db/petroleum_fraction_dataset/test/petroleum_fraction_db_056.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "test",
+      "raw_sample_id": "petroleum_fraction_db_056"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_061",
+      "sample_name": "Petroleum fraction 061",
+      "file": "data/experimental_db/petroleum_fraction_dataset/test/petroleum_fraction_db_061.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "test",
+      "raw_sample_id": "petroleum_fraction_db_061"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_065",
+      "sample_name": "Petroleum fraction 065",
+      "file": "data/experimental_db/petroleum_fraction_dataset/test/petroleum_fraction_db_065.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "test",
+      "raw_sample_id": "petroleum_fraction_db_065"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_067",
+      "sample_name": "Petroleum fraction 067",
+      "file": "data/experimental_db/petroleum_fraction_dataset/test/petroleum_fraction_db_067.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "test",
+      "raw_sample_id": "petroleum_fraction_db_067"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_001",
+      "sample_name": "Petroleum fraction 001",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_001.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_001"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_002",
+      "sample_name": "Petroleum fraction 002",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_002.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_002"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_003",
+      "sample_name": "Petroleum fraction 003",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_003.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_003"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_004",
+      "sample_name": "Petroleum fraction 004",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_004.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_004"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_005",
+      "sample_name": "Petroleum fraction 005",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_005.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_005"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_006",
+      "sample_name": "Petroleum fraction 006",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_006.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_006"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_008",
+      "sample_name": "Petroleum fraction 008",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_008.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_008"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_009",
+      "sample_name": "Petroleum fraction 009",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_009.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_009"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_010",
+      "sample_name": "Petroleum fraction 010",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_010.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_010"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_011",
+      "sample_name": "Petroleum fraction 011",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_011.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_011"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_012",
+      "sample_name": "Petroleum fraction 012",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_012.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_012"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_014",
+      "sample_name": "Petroleum fraction 014",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_014.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_014"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_016",
+      "sample_name": "Petroleum fraction 016",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_016.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_016"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_017",
+      "sample_name": "Petroleum fraction 017",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_017.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_017"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_018",
+      "sample_name": "Petroleum fraction 018",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_018.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_018"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_019",
+      "sample_name": "Petroleum fraction 019",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_019.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_019"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_020",
+      "sample_name": "Petroleum fraction 020",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_020.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_020"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_021",
+      "sample_name": "Petroleum fraction 021",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_021.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_021"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_022",
+      "sample_name": "Petroleum fraction 022",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_022.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_022"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_023",
+      "sample_name": "Petroleum fraction 023",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_023.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_023"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_025",
+      "sample_name": "Petroleum fraction 025",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_025.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_025"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_026",
+      "sample_name": "Petroleum fraction 026",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_026.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_026"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_028",
+      "sample_name": "Petroleum fraction 028",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_028.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_028"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_029",
+      "sample_name": "Petroleum fraction 029",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_029.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_029"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_030",
+      "sample_name": "Petroleum fraction 030",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_030.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_030"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_031",
+      "sample_name": "Petroleum fraction 031",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_031.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_031"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_032",
+      "sample_name": "Petroleum fraction 032",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_032.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_032"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_033",
+      "sample_name": "Petroleum fraction 033",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_033.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_033"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_034",
+      "sample_name": "Petroleum fraction 034",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_034.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_034"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_035",
+      "sample_name": "Petroleum fraction 035",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_035.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_035"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_036",
+      "sample_name": "Petroleum fraction 036",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_036.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_036"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_037",
+      "sample_name": "Petroleum fraction 037",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_037.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_037"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_038",
+      "sample_name": "Petroleum fraction 038",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_038.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_038"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_040",
+      "sample_name": "Petroleum fraction 040",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_040.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_040"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_042",
+      "sample_name": "Petroleum fraction 042",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_042.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_042"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_043",
+      "sample_name": "Petroleum fraction 043",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_043.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_043"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_044",
+      "sample_name": "Petroleum fraction 044",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_044.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_044"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_045",
+      "sample_name": "Petroleum fraction 045",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_045.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_045"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_046",
+      "sample_name": "Petroleum fraction 046",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_046.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_046"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_049",
+      "sample_name": "Petroleum fraction 049",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_049.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_049"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_050",
+      "sample_name": "Petroleum fraction 050",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_050.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_050"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_051",
+      "sample_name": "Petroleum fraction 051",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_051.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_051"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_052",
+      "sample_name": "Petroleum fraction 052",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_052.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_052"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_054",
+      "sample_name": "Petroleum fraction 054",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_054.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_054"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_055",
+      "sample_name": "Petroleum fraction 055",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_055.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_055"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_057",
+      "sample_name": "Petroleum fraction 057",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_057.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_057"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_058",
+      "sample_name": "Petroleum fraction 058",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_058.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_058"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_059",
+      "sample_name": "Petroleum fraction 059",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_059.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_059"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_060",
+      "sample_name": "Petroleum fraction 060",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_060.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_060"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_062",
+      "sample_name": "Petroleum fraction 062",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_062.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_062"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_063",
+      "sample_name": "Petroleum fraction 063",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_063.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_063"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_064",
+      "sample_name": "Petroleum fraction 064",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_064.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_064"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_066",
+      "sample_name": "Petroleum fraction 066",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_066.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_066"
+    },
+    {
+      "sample_id": "petroleum_fraction_db_068",
+      "sample_name": "Petroleum fraction 068",
+      "file": "data/experimental_db/petroleum_fraction_dataset/train/petroleum_fraction_db_068.xlsx",
+      "has_gc_fid": true,
+      "has_ir": true,
+      "split": "train",
+      "raw_sample_id": "petroleum_fraction_db_068"
+    }
+  ]
+}

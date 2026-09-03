@@ -1,0 +1,1 @@
+Use IR and GC-FID to infer density, distillation distribution, and saturates for this petroleum fraction sample. Then interpret the inferred petroleum-fraction properties and processing relevance using database and literature evidence, noting plausibility, limitations, and follow-up analysis.

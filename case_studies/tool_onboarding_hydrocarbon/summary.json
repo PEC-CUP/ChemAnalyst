@@ -1,0 +1,70 @@
+{
+  "deploy": {
+    "review": {
+      "status": "success",
+      "message": "provider_review_updated",
+      "provider_id": "hydrocarbon_type_calculator",
+      "review": {
+        "reviewed": true,
+        "enabled": true,
+        "notes": "Smoke-tested and enabled for Planner dynamic capability routing."
+      }
+    },
+    "registration": {
+      "status": "success",
+      "message": "provider_registered",
+      "provider_id": "hydrocarbon_type_calculator",
+      "capability_id": "tool.hydrocarbon_type_calculator"
+    }
+  },
+  "summary": {
+    "status": "success",
+    "planner_template": "data_analysis",
+    "used_capability": "tool.hydrocarbon_type_calculator",
+    "input_file": "<local_path_removed>",
+    "output_excel": "<local_path_removed>",
+    "structured_result_rows": 18,
+    "first_structured_rows": [
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "monocycloparaffins",
+        "drop_frac_gt_0_5_floor_sum": 16.2,
+        "floor_max": 16.4,
+        "floor_sum": 16.1,
+        "half_up_sum": 16.2
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "tricycloparaffins",
+        "drop_frac_gt_0_5_floor_sum": 5.0,
+        "floor_max": 4.9,
+        "floor_sum": 5.0,
+        "half_up_sum": 5.0
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "tricyclic_aromatics",
+        "drop_frac_gt_0_5_floor_sum": 0.8,
+        "floor_max": 0.8,
+        "floor_sum": 0.8,
+        "half_up_sum": 0.8
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "dicycloparaffins",
+        "drop_frac_gt_0_5_floor_sum": 12.9,
+        "floor_max": 12.7,
+        "floor_sum": 13.0,
+        "half_up_sum": 13.0
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "total_monoaromatics",
+        "drop_frac_gt_0_5_floor_sum": 18.1,
+        "floor_max": 18.4,
+        "floor_sum": 18.0,
+        "half_up_sum": 18.1
+      }
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": "chemanalyst-historical-db-reproducibility.v1",
+  "sample_count": 68,
+  "train_count": 54,
+  "test_count": 14,
+  "target_properties": [
+    "density_20c",
+    "saturates",
+    "BP_20",
+    "BP_35",
+    "BP_50",
+    "BP_65",
+    "BP_80"
+  ],
+  "top_k_values": [
+    2,
+    4,
+    6,
+    10
+  ],
+  "primary_dataset": "data/experimental_db/petroleum_fraction_dataset",
+  "outputs": {
+    "retrieval_metrics_by_topk.csv": "combined metrics for weighted database retrieval and ordinary KNN baselines",
+    "test_predictions_by_topk.csv": "sample-property evidence-center predictions for all hold-out samples",
+    "neighbor_evidence_by_topk.csv": "ranked historical neighbors supporting each query sample and property",
+    "figure5_retrieval_summary.csv": "compact retrieval summary for Figure 5-style comparisons",
+    "database_evidence_ranges_table_s1.csv": "database evidence centers and ranges for Table S1-style inspection"
+  }
+}

@@ -1,0 +1,51 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ChemAnalyst Support Layer</title>
+  <link rel="stylesheet" href="/static/support_workbench.css">
+  <style>
+    nav{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 0}
+    nav button{margin:0}.active-tab{background:var(--blue);color:#fff}
+    .panel{display:none}.panel.active{display:block}
+    .overview-card{display:flex;flex-direction:column;justify-content:space-between;width:100%;height:100%;min-height:220px;margin:0;text-align:left;color:var(--ink);background:var(--panel);font:inherit}
+    .overview-card:hover{border-color:#8bb4ff;transform:translateY(-1px)}
+    .pill{display:inline-block;margin:4px 4px 0 0;border-radius:999px;padding:5px 9px;background:#edf3ff;color:#24508d;font-size:13px}
+    .open-card{display:block;height:100%;text-decoration:none}
+  </style>
+</head>
+<body>
+  <header class="workbench-header">
+    <div class="workbench-copy">
+      <h1>ChemAnalyst Support Layer</h1>
+      <p>Unified support workbench for KB construction, QA generation, Evidence-grounded RAG, Experimental Database, and Analytical Tool Onboarding.</p>
+    </div>
+    <nav>
+      <button class="active-tab" data-panel="overview">Overview</button>
+      <a href="/benchmark-workbench?v=20260725g"><button type="button">KB Construction & QA Generation</button></a>
+      <a href="/rag-workbench?v=20260604a"><button type="button">ChemAnalyst RAG</button></a>
+      <a href="/experimental-db-workbench?v=20260523d"><button type="button">Experimental Database</button></a>
+      <a href="/tool-onboarding?v=20260720a"><button type="button">Analytical Tool Onboarding</button></a>
+    </nav>
+  </header>
+  <main class="workbench-main">
+    <section id="overview" class="panel active">
+      <div class="row">
+      <a class="open-card" href="/benchmark-workbench?v=20260725g"><button class="card overview-card" type="button"><h2>KB Construction & QA Generation</h2><p>Build staged literature KBs and keyword graphs for inspection without modifying the active RAG KB, then generate reviewed single-doc/two-doc QA, specific-fact open QA, MCQ, and naive baselines.</p><span class="pill">staged KB</span><span class="pill">keyword graph</span><span class="pill">QA benchmark</span></button></a>
+        <a class="open-card" href="/rag-workbench?v=20260604a"><button class="card overview-card" type="button"><h2>Evidence-grounded RAG</h2><p>Current naive, QA-oriented, and iterative review RAG routes with same-query comparison, query refinement, BM25, reranker, KB status, and index controls.</p><span class="pill">naive baseline</span><span class="pill">QA-oriented</span><span class="pill">iterative review</span></button></a>
+        <a class="open-card" href="/experimental-db-workbench?v=20260523d"><button class="card overview-card" type="button"><h2>Experimental Database</h2><p>Standardize and store historical sample workbooks as sample-centered records, manage registry and catalog entries, and run training-free property reasoning from historical-neighbor evidence.</p><div><span class="pill">data standardization</span><span class="pill">sample storage</span><span class="pill">property reasoning</span></div></button></a>
+        <a class="open-card" href="/tool-onboarding?v=20260720a"><button class="card overview-card" type="button"><h2>Analytical Tool Onboarding</h2><p>Package reviewed analytical scripts or callables as Planner-visible evidence tools, attach input templates, return structured tool evidence, and test the full Planner-routed upload path.</p><span class="pill">tool evidence</span><span class="pill">input template</span><span class="pill">planner test</span></button></a>
+      </div>
+    </section>
+  </main>
+  <script>
+    function openPanel(panel){
+      document.querySelectorAll("nav button").forEach(button=>button.classList.toggle("active-tab",button.dataset.panel===panel));
+      document.querySelectorAll(".panel").forEach(node=>node.classList.toggle("active",node.id===panel));
+    }
+    document.querySelectorAll("nav button[data-panel]").forEach(button=>button.onclick=()=>openPanel(button.dataset.panel));
+  </script>
+</body>
+</html>
+
+

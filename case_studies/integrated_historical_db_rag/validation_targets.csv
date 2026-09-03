@@ -1,0 +1,8 @@
+property_name,value,unit,method,property_group,source_column,description
+density_20c,0.8713,g/cm3,20 deg C,bulk_property,Density,Density at 20 deg C
+saturates,91.31,wt_percent,,sara,Saturates,SARA fraction
+BP_20,350.6,deg C,boiling point-yield distribution,boiling_point_distribution,BP_20,Boiling point at 20% yield
+BP_35,378.2,deg C,boiling point-yield distribution,boiling_point_distribution,BP_35,Boiling point at 35% yield
+BP_50,399.2,deg C,boiling point-yield distribution,boiling_point_distribution,BP_50,Boiling point at 50% yield
+BP_65,419.0,deg C,boiling point-yield distribution,boiling_point_distribution,BP_65,Boiling point at 65% yield
+BP_80,442.2,deg C,boiling point-yield distribution,boiling_point_distribution,BP_80,Boiling point at 80% yield

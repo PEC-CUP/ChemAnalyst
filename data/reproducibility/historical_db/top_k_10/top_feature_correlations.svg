@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="1424" viewBox="0 0 1300 1424">
+<rect width="100%" height="100%" fill="#fbfdff"/>
+<text x="24" y="30" font-family="Arial" font-size="24" font-weight="700" fill="#0f2442">Top PCA/PLS-informed feature-target weights</text>
+<text x="24" y="52" font-family="Arial" font-size="13" fill="#526987">w = 0.05 + mean(abs(Pearson), abs(Spearman)) * coverage; used in weighted shared-feature distance.</text>
+<text x="24" y="70" font-family="Arial" font-size="12" fill="#0f2442">density_20c | bulk_property:saturates</text>
+<rect x="710" y="56" width="376.1" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1096.1" y="70" font-family="Arial" font-size="12" fill="#0f2442">w=0.895, n=54</text>
+<text x="24" y="94" font-family="Arial" font-size="12" fill="#0f2442">density_20c | ir:weighted_x_q90</text>
+<rect x="710" y="80" width="305.9" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1025.9" y="94" font-family="Arial" font-size="12" fill="#0f2442">w=0.728, n=52</text>
+<text x="24" y="118" font-family="Arial" font-size="12" fill="#0f2442">density_20c | ir_spectrum:pls:density_20c:lv2</text>
+<rect x="710" y="104" width="305.5" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1025.5" y="118" font-family="Arial" font-size="12" fill="#0f2442">w=0.727, n=52</text>
+<text x="24" y="142" font-family="Arial" font-size="12" fill="#0f2442">density_20c | ir_spectrum:pls:saturates:lv2</text>
+<rect x="710" y="128" width="300.7" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1020.7" y="142" font-family="Arial" font-size="12" fill="#0f2442">w=0.716, n=52</text>
+<text x="24" y="166" font-family="Arial" font-size="12" fill="#0f2442">density_20c | ir_spectrum:pls:density_20c:lv1</text>
+<rect x="710" y="152" width="272.5" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="992.5" y="166" font-family="Arial" font-size="12" fill="#0f2442">w=0.649, n=52</text>
+<text x="24" y="190" font-family="Arial" font-size="12" fill="#0f2442">density_20c | ir_spectrum:pls:saturates:lv1</text>
+<rect x="710" y="176" width="264.3" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="984.3" y="190" font-family="Arial" font-size="12" fill="#0f2442">w=0.629, n=52</text>
+<text x="24" y="214" font-family="Arial" font-size="12" fill="#0f2442">density_20c | ir_spectrum:pls:bp_35:lv1</text>
+<rect x="710" y="200" width="263.9" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="983.9" y="214" font-family="Arial" font-size="12" fill="#0f2442">w=0.628, n=52</text>
+<text x="24" y="238" font-family="Arial" font-size="12" fill="#0f2442">density_20c | ir_spectrum:pca:pc1</text>
+<rect x="710" y="224" width="258.4" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="978.4" y="238" font-family="Arial" font-size="12" fill="#0f2442">w=0.615, n=52</text>
+<text x="24" y="262" font-family="Arial" font-size="12" fill="#0f2442">saturates | bulk_property:density_20c</text>
+<rect x="710" y="248" width="376.1" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1096.1" y="262" font-family="Arial" font-size="12" fill="#0f2442">w=0.895, n=54</text>
+<text x="24" y="286" font-family="Arial" font-size="12" fill="#0f2442">saturates | ir:weighted_x_q90</text>
+<rect x="710" y="272" width="295.1" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1015.1" y="286" font-family="Arial" font-size="12" fill="#0f2442">w=0.703, n=52</text>
+<text x="24" y="310" font-family="Arial" font-size="12" fill="#0f2442">saturates | ir_spectrum:pls:density_20c:lv1</text>
+<rect x="710" y="296" width="280.7" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1000.7" y="310" font-family="Arial" font-size="12" fill="#0f2442">w=0.668, n=52</text>
+<text x="24" y="334" font-family="Arial" font-size="12" fill="#0f2442">saturates | ir_spectrum:pls:saturates:lv1</text>
+<rect x="710" y="320" width="280.6" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1000.6" y="334" font-family="Arial" font-size="12" fill="#0f2442">w=0.668, n=52</text>
+<text x="24" y="358" font-family="Arial" font-size="12" fill="#0f2442">saturates | ir_spectrum:pca:pc1</text>
+<rect x="710" y="344" width="275.4" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="995.4" y="358" font-family="Arial" font-size="12" fill="#0f2442">w=0.656, n=52</text>
+<text x="24" y="382" font-family="Arial" font-size="12" fill="#0f2442">saturates | ir:weighted_x_mean</text>
+<rect x="710" y="368" width="257.3" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="977.3" y="382" font-family="Arial" font-size="12" fill="#0f2442">w=0.613, n=52</text>
+<text x="24" y="406" font-family="Arial" font-size="12" fill="#0f2442">saturates | ir_spectrum:pls:bp_80:lv1</text>
+<rect x="710" y="392" width="242.3" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="962.3" y="406" font-family="Arial" font-size="12" fill="#0f2442">w=0.577, n=52</text>
+<text x="24" y="430" font-family="Arial" font-size="12" fill="#0f2442">saturates | ir_spectrum:pls:saturates:lv2</text>
+<rect x="710" y="416" width="238.4" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="958.4" y="430" font-family="Arial" font-size="12" fill="#0f2442">w=0.568, n=52</text>
+<text x="24" y="454" font-family="Arial" font-size="12" fill="#0f2442">BP_20 | bulk_property:bp_35</text>
+<rect x="710" y="440" width="436.7" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1156.7" y="454" font-family="Arial" font-size="12" fill="#0f2442">w=1.040, n=54</text>
+<text x="24" y="478" font-family="Arial" font-size="12" fill="#0f2442">BP_20 | bulk_property:bp_50</text>
+<rect x="710" y="464" width="426.4" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1146.4" y="478" font-family="Arial" font-size="12" fill="#0f2442">w=1.015, n=54</text>
+<text x="24" y="502" font-family="Arial" font-size="12" fill="#0f2442">BP_20 | bulk_property:bp_65</text>
+<rect x="710" y="488" width="414.0" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1134.0" y="502" font-family="Arial" font-size="12" fill="#0f2442">w=0.986, n=54</text>
+<text x="24" y="526" font-family="Arial" font-size="12" fill="#0f2442">BP_20 | gc_fid:pls:density_20c:lv1</text>
+<rect x="710" y="512" width="398.3" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1118.3" y="526" font-family="Arial" font-size="12" fill="#0f2442">w=0.948, n=54</text>
+<text x="24" y="550" font-family="Arial" font-size="12" fill="#0f2442">BP_20 | gc_fid:pls:bp_20:lv1</text>
+<rect x="710" y="536" width="394.8" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1114.8" y="550" font-family="Arial" font-size="12" fill="#0f2442">w=0.940, n=54</text>
+<text x="24" y="574" font-family="Arial" font-size="12" fill="#0f2442">BP_20 | gc_fid:pls:bp_35:lv1</text>
+<rect x="710" y="560" width="394.5" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1114.5" y="574" font-family="Arial" font-size="12" fill="#0f2442">w=0.939, n=54</text>
+<text x="24" y="598" font-family="Arial" font-size="12" fill="#0f2442">BP_20 | bulk_property:bp_80</text>
+<rect x="710" y="584" width="394.3" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1114.3" y="598" font-family="Arial" font-size="12" fill="#0f2442">w=0.939, n=54</text>
+<text x="24" y="622" font-family="Arial" font-size="12" fill="#0f2442">BP_20 | gc_fid:pls:bp_50:lv1</text>
+<rect x="710" y="608" width="393.8" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1113.8" y="622" font-family="Arial" font-size="12" fill="#0f2442">w=0.938, n=54</text>
+<text x="24" y="646" font-family="Arial" font-size="12" fill="#0f2442">BP_35 | bulk_property:bp_20</text>
+<rect x="710" y="632" width="436.7" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1156.7" y="646" font-family="Arial" font-size="12" fill="#0f2442">w=1.040, n=54</text>
+<text x="24" y="670" font-family="Arial" font-size="12" fill="#0f2442">BP_35 | bulk_property:bp_50</text>
+<rect x="710" y="656" width="436.6" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1156.6" y="670" font-family="Arial" font-size="12" fill="#0f2442">w=1.040, n=54</text>
+<text x="24" y="694" font-family="Arial" font-size="12" fill="#0f2442">BP_35 | bulk_property:bp_65</text>
+<rect x="710" y="680" width="428.2" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1148.2" y="694" font-family="Arial" font-size="12" fill="#0f2442">w=1.020, n=54</text>
+<text x="24" y="718" font-family="Arial" font-size="12" fill="#0f2442">BP_35 | bulk_property:bp_80</text>
+<rect x="710" y="704" width="412.6" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1132.6" y="718" font-family="Arial" font-size="12" fill="#0f2442">w=0.982, n=54</text>
+<text x="24" y="742" font-family="Arial" font-size="12" fill="#0f2442">BP_35 | gc_fid:pls:density_20c:lv1</text>
+<rect x="710" y="728" width="406.2" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1126.2" y="742" font-family="Arial" font-size="12" fill="#0f2442">w=0.967, n=54</text>
+<text x="24" y="766" font-family="Arial" font-size="12" fill="#0f2442">BP_35 | gc_fid:pls:bp_35:lv1</text>
+<rect x="710" y="752" width="398.5" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1118.5" y="766" font-family="Arial" font-size="12" fill="#0f2442">w=0.949, n=54</text>
+<text x="24" y="790" font-family="Arial" font-size="12" fill="#0f2442">BP_35 | gc_fid:pls:saturates:lv1</text>
+<rect x="710" y="776" width="398.3" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1118.3" y="790" font-family="Arial" font-size="12" fill="#0f2442">w=0.948, n=54</text>
+<text x="24" y="814" font-family="Arial" font-size="12" fill="#0f2442">BP_35 | gc_fid:pls:bp_20:lv1</text>
+<rect x="710" y="800" width="398.3" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1118.3" y="814" font-family="Arial" font-size="12" fill="#0f2442">w=0.948, n=54</text>
+<text x="24" y="838" font-family="Arial" font-size="12" fill="#0f2442">BP_50 | bulk_property:bp_65</text>
+<rect x="710" y="824" width="437.8" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1157.8" y="838" font-family="Arial" font-size="12" fill="#0f2442">w=1.042, n=54</text>
+<text x="24" y="862" font-family="Arial" font-size="12" fill="#0f2442">BP_50 | bulk_property:bp_35</text>
+<rect x="710" y="848" width="436.6" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1156.6" y="862" font-family="Arial" font-size="12" fill="#0f2442">w=1.040, n=54</text>
+<text x="24" y="886" font-family="Arial" font-size="12" fill="#0f2442">BP_50 | bulk_property:bp_80</text>
+<rect x="710" y="872" width="427.4" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1147.4" y="886" font-family="Arial" font-size="12" fill="#0f2442">w=1.018, n=54</text>
+<text x="24" y="910" font-family="Arial" font-size="12" fill="#0f2442">BP_50 | bulk_property:bp_20</text>
+<rect x="710" y="896" width="426.4" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1146.4" y="910" font-family="Arial" font-size="12" fill="#0f2442">w=1.015, n=54</text>
+<text x="24" y="934" font-family="Arial" font-size="12" fill="#0f2442">BP_50 | gc_fid:pls:density_20c:lv1</text>
+<rect x="710" y="920" width="410.1" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1130.1" y="934" font-family="Arial" font-size="12" fill="#0f2442">w=0.977, n=54</text>
+<text x="24" y="958" font-family="Arial" font-size="12" fill="#0f2442">BP_50 | gc_fid:pls:saturates:lv1</text>
+<rect x="710" y="944" width="403.2" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1123.2" y="958" font-family="Arial" font-size="12" fill="#0f2442">w=0.960, n=54</text>
+<text x="24" y="982" font-family="Arial" font-size="12" fill="#0f2442">BP_50 | gc_fid:pls:bp_50:lv1</text>
+<rect x="710" y="968" width="399.4" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1119.4" y="982" font-family="Arial" font-size="12" fill="#0f2442">w=0.951, n=54</text>
+<text x="24" y="1006" font-family="Arial" font-size="12" fill="#0f2442">BP_50 | gc_fid:pls:bp_80:lv1</text>
+<rect x="710" y="992" width="399.3" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1119.3" y="1006" font-family="Arial" font-size="12" fill="#0f2442">w=0.951, n=54</text>
+<text x="24" y="1030" font-family="Arial" font-size="12" fill="#0f2442">BP_65 | bulk_property:bp_50</text>
+<rect x="710" y="1016" width="437.8" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1157.8" y="1030" font-family="Arial" font-size="12" fill="#0f2442">w=1.042, n=54</text>
+<text x="24" y="1054" font-family="Arial" font-size="12" fill="#0f2442">BP_65 | bulk_property:bp_80</text>
+<rect x="710" y="1040" width="436.5" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1156.5" y="1054" font-family="Arial" font-size="12" fill="#0f2442">w=1.039, n=54</text>
+<text x="24" y="1078" font-family="Arial" font-size="12" fill="#0f2442">BP_65 | bulk_property:bp_35</text>
+<rect x="710" y="1064" width="428.2" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1148.2" y="1078" font-family="Arial" font-size="12" fill="#0f2442">w=1.020, n=54</text>
+<text x="24" y="1102" font-family="Arial" font-size="12" fill="#0f2442">BP_65 | bulk_property:bp_20</text>
+<rect x="710" y="1088" width="414.0" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1134.0" y="1102" font-family="Arial" font-size="12" fill="#0f2442">w=0.986, n=54</text>
+<text x="24" y="1126" font-family="Arial" font-size="12" fill="#0f2442">BP_65 | gc_fid:pls:density_20c:lv1</text>
+<rect x="710" y="1112" width="411.6" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1131.6" y="1126" font-family="Arial" font-size="12" fill="#0f2442">w=0.980, n=54</text>
+<text x="24" y="1150" font-family="Arial" font-size="12" fill="#0f2442">BP_65 | gc_fid:pls:saturates:lv1</text>
+<rect x="710" y="1136" width="405.4" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1125.4" y="1150" font-family="Arial" font-size="12" fill="#0f2442">w=0.965, n=54</text>
+<text x="24" y="1174" font-family="Arial" font-size="12" fill="#0f2442">BP_65 | gc_fid:pls:bp_80:lv1</text>
+<rect x="710" y="1160" width="400.0" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1120.0" y="1174" font-family="Arial" font-size="12" fill="#0f2442">w=0.952, n=54</text>
+<text x="24" y="1198" font-family="Arial" font-size="12" fill="#0f2442">BP_65 | gc_fid:pls:bp_65:lv1</text>
+<rect x="710" y="1184" width="399.5" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1119.5" y="1198" font-family="Arial" font-size="12" fill="#0f2442">w=0.951, n=54</text>
+<text x="24" y="1222" font-family="Arial" font-size="12" fill="#0f2442">BP_80 | bulk_property:bp_65</text>
+<rect x="710" y="1208" width="436.5" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1156.5" y="1222" font-family="Arial" font-size="12" fill="#0f2442">w=1.039, n=54</text>
+<text x="24" y="1246" font-family="Arial" font-size="12" fill="#0f2442">BP_80 | bulk_property:bp_50</text>
+<rect x="710" y="1232" width="427.4" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1147.4" y="1246" font-family="Arial" font-size="12" fill="#0f2442">w=1.018, n=54</text>
+<text x="24" y="1270" font-family="Arial" font-size="12" fill="#0f2442">BP_80 | bulk_property:bp_35</text>
+<rect x="710" y="1256" width="412.6" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1132.6" y="1270" font-family="Arial" font-size="12" fill="#0f2442">w=0.982, n=54</text>
+<text x="24" y="1294" font-family="Arial" font-size="12" fill="#0f2442">BP_80 | gc_fid:pls:density_20c:lv1</text>
+<rect x="710" y="1280" width="408.7" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1128.7" y="1294" font-family="Arial" font-size="12" fill="#0f2442">w=0.973, n=54</text>
+<text x="24" y="1318" font-family="Arial" font-size="12" fill="#0f2442">BP_80 | gc_fid:pls:saturates:lv1</text>
+<rect x="710" y="1304" width="404.0" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1124.0" y="1318" font-family="Arial" font-size="12" fill="#0f2442">w=0.962, n=54</text>
+<text x="24" y="1342" font-family="Arial" font-size="12" fill="#0f2442">BP_80 | gc_fid:pls:bp_80:lv1</text>
+<rect x="710" y="1328" width="396.8" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1116.8" y="1342" font-family="Arial" font-size="12" fill="#0f2442">w=0.945, n=54</text>
+<text x="24" y="1366" font-family="Arial" font-size="12" fill="#0f2442">BP_80 | gc_fid:pls:bp_65:lv1</text>
+<rect x="710" y="1352" width="395.7" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1115.7" y="1366" font-family="Arial" font-size="12" fill="#0f2442">w=0.942, n=54</text>
+<text x="24" y="1390" font-family="Arial" font-size="12" fill="#0f2442">BP_80 | gc_fid:pls:bp_50:lv1</text>
+<rect x="710" y="1376" width="395.2" height="14" rx="4" fill="#2f6fdd" opacity="0.78"/>
+<text x="1115.2" y="1390" font-family="Arial" font-size="12" fill="#0f2442">w=0.941, n=54</text>
+</svg>

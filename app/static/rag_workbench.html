@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ChemAnalyst RAG Workbench</title>
+  <link rel="stylesheet" href="/static/support_workbench.css?v=20260720a">
+  <style>
+    .control-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .compare-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+    .compare-actions button{margin-top:14px}
+    .subtle{border-left:4px solid var(--teal);background:#eefdfb}
+    @media(max-width:980px){.control-grid{grid-template-columns:1fr}.compare-actions{display:block}}
+  </style>
+</head>
+<body>
+  <header class="workbench-header">
+    <div class="workbench-header-row">
+      <div class="workbench-copy">
+        <h1>ChemAnalyst RAG Workbench</h1>
+        <p>Test the current petroleum KB with the three main paper-facing RAG routes: naive RAG, QA-oriented RAG, and iterative review RAG. This page only changes request-time options; it does not modify retrieval or synthesis code.</p>
+      </div>
+      <button id="ragManualBtn" class="manual-button" type="button">RAG manual</button>
+    </div>
+  </header>
+
+  <div id="ragManual" class="modal-backdrop" aria-hidden="true">
+    <div class="manual-modal" role="dialog" aria-modal="true" aria-labelledby="ragManualTitle">
+      <div class="manual-head">
+        <h2 id="ragManualTitle">RAG manual</h2>
+        <button class="close-button" type="button" data-manual-close>Close</button>
+      </div>
+      <div class="manual-body">
+        <div class="manual-card">
+          <h3>What this page does</h3>
+          <p>This workbench evaluates the current petroleum literature knowledge base with the three main manuscript-facing RAG routes and exposes request-time retrieval overrides for controlled comparison. It is for route testing and KB inspection, not for editing the core synthesis logic.</p>
+        </div>
+        <div class="manual-card">
+          <h3>QA-oriented RAG</h3>
+          <p>This is the main factual question-answering route. It combines broader evidence recall, evidence filtering, and document-level organization to produce evidence-grounded answers for petroleum-domain QA tasks.</p>
+        </div>
+        <div class="manual-card">
+          <h3>Naive RAG</h3>
+          <p>This is the direct retrieval baseline. It is useful for simple questions and route comparison, but it may miss sufficient evidence for broader synthesis tasks.</p>
+        </div>
+        <div class="manual-card">
+          <h3>Iterative Review RAG</h3>
+          <p>This route extends QA-oriented retrieval with iterative evidence review and supplementary retrieval. It is intended for questions that require broader evidence coverage or multi-document synthesis.</p>
+        </div>
+        <div class="manual-card">
+          <h3>Route comparison</h3>
+          <p><b>Run selected mode</b> tests one route. <b>Compare all RAG routes</b> runs the same question through the three main routes so that evidence recall and synthesis differences can be inspected under the same query condition.</p>
+        </div>
+        <div class="manual-card">
+          <h3>Retrieval overrides</h3>
+          <p>Query refinement, BM25 fusion, and reranker settings are request-time overrides. They are mainly for ablation or debugging. Leave them as default when reproducing the current paper-facing settings.</p>
+        </div>
+        <div class="manual-card">
+          <h3>KB pipeline panel</h3>
+          <p>The lower panel is for petroleum KB maintenance actions such as source scanning, ingest, chunking, and index building. These actions write KB artifacts and should not be run casually during evaluation.</p>
+        </div>
+        <div class="manual-card">
+          <h3>Output boundary</h3>
+          <p>This page changes request-time retrieval behavior and can trigger KB maintenance actions, but it does not redefine the underlying route implementations.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="workbench-main">
+    <div class="row">
+      <section class="card">
+        <h2>1. RAG query test</h2>
+        <p>Run the same petroleum-literature question through one or all RAG routes. For paper-like tests, keep overrides at default.</p>
+
+        <label>RAG mode</label>
+        <p class="field-help">Choose one of the three main RAG routes used in the manuscript. QA-oriented RAG is the default factual route, whereas iterative review RAG performs evidence sufficiency checking and supplementary retrieval.</p>
+        <select id="ragMode">
+          <option value="qa_oriented">QA-oriented RAG</option>
+          <option value="iterative_review">Iterative review RAG</option>
+          <option value="naive">Naive RAG</option>
+        </select>
+
+        <label>Test query</label>
+        <p class="field-help">Enter the same petroleum-domain question when comparing routes. This allows retrieval differences and evidence-processing differences to be inspected under the same query condition.</p>
+        <textarea id="ragQuery">Provide reference information on the DPF method, including the author, DOI number, and paper title.</textarea>
+
+        <div class="control-grid">
+          <div>
+            <label>Query refinement override</label>
+            <p class="field-help">Override whether the route first rewrites or expands the original question before retrieval. Leave as default unless you are testing the effect of refinement on evidence recall.</p>
+            <select id="refinementAgent">
+              <option value="">default</option>
+              <option value="true">enable</option>
+              <option value="false">disable</option>
+            </select>
+          </div>
+          <div>
+            <label>BM25 fusion override</label>
+            <p class="field-help">Override whether keyword-based BM25 retrieval is fused with semantic retrieval. This is useful for checking whether lexical recall improves evidence coverage for narrow factual questions.</p>
+            <select id="bm25">
+              <option value="">default</option>
+              <option value="true">enable</option>
+              <option value="false">disable</option>
+            </select>
+          </div>
+          <div>
+            <label>Reranker override</label>
+            <p class="field-help">Override whether a reranker reorders the retrieved candidates before synthesis. Disable this only when isolating the contribution of candidate ranking quality.</p>
+            <select id="reranker">
+              <option value="">default</option>
+              <option value="true">enable</option>
+              <option value="false">disable</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="compare-actions">
+          <button class="teal" onclick="ragTest()">Run selected mode</button>
+          <button class="primary" onclick="ragCompare()">Compare all RAG routes</button>
+          <button onclick="ragStatus()">Refresh RAG status</button>
+        </div>
+        <div class="note subtle"><b>Interpretation:</b> use selected-mode testing for debugging one route; use compare mode to inspect whether QA-oriented or iterative review RAG recovers evidence that naive RAG misses.</div>
+      </section>
+
+      <section class="card">
+        <h2>RAG status / result</h2>
+        <pre id="ragOut">{}</pre>
+      </section>
+    </div>
+
+    <div class="row">
+      <section class="card">
+        <h2>2. Petroleum KB build pipeline</h2>
+        <p class="action-guide">These controls operate on knowledge-base construction artifacts rather than question answering itself. They are mainly for KB maintenance, inspection, or controlled rebuilds.</p>
+        <p>These actions write KB artifacts. Do not run ingest or build_index during evaluation unless you intentionally want to refresh the active KB.</p>
+        <div class="grid">
+          <div>
+            <label>Pipeline action</label>
+            <p class="field-help">Select which maintenance step to run on the petroleum knowledge base, such as scanning source files, ingesting and chunking text, or rebuilding the embedding index.</p>
+            <select id="kbAction">
+              <option value="list_sources">List registered sources</option>
+              <option value="scan_sources">Scan source files</option>
+              <option value="ingest_sources">Ingest and chunk sources</option>
+              <option value="build_index">Build embedding index</option>
+            </select>
+          </div>
+          <div>
+            <label>Label mode for ingest</label>
+            <p class="field-help">Choose how document labels or metadata annotations are assigned during ingestion. Keep the default setting unless you are testing an alternative ingest configuration.</p>
+            <select id="kbLabel">
+              <option value="hybrid">hybrid</option>
+              <option value="rule">rule</option>
+              <option value="llm">llm</option>
+              <option value="none">none</option>
+            </select>
+          </div>
+          <div>
+            <label>Chunk mode</label>
+            <p class="field-help">Control how source text is split into retrievable units. Scientific sentence chunking is the paper-aligned setting for structured literature evidence.</p>
+            <select id="kbChunk"><option value="">active default</option><option value="scientific_sentence">scientific sentence</option><option value="sentence">sentence</option><option value="char">char</option></select>
+          </div>
+          <div>
+            <label>Chunk token size</label>
+            <p class="field-help">Approximate token budget for each chunk. Larger chunks preserve more context, whereas smaller chunks increase retrieval granularity.</p>
+            <input id="kbChunkSize" type="number" min="32" max="4096" placeholder="active default">
+          </div>
+          <div>
+            <label>Sentence overlap</label>
+            <p class="field-help">Number of sentences repeated between adjacent chunks to reduce information loss at chunk boundaries.</p>
+            <input id="kbOverlap" type="number" min="0" max="20" placeholder="active default">
+          </div>
+          <div>
+            <label>Embedding model for index build</label>
+            <p class="field-help">Specify the embedding model used when rebuilding the vector index. Leave blank to keep the active default model configuration.</p>
+            <input id="kbEmbedding" placeholder="active default">
+          </div>
+        </div>
+        <div class="grid">
+          <label class="check">Append ingest into existing chunks
+            <p class="field-help">If enabled, newly ingested content is appended to the current chunk store rather than replacing it. Use with caution when maintaining the active KB.</p>
+            <input id="kbAppend" type="checkbox" checked>
+          </label>
+          <label class="check">Load embedding model from local cache only
+            <p class="field-help">Restrict index building to models already available in the local cache. This helps avoid unintended downloads or environment changes during evaluation.</p>
+            <input id="kbLocal" type="checkbox" checked>
+          </label>
+        </div>
+        <button class="teal" onclick="ragPipeline()">Run KB pipeline action</button>
+        <div class="note"><b>Current paper setup:</b> the active index should point to <code>chunks_clean.jsonl</code>. Use status output to confirm before evaluation.</div>
+      </section>
+
+      <section class="card">
+        <h2>KB pipeline result</h2>
+        <pre id="kbOut">{}</pre>
+      </section>
+    </div>
+  </main>
+
+  <script src="/static/support_help.js?v=20260720a"></script>
+  <script type="module" src="/static/support_rag.js?v=20260604a"></script>
+</body>
+</html>
+
+

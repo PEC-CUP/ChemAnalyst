@@ -1,0 +1,1987 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Analytical Tool Onboarding</title>
+  <link rel="stylesheet" href="/static/support_workbench.css?v=20260720a" />
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --panel: #ffffff;
+      --ink: #172033;
+      --muted: #64748b;
+      --line: #dbe3ef;
+      --blue: #3268d6;
+      --green: #16825d;
+      --orange: #cc6b12;
+      --purple: #7b3fe4;
+      --danger: #b42318;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+    header {
+      padding: 28px 36px 16px;
+      background: linear-gradient(135deg, #eef5ff, #fff4e7);
+      border-bottom: 1px solid var(--line);
+    }
+    .header-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    h1 { margin: 0 0 8px; font-size: 30px; }
+    .subtitle { margin: 0; color: var(--muted); max-width: 980px; line-height: 1.5; }
+    .help-button {
+      margin-top: 2px;
+      white-space: nowrap;
+      background: #e8eef8;
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+    main {
+      min-height: calc(100vh - 130px);
+      padding: 24px 28px 32px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .section-title {
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 18px;
+    }
+    .section-title.step-title {
+      gap: 8px;
+    }
+    .section-title.step-title::before {
+      content: "";
+      width: 4px;
+      height: 28px;
+      border-radius: 999px;
+      background: var(--orange);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: #e8f0ff;
+      color: var(--blue);
+      font-weight: 800;
+    }
+    .content { padding: 18px 20px 22px; flex: 1; }
+    .config-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 16px;
+      align-items: stretch;
+      min-height: 100%;
+    }
+    .config-grid .wide {
+      grid-column: 1 / -1;
+    }
+    .config-row-three {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr 1fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+    .config-row-two {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr);
+      gap: 16px;
+      align-items: stretch;
+    }
+    .hidden-config { display: none; }
+    .identity-panel { grid-column: span 5; }
+    .runtime-panel { grid-column: span 7; }
+    .form-block {
+      margin: 0;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fbfdff;
+      display: flex;
+      flex-direction: column;
+    }
+    .form-block h3 {
+      margin: 0 0 6px;
+      padding-left: 10px;
+      border-left: 4px solid var(--blue);
+      font-size: 17px;
+      color: #173f91;
+    }
+    .form-block p {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    label { display: block; margin: 14px 0 6px; font-weight: 700; }
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 11px 12px;
+      font: inherit;
+      background: #fbfdff;
+      color: var(--ink);
+    }
+    textarea { min-height: 90px; resize: vertical; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    #description { min-height: 250px; flex: 1; }
+    #adapterConfig { min-height: 210px; }
+    .hint { margin-top: 5px; font-size: 12px; color: var(--muted); line-height: 1.4; }
+    .field-note {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .step-note {
+      margin: 10px 0 12px;
+      padding: 10px 12px;
+      border: 1px solid #dbe7f7;
+      border-radius: 12px;
+      background: #f7fbff;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .step-note b { color: var(--ink); }
+    .input-requirements-panel {
+      margin-top: 12px;
+      padding: 12px;
+      border: 1px solid #dbe7f7;
+      border-radius: 14px;
+      background: #f8fbff;
+    }
+    .input-requirements-panel h4 {
+      margin: 0 0 6px;
+      font-size: 15px;
+      color: #173f91;
+    }
+    .input-requirements-panel textarea {
+      min-height: 76px;
+    }
+    .template-upload-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: end;
+      margin-top: 10px;
+    }
+    .template-upload-row button {
+      margin-top: 0;
+      white-space: nowrap;
+    }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .three-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .action-panel {
+      grid-column: 1 / -1;
+      margin-top: 0;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #f8fbff;
+      display: flex;
+      flex-direction: column;
+    }
+    .action-panel h3 {
+      margin: 0 0 8px;
+      padding-left: 10px;
+      border-left: 4px solid var(--green);
+      font-size: 17px;
+      color: #0f6b4f;
+    }
+    .action-guide {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin: 10px 0 12px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .action-guide b { color: var(--ink); }
+    .advanced-details {
+      display: block;
+    }
+    .advanced-details summary {
+      cursor: pointer;
+      padding-left: 10px;
+      border-left: 4px solid var(--blue);
+      color: #173f91;
+      font-weight: 800;
+      font-size: 17px;
+      list-style: none;
+    }
+    .advanced-details summary::-webkit-details-marker { display: none; }
+    .advanced-details summary small {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .advanced-details .details-body {
+      margin-top: 10px;
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .route-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #f1f5f9;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .route-badge.planner {
+      background: #eef5ff;
+      border-color: #bdd2ff;
+      color: #2252ad;
+    }
+    .route-badge.runtime {
+      background: #ecfdf5;
+      border-color: #bbf7d0;
+      color: #0f6b4f;
+    }
+    button {
+      margin-top: 18px;
+      border: 0;
+      border-radius: 12px;
+      background: var(--blue);
+      color: white;
+      padding: 12px 16px;
+      font-weight: 800;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    .actions button { margin-top: 8px; }
+    button.secondary { background: #e8eef8; color: var(--ink); }
+    button.ghost { background: transparent; color: var(--muted); border: 1px solid var(--line); }
+    button.danger { background: #fff1f0; color: var(--danger); border: 1px solid #ffc9c4; }
+    .button-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      margin-top: 8px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: #e8eef8;
+      color: var(--ink);
+      font-weight: 800;
+      text-decoration: none;
+    }
+    .button-link.primary {
+      background: var(--blue);
+      color: #fff;
+    }
+    .hidden { display: none !important; }
+    .preset-callout {
+      margin: 0 0 14px;
+      padding: 14px 16px;
+      border: 1px solid #bfdbfe;
+      border-left: 5px solid var(--blue);
+      border-radius: 14px;
+      background: #eff6ff;
+      color: #1e3a8a;
+      line-height: 1.45;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .locked-panel {
+      opacity: 0.55;
+    }
+    .locked-panel textarea,
+    .locked-panel input,
+    .locked-panel select,
+    .locked-panel button {
+      cursor: not-allowed;
+    }
+    .file-button.disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+    .hidden-file-input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .file-picker {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 64px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fbfdff;
+    }
+    .file-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: auto;
+      margin: 0;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: #e8eef8;
+      color: #173e85;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .file-name {
+      color: var(--muted);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    button.help-dot {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      margin: 0 0 0 7px;
+      padding: 0;
+      border: 1px solid #c9d7ef;
+      border-radius: 999px;
+      background: #e8f0ff;
+      color: #173e85;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1;
+      vertical-align: middle;
+    }
+    [data-help-control].collapsed {
+      display: none !important;
+    }
+    [data-help-control].help-open {
+      display: block;
+    }
+    .result-help { margin: 0 0 10px; color: var(--muted); line-height: 1.45; font-size: 13px; }
+    pre {
+      margin: 0;
+      padding: 16px;
+      background: #0f172a;
+      color: #dbeafe;
+      border-radius: 14px;
+      max-height: 520px;
+      overflow: auto;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .status {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #ecfdf3;
+      color: var(--green);
+      border: 1px solid #bbf7d0;
+      display: none;
+    }
+    .status.error {
+      display: block;
+      background: #fff1f0;
+      color: var(--danger);
+      border-color: #ffc9c4;
+    }
+    .status.ok { display: block; }
+    .operation-details {
+      display: none;
+      margin-top: 10px;
+      max-height: 180px;
+    }
+    .operation-details.visible { display: block; }
+    .test-section .content { padding-top: 20px; }
+    .test-grid {
+      display: grid;
+      grid-template-columns: minmax(360px, 0.85fr) minmax(420px, 1.15fr);
+      gap: 16px;
+      align-items: stretch;
+    }
+    .test-panel {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fbfdff;
+    }
+    .test-panel h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+      color: var(--ink);
+    }
+    .test-panel p {
+      margin: 0 0 10px;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 13px;
+    }
+    .test-composer-box {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #ffffff;
+      overflow: hidden;
+    }
+    .test-composer-box textarea {
+      min-height: 120px;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+    }
+    .test-composer-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px 12px;
+      border-top: 1px solid var(--line);
+      background: #fbfdff;
+    }
+    .test-composer-actions button,
+    .test-composer-actions .file-button {
+      margin-top: 0;
+    }
+    .test-composer-actions .file-name {
+      max-width: 260px;
+    }
+    .test-send-button {
+      margin-left: auto;
+      min-width: 84px;
+    }
+    .runtime-chat-shell {
+      min-height: 640px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 15% 5%, rgba(50, 104, 214, 0.10), transparent 28%),
+        radial-gradient(circle at 85% 18%, rgba(22, 130, 93, 0.08), transparent 28%),
+        linear-gradient(135deg, #f8fbff, #fbfdfc);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .test-conversation {
+      flex: 1;
+      min-height: 380px;
+      max-height: 620px;
+      overflow: auto;
+      padding: 22px;
+      background: transparent;
+    }
+    .test-message {
+      position: relative;
+      max-width: min(760px, 82%);
+      margin: 22px 0 14px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #ffffff;
+      color: var(--ink);
+      white-space: pre-wrap;
+      line-height: 1.5;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+    }
+    .test-message::before {
+      content: "CHEMANALYST";
+      position: absolute;
+      top: -20px;
+      left: 4px;
+      color: #94a3b8;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+    .test-message.user {
+      margin-left: auto;
+      border-color: #2f9279;
+      background: #3c9a82;
+      color: #ffffff;
+    }
+    .test-message.user::before {
+      content: "YOU";
+      right: 4px;
+      left: auto;
+    }
+    .test-message.system {
+      margin-right: auto;
+      background: #ffffff;
+    }
+    .test-message.error { background: #fff1f0; color: var(--danger); }
+    .rag-citation {
+      display: inline-flex;
+      align-items: center;
+      margin: 0 2px;
+      padding: 2px 7px;
+      border: 1px solid #c9d7ef;
+      border-radius: 999px;
+      background: #eaf1ff;
+      color: #173e85;
+      font: inherit;
+      font-size: 0.9em;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .rag-citation.unavailable {
+      opacity: 0.55;
+      cursor: help;
+    }
+    .conversation-tool-controls {
+      display: none;
+      margin: 0 22px 14px;
+      padding: 14px;
+      border: 1px solid #fed7aa;
+      border-radius: 16px;
+      background: #fff7ed;
+      box-shadow: 0 8px 22px rgba(204, 107, 18, 0.08);
+    }
+    .conversation-tool-controls.visible { display: block; }
+    .conversation-tool-controls label {
+      margin-top: 10px;
+    }
+    .pending-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+      font-weight: 800;
+      color: #91440b;
+    }
+    .runtime-composer {
+      border-top: 1px solid var(--line);
+      padding: 14px 16px 16px;
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(8px);
+    }
+    .runtime-composer textarea {
+      min-height: 78px;
+      max-height: 170px;
+      border-radius: 18px;
+      background: #ffffff;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .runtime-composer-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .runtime-mode-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #eef5ff;
+      color: #2252ad;
+      font-weight: 800;
+      border: 1px solid #bdd2ff;
+    }
+    .runtime-send {
+      min-width: 48px;
+      height: 48px;
+      margin: 0 0 0 auto;
+      padding: 0 18px;
+      border-radius: 999px;
+      background: var(--green);
+      color: #fff;
+      font-size: 17px;
+    }
+    .suggestion-button {
+      margin-top: 10px;
+      background: #e8eef8;
+      color: #173e85;
+    }
+    .runtime-session {
+      display: grid;
+      grid-template-columns: 170px minmax(0, 1fr);
+      gap: 12px;
+      align-items: center;
+      margin: 0 0 12px;
+    }
+    .runtime-session label {
+      margin: 0;
+    }
+    .test-evidence {
+      display: block;
+      max-height: 360px;
+      margin-top: 10px;
+    }
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      overflow: auto;
+      padding: clamp(12px, 2.5vh, 28px) 28px 28px;
+      background: rgba(15, 23, 42, 0.46);
+    }
+    .modal-backdrop.visible { display: flex; }
+    .manual-modal {
+      width: min(960px, 100%);
+      max-height: calc(100vh - 40px);
+      overflow: auto;
+      border-radius: 18px;
+      background: var(--panel);
+      box-shadow: 0 24px 80px rgba(15, 23, 42, 0.28);
+    }
+    .manual-header {
+      position: sticky;
+      top: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--line);
+      background: #ffffff;
+    }
+    .manual-header h2 { margin: 0; font-size: 22px; }
+    .manual-body {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      padding: 18px 22px 22px;
+    }
+    .manual-card {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fbfdff;
+    }
+    .manual-card h3 {
+      margin: 0 0 8px;
+      color: #173f91;
+      font-size: 16px;
+    }
+    .manual-card p,
+    .manual-card li {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .manual-card ul { margin: 8px 0 0; padding-left: 18px; }
+    .close-button {
+      margin: 0;
+      padding: 8px 12px;
+      background: #eef2ff;
+      color: #243b7a;
+      border: 1px solid var(--line);
+    }
+    @media (max-width: 1050px) {
+      main { grid-template-columns: 1fr; padding: 18px; }
+      header { padding: 22px 18px 14px; }
+      .header-row { flex-direction: column; }
+      .help-button { margin-top: 10px; }
+      .config-grid, .config-row-three, .config-row-two { grid-template-columns: 1fr; }
+      .config-grid .wide { grid-column: auto; }
+      .identity-panel, .runtime-panel, .action-panel { grid-column: auto; }
+      .action-guide { grid-template-columns: 1fr; }
+      .test-grid { grid-template-columns: 1fr; }
+      .manual-body { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body data-help-mode="explicit">
+  <header class="workbench-header">
+    <div class="header-row workbench-header-row">
+      <div>
+        <h1>Analytical Tool Onboarding</h1>
+        <p class="subtitle">
+          Package a reviewed analytical data-processing script as a ChemAnalyst capability. The default
+          hydrocarbon-type calculator is a complete onboarding example; advanced schemas are generated
+          from the preset and can be inspected only when needed.
+        </p>
+      </div>
+      <button id="manualBtn" class="help-button" type="button">Analytical Tool Onboarding manual</button>
+    </div>
+  </header>
+  <div id="manualModal" class="modal-backdrop" aria-hidden="true">
+    <div class="manual-modal" role="dialog" aria-modal="true" aria-labelledby="manualTitle">
+      <div class="manual-header">
+        <h2 id="manualTitle">Analytical Tool Onboarding manual</h2>
+        <button id="manualCloseBtn" class="close-button" type="button" data-manual-close>Close</button>
+      </div>
+      <div class="manual-body">
+        <div class="manual-card">
+          <h3>What this page does</h3>
+          <p>This workbench packages a reviewed analytical script, callable function, or service endpoint as a ChemAnalyst capability that can be invoked through the planner workflow. The expected output is structured tool evidence and optional downloadable artifacts.</p>
+        </div>
+        <div class="manual-card">
+          <h3>Current page structure</h3>
+          <ul>
+            <li><b>Tool identity and example</b>: choose a preset and define the Planner-visible name and description.</li>
+            <li><b>Runtime adapter</b>: define how the reviewed executable is called and how output is parsed.</li>
+            <li><b>Onboarding actions</b>: prepare, deploy, check, or revoke a provider package.</li>
+            <li><b>Runtime test</b>: send a planner-routed query and uploaded workbook through the current runtime path.</li>
+          </ul>
+        </div>
+        <div class="manual-card">
+          <h3>Hydrocarbon-type example</h3>
+          <ul>
+            <li><b>Hydrocarbon type composition</b> is the complete runnable onboarding example in the current release and deploys as <code>tool.hydrocarbon_type_calculator</code>.</li>
+            <li>It shows the full route from reviewed script packaging to planner-visible execution and artifact return.</li>
+            <li>The preset is editable and can be used as a starting point when onboarding a new reviewed analytical tool.</li>
+          </ul>
+        </div>
+        <div class="manual-card">
+          <h3>Invocation type</h3>
+          <ul>
+            <li><code>python_script</code>: wraps an existing external <code>.py</code> file through an adapter.</li>
+            <li><code>python_callable</code>: imports and calls a reviewed internal function, typically under <code>app.tools.*</code>.</li>
+            <li><code>http_api</code>: calls a reviewed service endpoint.</li>
+            <li><code>manual</code>: registers metadata only and does not execute automatically.</li>
+          </ul>
+        </div>
+        <div class="manual-card">
+          <h3>Runtime adapter and config</h3>
+          <ul>
+            <li>The adapter is the execution bridge between the planner-selected tool and the reviewed executable target.</li>
+            <li>It maps uploaded inputs, calls the executable, parses the returned result, and formats structured evidence for the runtime.</li>
+            <li><code>Adapter config JSON</code> is an advanced executable contract; routine users normally keep the preset value unless adapting a new tool.</li>
+          </ul>
+        </div>
+        <div class="manual-card">
+          <h3>Input template workbook</h3>
+          <ul>
+            <li>Each provider can carry a runnable input template that matches its expected workbook structure.</li>
+            <li>After uploading a template, prepare or deploy the provider so the template is copied into the provider package.</li>
+            <li>The runtime can then expose that template when planner-selected execution requires user input.</li>
+          </ul>
+        </div>
+        <div class="manual-card">
+          <h3>Planner-routed runtime test</h3>
+          <ul>
+            <li>The test conversation first sends a natural-language query to the planner.</li>
+            <li>If a matching registered tool requires an input workbook, the runtime returns an input request and template link.</li>
+            <li>Uploading a workbook sends the file through the current execution path and returns structured tool evidence.</li>
+            <li>A follow-up query can ask the planner to read and interpret that returned evidence.</li>
+          </ul>
+        </div>
+        <div class="manual-card">
+          <h3>Safety and review boundary</h3>
+          <ul>
+            <li><b>Prepare package</b> writes the provider package files but does not enable execution.</li>
+            <li><b>Deploy to Planner</b> saves, marks reviewed/enabled, and registers the provider in the current runtime.</li>
+            <li><b>Check selected provider</b> audits package structure and reviewed adapter availability.</li>
+            <li><b>Revoke selected provider</b> disables and unregisters a provider while keeping package files for audit and reuse.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <main class="workbench-main">
+    <section>
+      <div class="content">
+        <div class="config-grid">
+          <div class="form-block identity-panel">
+            <h3>1. Tool identity and example</h3>
+            <div class="preset-callout">Start by selecting an Example preset. Other fields remain empty until a preset is selected, so the page clearly shows which configuration is being used.</div>
+            <p data-help-control>Use a preset as an editable starting point. The hydrocarbon-type calculator is the complete runnable onboarding example included in the public release.</p>
+            <div class="grid">
+              <div>
+                <label for="toolName">Tool name <span class="field-note">(example value)</span></label>
+                <input id="toolName" value="" placeholder="Select an Example preset first" disabled />
+                <div class="hint">Replace this example name when onboarding a new analytical tool.</div>
+              </div>
+              <div>
+                <label for="capabilityPreset">Example preset</label>
+                <select id="capabilityPreset">
+                  <option value="">Select an Example preset first</option>
+                  <option value="hydrocarbon_type">Hydrocarbon type composition calculation</option>
+                </select>
+                <div class="hint">This is the required first step. Choose a preset to populate the editable tool configuration.</div>
+              </div>
+            </div>
+            <label for="description">Functional description <span class="field-note">(example text)</span></label>
+            <textarea id="description" placeholder="Select an Example preset first" disabled></textarea>
+            <div class="hint">This description is used by Planner to decide whether the tool matches a user request.</div>
+          </div>
+
+          <div id="runtimePanel" class="form-block runtime-panel locked-panel">
+            <h3>2. Runtime adapter</h3>
+            <p data-help-control>The adapter is the executable bridge. For this example, ChemAnalyst calls a reviewed hydrocarbon type composition Python function with an uploaded workbook path and an output folder path.</p>
+            <div class="step-note">
+              <b>Runtime call steps:</b> choose how ChemAnalyst calls the tool, resolve the reviewed script/callable/API, bind the uploaded workbook to the adapter input, execute the function, parse the generated output, and return structured tool evidence plus downloadable artifacts.
+            </div>
+            <div class="grid">
+              <div>
+                <label for="invocationType">Invocation type</label>
+                <select id="invocationType" disabled>
+                  <option value="python_script">python_script</option>
+                  <option value="python_callable">python_callable</option>
+                  <option value="http_api">http_api</option>
+                  <option value="manual">manual</option>
+                </select>
+                <div class="hint" data-help-control><b>Invocation type</b> tells ChemAnalyst what kind of executable target is being wrapped. Use <code>python_script</code> for an external script file, <code>python_callable</code> for a reviewed function under <code>app.tools.*</code>, and <code>http_api</code> only for a reviewed service endpoint.</div>
+              </div>
+              <div>
+                <label for="adapterTemplate">Generic adapter template</label>
+                <select id="adapterTemplate" disabled>
+                  <option value="generic_python_function">generic_python_function</option>
+                  <option value="">none / standard callable</option>
+                </select>
+                <div class="hint" data-help-control><b>Generic adapter template</b> defines the calling convention. The current hydrocarbon example uses <code>generic_python_function</code>, which loads the script, calls a named function, sends input/output paths, and parses the result file.</div>
+              </div>
+            </div>
+            <label for="entrypoint">Entrypoint / API URL / script path <span class="field-note">(example for selected preset)</span></label>
+            <input id="entrypoint" value="" placeholder="Select an Example preset first" disabled />
+            <div class="hint" data-help-control><b>Entrypoint</b> is the executable location for the selected example. It is not fixed: replace it with the reviewed script path, internal callable, or API URL for a new tool.</div>
+            <div class="template-upload-row">
+              <div>
+                <label for="inputTemplateFile">Input template workbook <span class="field-note">(optional, provider-specific)</span></label>
+                <input id="inputTemplateFile" class="hidden-file-input" type="file" accept=".xlsx,.xls,.csv,.json,.txt" disabled />
+                <label id="inputTemplateFileButton" class="file-button disabled" for="inputTemplateFile">Choose input template</label>
+                <span id="inputTemplateName" class="file-name">No template selected</span>
+                <div class="hint" data-help-control>Upload the runnable input template that Planner should offer for this tool. Prepare or deploy the provider after uploading so the template is copied into the provider package.</div>
+              </div>
+              <button id="uploadInputTemplateBtn" class="secondary" type="button" disabled>Attach template to provider</button>
+            </div>
+            <div class="input-requirements-panel">
+              <h4>Input requirements</h4>
+              <div class="hint" data-help-control>
+                These fields are written into the provider schema and used by Planner when it asks the user what file to upload. Use one sheet per line in the form <code>sheet_name: column_a, column_b</code>.
+              </div>
+              <div class="grid">
+                <div>
+                  <label for="inputFileType">Required file type</label>
+                  <input id="inputFileType" placeholder=".xlsx Excel workbook" disabled />
+                </div>
+                <div>
+                  <label for="requiredSheetsText">Required sheets / columns</label>
+                  <textarea id="requiredSheetsText" placeholder="sheet_name: column_a, column_b" disabled></textarea>
+                </div>
+              </div>
+              <label for="inputNotesText">Planner input notes</label>
+              <textarea id="inputNotesText" placeholder="One note per line" disabled></textarea>
+            </div>
+            <label for="adapterConfig">Adapter config JSON <span class="field-note">(advanced executable contract)</span></label>
+            <textarea id="adapterConfig" placeholder="Select an Example preset first" disabled></textarea>
+            <div class="hint" data-help-control><b>Adapter config JSON</b> is consumed by the generic adapter during execution. It defines the function to call, how the uploaded file is passed in, where the output is written, how output rows are parsed, and how labels are normalized into structured evidence. Normal users should keep the preset unless a new tool has a different function signature or output format.</div>
+          </div>
+
+          <div class="hidden-config" aria-hidden="true">
+            <label for="inputSchema">Input schema JSON</label>
+              <textarea id="inputSchema" disabled>{
+  "type": "object",
+  "properties": {
+    "input_file": {
+      "type": "string",
+      "description": "Excel .xlsx workbook. Required sheets: saturate_ms (m/z, Intensity), aromatic_ms (m/z, Intensity), fractions (saturate_wt_percent, aromatic_wt_percent)."
+    },
+    "output_dir": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "input_file"
+  ],
+  "x_chemanalyst_input_requirements": {
+    "file_type": ".xlsx Excel workbook",
+    "required_sheets": {
+      "saturate_ms": ["m/z", "Intensity"],
+      "aromatic_ms": ["m/z", "Intensity"],
+      "fractions": ["saturate_wt_percent", "aromatic_wt_percent"]
+    },
+    "notes": [
+      "m/z and Intensity are mass-spectrometric ion/intensity tables for saturated and aromatic fractions.",
+      "fractions provides the mass percentages used to combine saturated and aromatic results.",
+      "summary_compare is generated by the tool and is not an input sheet."
+    ],
+    "input_templates": [
+      {
+        "label": "Example input workbook",
+        "field": "input_file",
+        "path": "templates/input_template.xlsx",
+        "source_path": "examples/tools/hydrocarbon_type/input_template.xlsx",
+        "description": "Runnable workbook copied from the reviewed hydrocarbon type calculation tool package."
+      }
+    ]
+  }
+}</textarea>
+
+            <label for="outputSchema">Output schema JSON</label>
+            <textarea id="outputSchema" disabled>{
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string"
+    },
+    "tool_evidence": {
+      "type": "object"
+    },
+    "artifacts": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "status",
+    "tool_evidence"
+  ]
+}</textarea>
+
+            <label for="evidenceOutputs">Evidence outputs</label>
+            <input id="evidenceOutputs" value="" disabled />
+            <div class="hint">Comma-separated.</div>
+
+            <label for="preconditions">Preconditions</label>
+            <input id="preconditions" value="" disabled />
+
+            <label for="artifacts">Artifacts produced</label>
+            <input id="artifacts" value="" disabled />
+
+            <label for="qualityChecks">Quality checks</label>
+            <input id="qualityChecks" value="" disabled />
+
+            <label for="queries">Example queries</label>
+            <textarea id="queries" disabled></textarea>
+
+            <label for="upstreamCapabilities">Upstream capabilities</label>
+            <input id="upstreamCapabilities" list="capabilityOptions" value="" disabled />
+            <div class="hint">Optional. Leave empty for an independent tool.</div>
+
+            <label for="downstreamCapabilities">Downstream capabilities</label>
+            <input id="downstreamCapabilities" list="capabilityOptions" value="" disabled />
+            <div class="hint">Optional. Leave empty if no downstream tool is required.</div>
+            <datalist id="capabilityOptions"></datalist>
+
+            <label for="inputBindings">Input bindings JSON</label>
+            <textarea id="inputBindings" disabled></textarea>
+
+            <label for="outputBindings">Output bindings JSON</label>
+            <textarea id="outputBindings" disabled></textarea>
+
+            <label for="databaseIntegration">Experimental DB integration contract JSON</label>
+            <textarea id="databaseIntegration" disabled>{
+  "enabled": true,
+  "channel_id": "hydrocarbon_type",
+  "record_schema": "experimental-record.v1",
+  "feature_schema": "hydrocarbon-type-features.v1",
+  "structured_result_path": "tool_evidence.structured_result",
+  "feature_extraction_policy": "flexible_label_value_numeric_intersection",
+  "sample_id_binding": "input_file_stem"
+}</textarea>
+            <div class="hint">Optional. Define how current-session tool evidence can be compared with curated Experimental DB records. Runtime tool execution does not ingest new database records.</div>
+          </div>
+
+          <div id="actionPanel" class="action-panel wide locked-panel">
+            <h3>3. Onboarding actions</h3>
+            <div class="action-guide" data-help-control>
+              <div><b>Prepare package</b> creates the capability metadata, manifest, and evaluation cases. It is not callable yet.</div>
+              <div><b>Deploy to Planner</b> saves, marks reviewed/enabled, and registers this provider as a runtime <code>tool.*</code> capability.</div>
+              <div><b>Check selected provider</b> checks package structure and reviewed adapter availability; execution is disabled here by default.</div>
+              <div><b>Revoke selected provider</b> disables and unregisters the provider after confirmation; files are kept.</div>
+            </div>
+            <label for="providerSelect">Saved provider</label>
+            <select id="providerSelect" disabled>
+              <option value="">Current generated provider or select existing provider</option>
+            </select>
+            <div class="hint" data-help-control>Use this only when checking or revoking a provider that was already saved. For a new tool, generate or deploy first.</div>
+            <div class="actions">
+              <button id="generateBtn" disabled>Prepare package</button>
+              <button class="secondary" id="deployBtn" type="button" disabled>Deploy to Planner</button>
+              <button class="secondary" id="evaluateBtn" type="button" disabled>Check selected provider</button>
+              <button class="danger" id="revokeBtn" type="button" disabled>Revoke selected provider</button>
+            </div>
+            <div id="status" class="status"></div>
+            <pre id="operationResult" class="operation-details">{}</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="test-section">
+      <div class="section-title step-title">
+        4. Runtime test
+      </div>
+      <div class="content">
+        <div class="test-grid">
+          <div class="test-panel">
+            <h3>Planner-routed tool test</h3>
+            <p data-help-control>
+              This test panel keeps the onboarding-specific layout, but execution follows the same
+              frontend routes as ChemAnalyst chat: Planner selects the tool, then the uploaded workbook
+              is sent through the normal upload execution route.
+            </p>
+            <label for="testSessionId">Test session id</label>
+            <input id="testSessionId" />
+            <div class="hint" data-help-control>
+              Temporary session key for this onboarding test. It keeps the Planner request and uploaded
+              workbook in the same conversation state.
+            </div>
+            <label for="testQuery">Test query</label>
+            <div class="test-composer-box">
+              <textarea id="testQuery">Calculate hydrocarbon type composition from the uploaded workbook.</textarea>
+              <div class="test-composer-actions">
+                <label class="file-button" for="testWorkbook">Attach workbook</label>
+                <span id="testWorkbookName" class="file-name">No file selected</span>
+                <input id="testWorkbook" class="hidden-file-input" type="file" accept=".xlsx,.xls,.csv,.json,.txt" />
+                <button id="runtimeSendBtn" class="test-send-button" type="button">Send</button>
+              </div>
+            </div>
+            <div class="hint" data-help-control>
+              This built-in query is only a convenience example. After sending, the input is cleared like
+              the normal chat composer.
+            </div>
+            <div id="testStatus" class="status"></div>
+          </div>
+
+          <div class="test-panel">
+            <h3>Test conversation</h3>
+            <p data-help-control>
+              The messages below show the same conversation states as the frontend route: user request,
+              Planner input request, workbook upload, and returned tool result.
+            </p>
+            <div id="testConversation" class="test-conversation"></div>
+          </div>
+        </div>
+        <label for="testEvidence">Returned JSON</label>
+        <pre id="testEvidence" class="test-evidence">{}</pre>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    let currentPackage = {};
+    let currentProviderId = null;
+    let runtimeTestToolName = "auto";
+    let runtimeLastQuery = "";
+    const presetControlledFieldIds = [
+      "toolName",
+      "description",
+      "invocationType",
+      "adapterTemplate",
+      "entrypoint",
+      "adapterConfig",
+      "inputTemplateFile",
+      "inputFileType",
+      "requiredSheetsText",
+      "inputNotesText",
+      "inputSchema",
+      "outputSchema",
+      "evidenceOutputs",
+      "preconditions",
+      "artifacts",
+      "qualityChecks",
+      "queries",
+      "upstreamCapabilities",
+      "downstreamCapabilities",
+      "inputBindings",
+      "outputBindings",
+      "databaseIntegration",
+      "providerSelect",
+      "generateBtn",
+      "deployBtn",
+      "evaluateBtn",
+      "revokeBtn",
+      "uploadInputTemplateBtn",
+      "testSessionId",
+      "testQuery",
+      "testWorkbook",
+      "runtimeSendBtn",
+    ];
+
+    function newRuntimeTestSessionId() {
+      const randomPart = window.crypto?.randomUUID ? window.crypto.randomUUID() : `${Date.now()}_${Math.random().toString(16).slice(2)}`;
+      return `tool_onboarding_test_${randomPart}`;
+    }
+
+    function ensureRuntimeTestSessionId() {
+      const input = document.getElementById("testSessionId");
+      if (!input.value.trim()) {
+        input.value = newRuntimeTestSessionId();
+      }
+      return input.value.trim();
+    }
+
+    function setRuntimeTestDefaultsForPreset(preset) {
+      const sessionInput = document.getElementById("testSessionId");
+      const queryInput = document.getElementById("testQuery");
+      if (!sessionInput || !queryInput) return;
+      sessionInput.value = newRuntimeTestSessionId();
+      if (preset === "hydrocarbon_type") {
+        queryInput.value = "Calculate hydrocarbon type composition from the uploaded workbook.";
+      } else {
+        queryInput.value = "";
+      }
+    }
+
+    function listValue(id) {
+      return document.getElementById(id).value
+        .split(/[,\n]/)
+        .map(s => s.trim())
+        .filter(Boolean);
+    }
+
+    function jsonValue(id) {
+      const value = document.getElementById(id).value.trim();
+      return value ? JSON.parse(value) : {};
+    }
+
+    function parseRequiredSheets(text) {
+      const result = {};
+      String(text || "").split(/\n/).forEach(line => {
+        const trimmed = line.trim();
+        if (!trimmed) return;
+        const separatorIndex = trimmed.indexOf(":");
+        if (separatorIndex === -1) {
+          result[trimmed] = [];
+          return;
+        }
+        const sheetName = trimmed.slice(0, separatorIndex).trim();
+        const columns = trimmed.slice(separatorIndex + 1)
+          .split(",")
+          .map(item => item.trim())
+          .filter(Boolean);
+        if (sheetName) result[sheetName] = columns;
+      });
+      return result;
+    }
+
+    function formatRequiredSheets(requiredSheets) {
+      return Object.entries(requiredSheets || {})
+        .map(([sheet, columns]) => {
+          const columnList = Array.isArray(columns) ? columns.join(", ") : String(columns || "");
+          return columnList ? `${sheet}: ${columnList}` : sheet;
+        })
+        .join("\n");
+    }
+
+    function parseRequirementNotes(text) {
+      return String(text || "").split(/\n/).map(item => item.trim()).filter(Boolean);
+    }
+
+    function syncInputRequirementsFromFields() {
+      const schema = jsonValue("inputSchema");
+      const requirements = schema.x_chemanalyst_input_requirements || {};
+      const fileType = document.getElementById("inputFileType").value.trim();
+      const requiredSheets = parseRequiredSheets(document.getElementById("requiredSheetsText").value);
+      const notes = parseRequirementNotes(document.getElementById("inputNotesText").value);
+
+      if (fileType) requirements.file_type = fileType;
+      else delete requirements.file_type;
+
+      if (Object.keys(requiredSheets).length) requirements.required_sheets = requiredSheets;
+      else delete requirements.required_sheets;
+
+      if (notes.length) requirements.notes = notes;
+      else delete requirements.notes;
+
+      schema.x_chemanalyst_input_requirements = requirements;
+      document.getElementById("inputSchema").value = JSON.stringify(schema, null, 2);
+      return schema;
+    }
+
+    function loadInputRequirementsFromSchema() {
+      const schema = jsonValue("inputSchema");
+      const requirements = schema.x_chemanalyst_input_requirements || {};
+      document.getElementById("inputFileType").value = requirements.file_type || "";
+      document.getElementById("requiredSheetsText").value = formatRequiredSheets(requirements.required_sheets || {});
+      document.getElementById("inputNotesText").value = Array.isArray(requirements.notes) ? requirements.notes.join("\n") : "";
+    }
+
+    function setOnboardingLocked(locked) {
+      presetControlledFieldIds.forEach(id => {
+        const node = document.getElementById(id);
+        if (node) node.disabled = Boolean(locked);
+      });
+      document.getElementById("runtimePanel").classList.toggle("locked-panel", locked);
+      document.getElementById("actionPanel").classList.toggle("locked-panel", locked);
+      document.querySelector(".test-section").classList.toggle("locked-panel", locked);
+      document.getElementById("inputTemplateFileButton").classList.toggle("disabled", locked);
+      document.querySelector("label[for='testWorkbook']").classList.toggle("disabled", locked);
+      if (locked) {
+        showStatus("Select an Example preset before configuring or deploying a tool.", false);
+      } else {
+        showStatus("Example preset loaded. Review and edit the generated configuration before preparing or deploying.", true);
+      }
+    }
+
+    function clearOnboardingFields() {
+      currentPackage = {};
+      currentProviderId = null;
+      runtimeTestToolName = "auto";
+      runtimeLastQuery = "";
+      [
+        "toolName",
+        "description",
+        "entrypoint",
+        "adapterConfig",
+        "inputFileType",
+        "requiredSheetsText",
+        "inputNotesText",
+        "inputSchema",
+        "outputSchema",
+        "evidenceOutputs",
+        "preconditions",
+        "artifacts",
+        "qualityChecks",
+        "queries",
+        "upstreamCapabilities",
+        "downstreamCapabilities",
+        "inputBindings",
+        "outputBindings",
+        "databaseIntegration",
+        "testQuery",
+      ].forEach(id => {
+        const node = document.getElementById(id);
+        if (node) node.value = "";
+      });
+      document.getElementById("invocationType").value = "python_script";
+      document.getElementById("adapterTemplate").value = "generic_python_function";
+      document.getElementById("providerSelect").value = "";
+      document.getElementById("inputTemplateName").textContent = "No template selected";
+      document.getElementById("testWorkbookName").textContent = "No file selected";
+      document.getElementById("inputTemplateFile").value = "";
+      document.getElementById("testWorkbook").value = "";
+      document.getElementById("operationResult").textContent = "{}";
+      document.getElementById("operationResult").classList.remove("visible");
+      document.getElementById("testEvidence").textContent = "{}";
+      document.getElementById("testConversation").innerHTML = "";
+      showTestStatus("", true);
+    }
+
+    function showStatus(message, ok = true) {
+      const node = document.getElementById("status");
+      if (!message) {
+        node.textContent = "";
+        node.className = "status";
+        return;
+      }
+      node.textContent = message;
+      node.className = ok ? "status ok" : "status error";
+    }
+
+    function showOperation(payload) {
+      const node = document.getElementById("operationResult");
+      node.textContent = JSON.stringify(payload || {}, null, 2);
+      node.classList.add("visible");
+    }
+
+    function showTestStatus(message, ok = true) {
+      const node = document.getElementById("testStatus");
+      if (!message) {
+        node.textContent = "";
+        node.className = "status";
+        return;
+      }
+      node.textContent = message;
+      node.className = ok ? "status ok" : "status error";
+    }
+
+    function setProviderInputTemplates(templates) {
+      const schema = syncInputRequirementsFromFields();
+      const requirements = schema.x_chemanalyst_input_requirements || {};
+      requirements.input_templates = Array.isArray(templates) ? templates : [];
+      schema.x_chemanalyst_input_requirements = requirements;
+      document.getElementById("inputSchema").value = JSON.stringify(schema, null, 2);
+      loadInputRequirementsFromSchema();
+    }
+
+    async function uploadInputTemplate() {
+      try {
+        const file = document.getElementById("inputTemplateFile").files[0];
+        if (!file) {
+          showStatus("Choose an input template file first.", false);
+          return;
+        }
+        const form = new FormData();
+        form.append("file", file);
+        const response = await fetch("/capabilities/tool-onboarding/input-template", {method: "POST", body: form});
+        const data = await response.json();
+        if (!response.ok || data.status === "error") {
+          throw new Error(JSON.stringify(data));
+        }
+        setProviderInputTemplates([
+          {
+            label: "Uploaded input template",
+            field: "input_file",
+            path: "templates/input_template.xlsx",
+            source_path: data.source_path,
+            description: "Input template uploaded from Analytical Tool Onboarding."
+          }
+        ]);
+        showStatus(`Input template attached: ${data.file_name}. Prepare or deploy the provider to copy it into the package.`, true);
+      } catch (error) {
+        showStatus(String(error.message || error), false);
+      }
+    }
+
+    function escapeHtml(text) {
+      return String(text || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function firstText(...values) {
+      for (const value of values) {
+        if (value === null || value === undefined) continue;
+        const text = String(value).trim();
+        if (text) return text;
+      }
+      return "";
+    }
+
+    function asArray(value) {
+      return Array.isArray(value) ? value : [];
+    }
+
+    function normalizeReferenceLabel(label) {
+      const match = String(label || "").toUpperCase().match(/DOC\s*(\d+)/);
+      return match ? `DOC ${match[1]}` : "";
+    }
+
+    function citationFromDoc(doc) {
+      if (!doc || typeof doc !== "object") return {};
+      const citation = doc.citation && typeof doc.citation === "object" ? doc.citation : {};
+      const metadata = doc.metadata && typeof doc.metadata === "object" ? doc.metadata : {};
+      return {...metadata, ...citation, ...doc};
+    }
+
+    function chunkText(chunk) {
+      if (!chunk || typeof chunk !== "object") return "";
+      return firstText(chunk.text, chunk.content, chunk.chunk_text, chunk.page_content, chunk.snippet);
+    }
+
+    function normalizeEvidenceDoc(doc, index) {
+      if (!doc || typeof doc !== "object") return null;
+      const citation = citationFromDoc(doc);
+      const source = firstText(citation.source, doc.source, citation.path, doc.path);
+      const chunks = asArray(doc.chunks).length ? asArray(doc.chunks) : (chunkText(doc) ? [doc] : []);
+      return {
+        label: normalizeReferenceLabel(doc.label) || `DOC ${index}`,
+        doc_id: firstText(doc.doc_id, citation.doc_id),
+        title: firstText(citation.title, citation.paper_title, citation.file_name, doc.title, doc.file_name),
+        authors: asArray(citation.authors).length ? citation.authors : asArray(doc.authors),
+        year: firstText(citation.year, doc.year),
+        journal: firstText(citation.journal, doc.journal),
+        doi: firstText(citation.doi, doc.doi),
+        file_name: firstText(citation.file_name, doc.file_name, source ? source.split(/[\\/]/).pop() : ""),
+        source,
+        score: doc.score,
+        chunks,
+      };
+    }
+
+    function docsFromRawResult(rawResult) {
+      if (!rawResult || typeof rawResult !== "object") return [];
+      const bundleRefs = rawResult.evidence_bundle
+        && rawResult.evidence_bundle.knowledge_evidence
+        && Array.isArray(rawResult.evidence_bundle.knowledge_evidence.references)
+        ? rawResult.evidence_bundle.knowledge_evidence.references
+        : [];
+      const bundleDocs = rawResult.evidence_bundle
+        && rawResult.evidence_bundle.knowledge_evidence
+        && Array.isArray(rawResult.evidence_bundle.knowledge_evidence.documents)
+        ? rawResult.evidence_bundle.knowledge_evidence.documents
+        : [];
+      const candidates = [
+        rawResult.synthesis_evidences,
+        rawResult.evidences,
+        rawResult.filtered_evidences,
+        rawResult.accumulated_evidences,
+        rawResult.documents,
+        bundleDocs,
+        bundleRefs,
+      ];
+      for (const value of candidates) {
+        if (Array.isArray(value) && value.length) {
+          return value.map((item, idx) => normalizeEvidenceDoc(item, idx + 1)).filter(Boolean);
+        }
+      }
+      return [];
+    }
+
+    function renderTestHtml(text) {
+      const escaped = escapeHtml(text || "");
+      return escaped.replace(/\[DOC\s+(\d+)\]/gi, (_, index) => {
+        const label = `DOC ${index}`;
+        return `<button type="button" class="rag-citation" data-doc-label="${label}" aria-label="Open ${label} reference">[${label}]</button>`;
+      });
+    }
+
+    function appendReferenceMessage(label, ref) {
+      const authors = asArray(ref && ref.authors).slice(0, 4).join("; ");
+      const chunks = asArray(ref && ref.chunks).slice(0, 2)
+        .map((chunk, idx) => `Chunk ${idx + 1}: ${chunkText(chunk).slice(0, 600)}`)
+        .filter(Boolean)
+        .join("\n\n");
+      const lines = [
+        `${label} reference metadata`,
+        `Title: ${firstText(ref && ref.title, ref && ref.file_name, "Not available")}`,
+        `DOI: ${firstText(ref && ref.doi, "Not available")}`,
+        authors ? `Authors: ${authors}` : "",
+        ref && ref.year ? `Year: ${ref.year}` : "",
+        ref && ref.journal ? `Journal: ${ref.journal}` : "",
+        ref && (ref.source || ref.file_name) ? `Source: ${firstText(ref.source, ref.file_name)}` : "",
+        chunks,
+      ].filter(Boolean);
+      appendTestMessage("system", lines.join("\n"));
+    }
+
+    function attachTestRagReferences(messageNode, rawResult) {
+      const refs = docsFromRawResult(rawResult);
+      const refMap = new Map(refs.map(ref => [normalizeReferenceLabel(ref && ref.label), ref]).filter(([label]) => label));
+      messageNode.querySelectorAll(".rag-citation").forEach(button => {
+        const label = normalizeReferenceLabel(button.dataset.docLabel);
+        const ref = refMap.get(label);
+        button.classList.toggle("unavailable", !ref);
+        button.title = ref ? "Show reference metadata and evidence chunks" : "Reference metadata unavailable";
+        button.onclick = event => {
+          event.preventDefault();
+          appendReferenceMessage(label, ref || {});
+        };
+      });
+    }
+
+    function appendTestMessage(role, text, rawResult = null) {
+      const box = document.getElementById("testConversation");
+      const item = document.createElement("div");
+      item.className = `test-message ${role || "system"}`;
+      item.innerHTML = renderTestHtml(text || "");
+      if (role !== "user") {
+        attachTestRagReferences(item, rawResult);
+      }
+      box.appendChild(item);
+      box.scrollTop = box.scrollHeight;
+      return item;
+    }
+
+    function attachTestDownloadButtons(messageNode, downloadUrls) {
+      if (!messageNode || !downloadUrls || typeof downloadUrls !== "object") return;
+      const labels = {
+        template_input_file: "Download example workbook",
+        output_excel: "Download output workbook",
+        output_file: "Download output file",
+        chart_html: "Open chart",
+      };
+      const entries = Object.entries(downloadUrls).filter(([key, url]) => url && labels[key]);
+      if (!entries.length) return;
+      const actions = document.createElement("div");
+      actions.className = "actions";
+      for (const [key, url] of entries) {
+        const link = document.createElement("a");
+        link.className = "button-link";
+        link.href = String(url);
+        link.target = key === "chart_html" ? "_blank" : "_self";
+        link.rel = "noopener";
+        link.textContent = labels[key];
+        actions.appendChild(link);
+      }
+      messageNode.appendChild(actions);
+    }
+
+    function showTestEvidence(payload) {
+      document.getElementById("testEvidence").textContent = JSON.stringify(payload || {}, null, 2);
+    }
+
+    function renderFrontendRouteResult(stage, data) {
+      const raw = data?.raw_result || data?.result || {};
+      if (data?.session_id) {
+        document.getElementById("testSessionId").value = data.session_id;
+      }
+      runtimeTestToolName = raw.tool_name || raw.capability_id || data?.result?.tool_name || runtimeTestToolName || "auto";
+      const messageNode = appendTestMessage("system", `${stage}\n${data?.answer || data?.message || raw.message || "Completed."}`, data?.raw_result || raw);
+      attachTestDownloadButtons(messageNode, raw.download_urls || data?.result?.download_urls);
+      showTestEvidence(data);
+    }
+
+    async function askPlannerForRuntimeTest() {
+      try {
+        const input = document.getElementById("testQuery");
+        const query = input.value.trim();
+        if (!query) {
+          showTestStatus("Enter a test query first.", false);
+          return;
+        }
+        const sessionId = ensureRuntimeTestSessionId();
+        runtimeLastQuery = query;
+        appendTestMessage("user", query);
+        input.value = "";
+        const response = await fetch("/planner/query/stream", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({
+            query,
+            task_type: "auto",
+            template_override: "auto",
+            rag_mode: "qa_oriented",
+            session_id: sessionId
+          })
+        });
+        if (!response.ok || !response.body) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder("utf-8");
+        let buffer = "";
+        let streamText = "";
+        let finalData = null;
+        while (true) {
+          const {value, done} = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, {stream: true});
+          const lines = buffer.split("\n");
+          buffer = lines.pop() || "";
+          for (const line of lines) {
+            if (!line.trim()) continue;
+            const event = JSON.parse(line);
+            if (event.type === "meta" && event.session_id) {
+              document.getElementById("testSessionId").value = event.session_id;
+            } else if (event.type === "status") {
+              showTestStatus("Executing Planner...", true);
+            } else if (event.type === "delta") {
+              streamText += event.content || "";
+            } else if (event.type === "final") {
+              finalData = event.data || null;
+            }
+          }
+        }
+        const data = finalData || {answer: streamText, raw_result: null, session_id: sessionId};
+        renderFrontendRouteResult("Planner response", data);
+        showTestStatus("Planner route completed. If a workbook is requested, choose it and send the workbook.", true);
+      } catch (error) {
+        showTestStatus(String(error.message || error), false);
+        appendTestMessage("error", String(error.message || error));
+      }
+    }
+
+    async function uploadAndRunRuntimeToolTest() {
+      try {
+        const file = document.getElementById("testWorkbook").files[0];
+        if (!file) {
+          showTestStatus("Choose a workbook first.", false);
+          return;
+        }
+        const sessionId = ensureRuntimeTestSessionId();
+        const form = new FormData();
+        form.append("tool_name", runtimeTestToolName || "auto");
+        form.append("file", file);
+        form.append("session_id", sessionId);
+        form.append("query", runtimeLastQuery || "Please process the uploaded workbook.");
+        appendTestMessage("user", `Uploaded workbook: ${file.name}`);
+        const response = await fetch("/tools/upload", {method: "POST", body: form});
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(JSON.stringify(data));
+        }
+        document.getElementById("testWorkbook").value = "";
+        document.getElementById("testWorkbookName").textContent = "No file selected";
+        renderFrontendRouteResult("Upload route result", data);
+        showTestStatus("Workbook was sent through the normal upload execution route.", data.status !== "error");
+      } catch (error) {
+        showTestStatus(String(error.message || error), false);
+        appendTestMessage("error", String(error.message || error));
+      }
+    }
+
+    async function sendRuntimeTestMessage() {
+      const file = document.getElementById("testWorkbook").files[0];
+      if (file) {
+        await uploadAndRunRuntimeToolTest();
+        return;
+      }
+      await askPlannerForRuntimeTest();
+    }
+
+    function selectedProviderId() {
+      const selected = document.getElementById("providerSelect").value.trim();
+      return selected || currentProviderId || "";
+    }
+
+    async function generate() {
+      try {
+        const body = {
+          tool_name: document.getElementById("toolName").value,
+          description: document.getElementById("description").value,
+          invocation_type: document.getElementById("invocationType").value,
+          entrypoint: document.getElementById("entrypoint").value || null,
+          input_schema: syncInputRequirementsFromFields(),
+          output_schema: jsonValue("outputSchema"),
+          evidence_outputs: listValue("evidenceOutputs"),
+          preconditions: listValue("preconditions"),
+          artifacts_produced: listValue("artifacts"),
+          example_queries: listValue("queries"),
+          quality_checks: listValue("qualityChecks"),
+          safety_notes: [],
+          upstream_capabilities: listValue("upstreamCapabilities"),
+          downstream_capabilities: listValue("downstreamCapabilities"),
+          input_bindings: jsonValue("inputBindings"),
+          output_bindings: jsonValue("outputBindings"),
+          database_integration_contract: jsonValue("databaseIntegration"),
+          adapter_template: document.getElementById("adapterTemplate").value || null,
+          adapter_config: jsonValue("adapterConfig")
+        };
+        const response = await fetch("/capabilities/onboard", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(body)
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(JSON.stringify(data));
+        }
+        currentPackage = data.package;
+        currentProviderId = null;
+        showStatus(`Package prepared: ${data.package.capability?.capability_id || "generated capability"}`, true);
+        showOperation({stage: "generated", capability_id: data.package.capability?.capability_id});
+      } catch (error) {
+        showStatus(String(error.message || error), false);
+      }
+    }
+
+    async function saveProvider() {
+      try {
+        if (!currentPackage || !currentPackage.capability) {
+          await generate();
+        }
+        const response = await fetch("/capabilities/providers/save", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({package: currentPackage})
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(JSON.stringify(data));
+        }
+        currentProviderId = data.result.provider_id;
+        document.getElementById("providerSelect").value = currentProviderId;
+        showStatus(`Saved provider: ${currentProviderId}`, true);
+        showOperation(data.result);
+        await loadProviderOptions();
+        return data.result;
+      } catch (error) {
+        showStatus(String(error.message || error), false);
+      }
+    }
+
+    async function evaluateProvider() {
+      try {
+        const selectedProviderId = document.getElementById("providerSelect").value.trim();
+        if (selectedProviderId) {
+          currentProviderId = selectedProviderId;
+        }
+        if (!currentProviderId) {
+          await saveProvider();
+        }
+        const response = await fetch(`/capabilities/providers/${currentProviderId}/evaluate`, {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({execute: false, sample_payload: {}})
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(JSON.stringify(data));
+        }
+        showStatus(`Evaluation completed for provider: ${currentProviderId}`, true);
+        showOperation(data.result);
+      } catch (error) {
+        showStatus(String(error.message || error), false);
+      }
+    }
+
+    async function markReviewed() {
+      try {
+        if (!currentProviderId) {
+          await saveProvider();
+        }
+        const response = await fetch(`/capabilities/providers/${currentProviderId}/review`, {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({
+            reviewed: true,
+            enabled: true,
+            notes: "Marked reviewed from Analytical Tool Onboarding UI after local adapter/script review."
+          })
+        });
+        const data = await response.json();
+        if (!response.ok || data.status === "error") {
+          throw new Error(JSON.stringify(data));
+        }
+        showStatus(`Provider marked reviewed/enabled: ${currentProviderId}`, true);
+        showOperation(data.result);
+        return data.result;
+      } catch (error) {
+        showStatus(String(error.message || error), false);
+      }
+    }
+
+    async function deployProvider() {
+      try {
+        if (!currentProviderId) {
+          await saveProvider();
+        }
+        await markReviewed();
+        const response = await fetch(`/capabilities/providers/${currentProviderId}/register`, {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({})
+        });
+        const data = await response.json();
+        if (!response.ok || data.status === "error") {
+          throw new Error(JSON.stringify(data));
+        }
+        showStatus(`Provider deployed and registered: ${currentProviderId}`, true);
+        showOperation(data.result);
+        await loadProviderOptions();
+      } catch (error) {
+        showStatus(String(error.message || error), false);
+      }
+    }
+
+    async function revokeProvider() {
+      try {
+        const selectedProviderId = document.getElementById("providerSelect").value.trim();
+        if (selectedProviderId) {
+          currentProviderId = selectedProviderId;
+        }
+        if (!currentProviderId) {
+          await loadProviderOptions();
+          showStatus("Select an existing provider from the provider list before revoking.", false);
+          return;
+        }
+        const confirmed = window.confirm(
+          `Revoke provider "${currentProviderId}"?\n\nThis disables the provider and unregisters it from the current runtime. Provider files are kept for audit.`
+        );
+        if (!confirmed) {
+          showStatus("Revoke cancelled by user.", false);
+          return;
+        }
+        const response = await fetch(`/capabilities/providers/${currentProviderId}/revoke`, {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({
+            confirm: true,
+            reason: "Revoked from Analytical Tool Onboarding UI after user confirmation."
+          })
+        });
+        const data = await response.json();
+        if (!response.ok || data.status === "error") {
+          throw new Error(JSON.stringify(data));
+        }
+        showStatus(`Provider revoked: ${currentProviderId}`, true);
+        showOperation(data.result);
+        await loadProviderOptions();
+      } catch (error) {
+        showStatus(String(error.message || error), false);
+      }
+    }
+
+    document.getElementById("generateBtn").addEventListener("click", generate);
+    document.getElementById("deployBtn").addEventListener("click", deployProvider);
+    document.getElementById("evaluateBtn").addEventListener("click", evaluateProvider);
+    document.getElementById("revokeBtn").addEventListener("click", revokeProvider);
+    document.getElementById("uploadInputTemplateBtn").addEventListener("click", uploadInputTemplate);
+    document.getElementById("runtimeSendBtn").addEventListener("click", sendRuntimeTestMessage);
+    document.getElementById("inputTemplateFile").addEventListener("change", event => {
+      const file = event.target.files && event.target.files[0];
+      document.getElementById("inputTemplateName").textContent = file ? file.name : "No template selected";
+    });
+    ["inputFileType", "requiredSheetsText", "inputNotesText"].forEach(id => {
+      document.getElementById(id).addEventListener("input", () => {
+        try {
+          syncInputRequirementsFromFields();
+        } catch (error) {
+          showStatus(`Input requirements could not be synchronized: ${error.message || error}`, false);
+        }
+      });
+    });
+    document.getElementById("testWorkbook").addEventListener("change", event => {
+      const file = event.target.files && event.target.files[0];
+      document.getElementById("testWorkbookName").textContent = file ? file.name : "No file selected";
+    });
+    document.getElementById("capabilityPreset").addEventListener("change", applyPreset);
+    document.getElementById("providerSelect").addEventListener("change", event => {
+      currentProviderId = event.target.value || currentProviderId;
+    });
+    async function loadCapabilityOptions() {
+      try {
+        const response = await fetch("/capabilities/options");
+        const data = await response.json();
+        const options = document.getElementById("capabilityOptions");
+        options.innerHTML = "";
+        (data.result.capabilities || []).forEach(item => {
+          if (!item.capability_id) return;
+          const option = document.createElement("option");
+          option.value = item.capability_id;
+          option.label = `${item.source || ""} ${item.description || ""}`;
+          options.appendChild(option);
+        });
+      } catch (_) {
+        // Suggestions are optional; onboarding still works without this endpoint.
+      }
+    }
+
+    async function loadProviderOptions() {
+      try {
+        const response = await fetch("/capabilities/providers");
+        const data = await response.json();
+        const select = document.getElementById("providerSelect");
+        const selected = currentProviderId || select.value;
+        select.innerHTML = "";
+        const placeholder = document.createElement("option");
+        placeholder.value = "";
+        placeholder.textContent = "Current generated provider or select existing provider";
+        select.appendChild(placeholder);
+        (data.result.providers || []).forEach(item => {
+          if (!item.provider_id) return;
+          const option = document.createElement("option");
+          option.value = item.provider_id;
+          const review = item.review || {};
+          const state = review.enabled ? "enabled" : "disabled";
+          option.textContent = `${item.provider_id} (${item.capability_id || "no capability"}; ${state})`;
+          select.appendChild(option);
+        });
+        if (selected) {
+          select.value = selected;
+        }
+      } catch (_) {
+        // Provider list is optional during early setup.
+      }
+    }
+
+    function applyPreset() {
+      const preset = document.getElementById("capabilityPreset").value;
+      if (!preset) {
+        clearOnboardingFields();
+        setOnboardingLocked(true);
+        return;
+      }
+      setOnboardingLocked(false);
+      setRuntimeTestDefaultsForPreset(preset);
+      currentPackage = {};
+      currentProviderId = null;
+      document.getElementById("providerSelect").value = "";
+      document.getElementById("inputTemplateFile").value = "";
+      document.getElementById("inputTemplateName").textContent = "No template selected";
+      document.getElementById("toolName").value = "Hydrocarbon Type Calculator";
+      document.getElementById("invocationType").value = "python_script";
+      document.getElementById("adapterTemplate").value = "generic_python_function";
+      document.getElementById("entrypoint").value = "examples/tools/hydrocarbon_type/sht0606_official_full.py";
+      document.getElementById("description").value = "Calculate hydrocarbon type composition from saturated/aromatic MS tables and fraction mass percentages.";
+      document.getElementById("inputSchema").value = JSON.stringify({
+        type: "object",
+        properties: {
+          input_file: {type: "string", description: "Excel .xlsx workbook. Required sheets: saturate_ms (m/z, Intensity), aromatic_ms (m/z, Intensity), fractions (saturate_wt_percent, aromatic_wt_percent)."},
+          output_dir: {type: "string"}
+        },
+        required: ["input_file"],
+        x_chemanalyst_input_requirements: {
+          file_type: ".xlsx Excel workbook",
+          required_sheets: {
+            saturate_ms: ["m/z", "Intensity"],
+            aromatic_ms: ["m/z", "Intensity"],
+            fractions: ["saturate_wt_percent", "aromatic_wt_percent"]
+          },
+          notes: [
+            "m/z and Intensity are mass-spectrometric ion/intensity tables for saturated and aromatic fractions.",
+            "fractions provides the mass percentages used to combine saturated and aromatic results.",
+            "summary_compare is generated by the tool and is not an input sheet."
+          ],
+          input_templates: [
+            {
+              label: "Example input workbook",
+              field: "input_file",
+              path: "templates/input_template.xlsx",
+              source_path: "examples/tools/hydrocarbon_type/input_template.xlsx",
+              description: "Runnable workbook copied from the reviewed hydrocarbon type calculation tool package."
+            }
+          ]
+        }
+      }, null, 2);
+      document.getElementById("outputSchema").value = JSON.stringify({
+        type: "object",
+        properties: {
+          status: {type: "string"},
+          tool_evidence: {type: "object"},
+          artifacts: {type: "object"}
+        },
+        required: ["status", "tool_evidence"]
+      }, null, 2);
+      document.getElementById("adapterConfig").value = JSON.stringify({
+        script_path: "examples/tools/hydrocarbon_type/sht0606_official_full.py",
+        function_name: "calculate_file",
+        call_style: "input_output_paths",
+        input_field: "input_file",
+        output_artifact_key: "output_excel",
+        output_suffix: ".xlsx",
+        output_filename_template: "{input_stem}_hydrocarbon_type_{run_id}{suffix}",
+        output_parser: {
+          type: "excel_sheet_records",
+          sheet_name: "summary_compare"
+        },
+        record_value_mapping_name: "hydrocarbon_type_en",
+        evidence: {
+          schema_version: "hydrocarbon-type.v1",
+          evidence_type: "hydrocarbon_group_composition",
+          method: "hydrocarbon type composition"
+        }
+      }, null, 2);
+      document.getElementById("evidenceOutputs").value = "tool_evidence, artifacts";
+      document.getElementById("preconditions").value = "input_workbook_available, reviewed_external_script_available";
+      document.getElementById("artifacts").value = "hydrocarbon_type_result_excel";
+      document.getElementById("qualityChecks").value = "status_success, structured_result_present, output_excel_present";
+      document.getElementById("queries").value = "Calculate hydrocarbon type composition from the uploaded workbook.";
+      document.getElementById("upstreamCapabilities").value = "";
+      document.getElementById("downstreamCapabilities").value = "";
+      document.getElementById("inputBindings").value = JSON.stringify({input_file: "uploaded_artifact.path"}, null, 2);
+      document.getElementById("outputBindings").value = JSON.stringify({
+        "tool_evidence.structured_result": "Evidence Bundle.tool_evidence.hydrocarbon_group_composition",
+        "artifacts.output_excel": "Evidence Bundle.tool_evidence.artifacts.output_excel"
+      }, null, 2);
+      loadInputRequirementsFromSchema();
+    }
+
+    loadCapabilityOptions();
+    loadProviderOptions();
+    clearOnboardingFields();
+    setOnboardingLocked(true);
+  </script>
+  <script src="/static/support_help.js?v=20260720a"></script>
+  <script type="module" src="/static/support_tool_onboarding.js?v=20260720a"></script>
+</body>
+</html>
+
+
+
+

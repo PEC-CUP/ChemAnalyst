@@ -1,0 +1,306 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>KB Construction and QA Generation Workbench</title>
+  <link rel="stylesheet" href="/static/support_workbench.css?v=20260725g" />
+  <style>
+    .workbench-main{width:100%;max-width:none}
+    .row{grid-template-columns:1fr}
+    .row>.card{width:100%}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .qa-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .qa-grid .wide-field{grid-column:span 2}
+    .preset-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:12px 0}
+    .preset-grid button{margin:0;text-align:left;background:#f7fbff;border:1px solid var(--line);color:var(--ink)}
+    .preset-grid button b{display:block;margin-bottom:4px;color:#173f91}
+    .preset-grid button span{display:block;color:var(--muted);font-size:12px;line-height:1.35}
+    .ratios{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .manual-body.wide{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .manual-card.full{grid-column:1/-1}
+    .metric-table{width:100%;border-collapse:collapse;color:var(--muted);font-size:14px}
+    .metric-table th,.metric-table td{border-bottom:1px solid var(--line);padding:7px 6px;text-align:left;vertical-align:top}
+    .field-help{margin:4px 0 0;color:var(--muted);font-size:13px;line-height:1.4}
+    .path-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:end}
+    .path-row button{margin-top:0;white-space:nowrap}
+    .hidden-file-input{display:none}
+    button.primary-action{background:var(--blue);color:#fff}
+    button.alt{background:#edf3ff;color:#173e85;margin-left:8px}
+    button.orange{background:var(--orange)}
+    button.danger{background:#fee2e2;color:#9f1239;margin-left:8px}
+    .help-button{margin:2px 0 0;white-space:nowrap;background:#e8eef8;color:var(--ink);border:1px solid var(--line)}
+    .output-details{margin-top:14px;border:1px solid var(--line);border-radius:18px;background:#f8fbff;overflow:hidden}
+    .output-details summary{cursor:pointer;padding:14px 18px;font-weight:800;color:var(--ink);list-style:none}
+    .output-details summary::-webkit-details-marker{display:none}
+    .output-details summary::before{content:"▶";display:inline-block;margin-right:8px;color:#315ca5;transition:transform .15s ease}
+    .output-details[open] summary::before{transform:rotate(90deg)}
+    .output-details .details-body{padding:0 18px 18px}
+    ul{padding-left:20px;color:var(--muted)}
+    @media(max-width:1280px){.qa-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.qa-grid .wide-field{grid-column:span 1}}
+    @media(max-width:980px){.preset-grid,.ratios,.qa-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<header class="workbench-header">
+  <div class="workbench-header-row">
+    <div class="workbench-copy">
+      <h1>KB Construction and QA Generation Workbench</h1>
+      <p>Build staged literature knowledge bases and keyword graphs for inspection, and generate evidence-conditioned QA benchmarks without changing the active RAG knowledge base.</p>
+    </div>
+    <button id="manualBtn" class="help-button" type="button">KB construction and QA generation manual</button>
+  </div>
+</header>
+
+<div id="manualModal" class="modal-backdrop" aria-hidden="true">
+  <div class="manual-modal" role="dialog" aria-modal="true" aria-labelledby="manualTitle">
+    <div class="manual-head">
+      <h2 id="manualTitle">KB construction and QA generation manual</h2>
+      <button id="manualCloseBtn" class="close-button" type="button" data-manual-close>Close</button>
+    </div>
+    <div class="manual-body wide">
+      <div class="manual-card">
+        <h3>What this page does</h3>
+        <p>This workbench has two linked but separate functions: staged petroleum literature knowledge-base construction and QA benchmark generation. The first prepares or inspects literature evidence resources, whereas the second generates evaluation datasets from those resources without changing the active RAG runtime by default.</p>
+      </div>
+      <div class="manual-card">
+        <h3>Staged KB construction</h3>
+        <p>The KB panel runs PDF parsing, scientific chunking, cleaning, embedding-index construction, and optional keyword-graph generation as a staged build under <code>outputs/kb_construction</code>. This page is mainly for safe inspection of newly added literature before any manual production update.</p>
+      </div>
+      <div class="manual-card">
+        <h3>Active KB and keyword graph</h3>
+        <p><b>Refresh KB status</b> checks the active clean chunks, active index, and active keyword graph. <b>Open active keyword graph</b> opens the current production graph for corpus-level inspection. Staged graphs are generated separately and should be inspected before replacing any active resource.</p>
+      </div>
+      <div class="manual-card">
+        <h3>QA source modes</h3>
+        <p><b>Existing processed chunks</b> uses the current cleaned KB source and is the normal route for reproducing benchmark datasets from the active literature resource. <b>PDF directory</b> first processes a separate PDF set and then generates QA from those newly prepared documents without overwriting the active KB.</p>
+      </div>
+      <div class="manual-card">
+        <h3>QA benchmark types</h3>
+        <p>The preset routes cover the current paper benchmark types: reviewed single-document semantic QA, reviewed two-document semantic QA, specific-fact open QA, specific-fact MCQ, and naive baseline datasets. These types support evaluation of evidence localization, cross-document synthesis, narrow factual retrieval, and controlled factual verification.</p>
+      </div>
+      <div class="manual-card">
+        <h3>Reviewed and baseline modes</h3>
+        <p><b>Reviewed</b> applies quality audit, duplicate control, and revision gates before writing accepted QA items. <b>Naive baseline</b> keeps a weaker generation route for comparison and should be treated as a construction baseline rather than a paper-grade benchmark.</p>
+      </div>
+      <div class="manual-card full">
+        <h3>Quality review dimensions</h3>
+        <table class="metric-table">
+          <thead><tr><th>Dimension</th><th>Purpose</th><th>Paper interpretation</th></tr></thead>
+          <tbody>
+            <tr><td>self_contained_score</td><td>Question is understandable without hidden evidence labels.</td><td>Higher is better.</td></tr>
+            <tr><td>answerable_score</td><td>Evidence can answer the item.</td><td>Higher is better.</td></tr>
+            <tr><td>objective_score</td><td>Answer is evidence-based rather than opinion.</td><td>Higher is better.</td></tr>
+            <tr><td>specificity_score</td><td>Question names concrete methods, samples, targets, or facts.</td><td>Higher is better, especially for specific-fact QA.</td></tr>
+            <tr><td>evidence_locality_score</td><td>Answer is locally grounded in selected papers.</td><td>Higher means less closed-book answerability.</td></tr>
+            <tr><td>hallucination_risk_score</td><td>Risk of unsupported generation.</td><td>Lower is better.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="manual-card full">
+        <h3>Output boundary</h3>
+        <p>Running this page creates or updates staged KB artifacts and benchmark JSONL datasets only. It does not by itself change the active RAG route definitions, planner logic, or evaluation code.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="workbench-main">
+  <div class="row">
+    <section class="card">
+      <h2>1. KB construction</h2>
+      <p>Build a staged KB from a PDF directory using the existing PDF parsing, chunking, cleaning, embedding-index, and keyword-graph pipeline. The staged build is for inspection and does not overwrite the active KB.</p>
+      <div class="grid">
+        <div>
+          <label>PDF source directory</label>
+          <div class="path-row">
+            <input id="kbSourceDir" placeholder="data/literature/articles" />
+            <button type="button" onclick="chooseKbDirectory()">Choose folder</button>
+          </div>
+          <input id="kbDirPicker" class="hidden-file-input" type="file" webkitdirectory directory multiple onchange="usePickedKbDirectory(event)" />
+          <p class="field-help">Folder containing the PDF papers to process into a staged KB. Browser folder selection may only return a folder name; paste the absolute path if needed.</p>
+        </div>
+        <div>
+          <label>Staged build name</label>
+          <input id="kbBuildName" value="kb.paper.staged" />
+          <p class="field-help">A timestamp is appended automatically. The active KB is not changed.</p>
+        </div>
+        <div>
+          <label>PDF parser / chunking</label>
+          <div class="grid" style="grid-template-columns:1fr 1fr">
+            <select id="kbPdfParserBackend"><option value="grobid">GROBID</option><option value="pymupdf">PyMuPDF</option></select>
+            <select id="kbChunkMode"><option value="scientific_sentence">Scientific sentence</option><option value="sentence">Sentence</option><option value="char">Char</option></select>
+          </div>
+          <p class="field-help">Parser controls PDF-to-text extraction. Chunking controls how cleaned text is split before embedding and QA use; scientific sentence is the current paper workflow.</p>
+        </div>
+        <div>
+          <label>Staged outputs</label>
+          <div class="grid" style="grid-template-columns:1fr 1fr">
+            <label class="check"><input id="kbBuildIndex" type="checkbox" checked> Build staged embedding index</label>
+            <label class="check"><input id="kbBuildKeywordGraph" type="checkbox" checked> Build staged keyword graph</label>
+          </div>
+          <p class="field-help">Choose which non-production artifacts are generated for the staged build. The embedding index supports later retrieval checks; the keyword graph supports corpus-structure inspection.</p>
+        </div>
+        <div><label>Chunk token size</label><input id="kbChunkTokenSize" type="number" min="32" max="4096" value="384"><p class="field-help">Approximate token budget for each evidence chunk. Larger chunks keep more context but reduce retrieval granularity.</p></div>
+        <div><label>Sentence overlap</label><input id="kbSentenceOverlap" type="number" min="0" max="20" value="2"><p class="field-help">Number of neighboring sentences repeated between adjacent chunks to preserve boundary context.</p></div>
+        <div><label>Embedding model</label><input id="kbEmbeddingModel" placeholder="active default"><p class="field-help">Model used to convert text chunks into vectors for the staged FAISS index. Leave blank to use the active default embedding model.</p></div>
+        <div>
+          <label>Embedding safety</label>
+          <div class="grid" style="grid-template-columns:1fr 1fr">
+            <label class="check"><input id="kbEmbeddingLocal" type="checkbox" checked> Local model cache only</label>
+            <label class="check"><input id="kbAllowHashFallback" type="checkbox"> Allow hash fallback</label>
+          </div>
+          <p class="field-help">Safety controls for staged embedding. Local model cache only prevents accidental model downloads. Hash fallback creates deterministic placeholder vectors only when a real embedding model is unavailable, and should not be used for paper-grade retrieval results.</p>
+        </div>
+      </div>
+      <button id="kbBuildBtn" class="teal" onclick="startKbConstruction()">Build staged KB</button>
+      <button class="teal" onclick="startKbConstructionWithGraph()">Build staged KB + graph</button>
+      <button class="alt" onclick="loadKbStatus()">Refresh KB status</button>
+      <button class="alt" onclick="openActiveKeywordGraph()">Open active keyword graph</button>
+      <div id="kbStatus" class="status"></div>
+      <div class="note"><b>Safety:</b> this builds a separate staged KB and staged keyword graph. It does not modify <code>petroleum_kb/petroleum_kb/data</code>, the active FAISS/BM25 index, existing benchmarks, the active keyword graph, or the Experimental DB.</div>
+      <details class="output-details">
+        <summary>KB construction status</summary>
+        <div class="details-body">
+          <pre id="kbOutput">{}</pre>
+        </div>
+      </details>
+    </section>
+  </div>
+
+  <div class="row">
+    <section class="card">
+      <h2>2. QA benchmark construction</h2>
+      <p>Use presets for the current paper datasets, or manually tune the same backend parameters. This page does not modify the core QA-generation or RAG code.</p>
+
+      <label>Current paper presets</label>
+      <div class="preset-grid">
+        <button type="button" onclick="applyBenchmarkPreset('reviewed_single')"><b>Reviewed single</b><span>semantic, open, single-doc only</span></button>
+        <button type="button" onclick="applyBenchmarkPreset('reviewed_twodoc')"><b>Reviewed two-doc</b><span>semantic, open, two-doc only</span></button>
+        <button type="button" onclick="applyBenchmarkPreset('specific_open')"><b>Specific-fact open</b><span>specific_fact, open, single-doc</span></button>
+        <button type="button" onclick="applyBenchmarkPreset('specific_mcq')"><b>Specific-fact MCQ</b><span>specific_fact, mcq, single-doc</span></button>
+        <button type="button" onclick="applyBenchmarkPreset('naive_single')"><b>Naive baseline single</b><span>semantic, weak baseline prompt</span></button>
+        <button type="button" onclick="applyBenchmarkPreset('naive_twodoc')"><b>Naive baseline two-doc</b><span>semantic, weak baseline prompt</span></button>
+      </div>
+
+      <div class="grid qa-grid">
+        <div>
+          <label>Benchmark name</label>
+          <input id="benchmarkName" value="benchmark.reviewed.single.200.ui" />
+          <p class="field-help">Output JSONL name under <code>petroleum_kb/eval/datasets</code>.</p>
+        </div>
+        <div>
+          <label>Write mode</label>
+          <select id="writeMode">
+            <option value="new">Create / replace benchmark</option>
+            <option value="append">Append to benchmark</option>
+          </select>
+          <p class="field-help">Create / replace starts a fresh benchmark file with the selected name. Append adds new accepted QA items to an existing benchmark.</p>
+        </div>
+        <div>
+          <label>Benchmark mode</label>
+          <select id="benchmarkMode">
+            <option value="reviewed">Reviewed benchmark</option>
+            <option value="naive_baseline">Naive baseline</option>
+          </select>
+          <p class="field-help">Reviewed is the paper-grade mode. Baselines are mainly for construction comparison.</p>
+        </div>
+        <div>
+          <label>Benchmark style</label>
+          <select id="benchmarkStyle">
+            <option value="semantic">Semantic literature QA</option>
+            <option value="specific_fact">Specific-fact literature QA</option>
+          </select>
+          <p class="field-help">Semantic QA evaluates explanation and synthesis from evidence. Specific-fact QA targets narrow values, method names, conditions, instruments, species, or other checkable facts.</p>
+        </div>
+        <div>
+          <label>Answer format</label>
+          <select id="answerFormat">
+            <option value="open">Open short-answer QA</option>
+            <option value="mcq">Strict four-option MCQ</option>
+          </select>
+          <p class="field-help">Open QA expects a short evidence-grounded answer. MCQ generates one correct option plus distractors for direct factual verification.</p>
+        </div>
+        <div>
+          <label>QA count for this run</label>
+          <input id="questionCount" type="number" min="1" max="200" value="200" />
+        </div>
+        <div>
+          <label>Quality minimum score</label>
+          <input id="quality" type="number" min="0" max="1" step="0.05" value="0.7" />
+          <p class="field-help">Used as write threshold only in reviewed mode.</p>
+        </div>
+        <div>
+          <label>Language</label>
+          <select id="language">
+            <option value="en">English</option>
+            <option value="zh">Chinese</option>
+          </select>
+          <p class="field-help">Language used for generated QA items.</p>
+        </div>
+      </div>
+
+      <label>Question type ratios</label>
+      <div class="ratios">
+        <div><small>single doc</small><input id="ratio1" type="number" min="0" max="1" step="0.05" value="1.00" /></div>
+        <div><small>2 documents</small><input id="ratio2" type="number" min="0" max="1" step="0.05" value="0.00" /></div>
+      </div>
+
+      <div class="grid qa-grid">
+        <div>
+          <label>Benchmark data source</label>
+          <select id="sourceMode" onchange="syncSourceMode()">
+            <option value="existing_chunks">Existing processed chunks JSONL</option>
+            <option value="pdf_directory">PDF directory: parse and chunk first</option>
+          </select>
+          <p class="field-help">Existing processed chunks reproduces the current cleaned KB benchmark path. PDF directory mode first parses a separate PDF folder, then generates QA from that temporary source.</p>
+        </div>
+        <div class="wide-field">
+          <label>Existing chunks JSONL path</label>
+          <div class="path-row">
+            <input id="chunksPath" value="petroleum_kb/petroleum_kb/data/processed/chunks_clean.jsonl" />
+            <button id="chunksChooseBtn" type="button" onclick="chooseChunksFile()">Choose file</button>
+          </div>
+          <input id="chunksFilePicker" class="hidden-file-input" type="file" accept=".jsonl,.json" onchange="usePickedChunksFile(event)" />
+          <p class="field-help">Use the default cleaned KB source for reproducing the current paper benchmarks unless you intentionally test a separate source.</p>
+        </div>
+        <div class="wide-field">
+          <label>PDF directory path</label>
+          <div class="path-row">
+            <input id="pdfDir" placeholder="data/literature/articles" />
+            <button type="button" onclick="choosePdfDirectory()">Choose folder</button>
+          </div>
+          <input id="pdfDirPicker" class="hidden-file-input" type="file" webkitdirectory directory multiple onchange="usePickedPdfDirectory(event)" />
+          <p class="field-help">Only used when Benchmark data source is PDF directory. This path is parsed for QA generation and does not update the active RAG KB.</p>
+        </div>
+        <div>
+          <label>PDF parser / chunking</label>
+          <div class="grid" style="grid-template-columns:1fr 1fr">
+            <select id="pdfParserBackend"><option value="grobid">GROBID</option><option value="pymupdf">PyMuPDF</option></select>
+            <select id="chunkMode"><option value="scientific_sentence">Scientific sentence</option><option value="sentence">Sentence</option><option value="char">Char</option></select>
+          </div>
+          <p class="field-help">Controls PDF parsing and temporary chunking for QA generation when PDF directory mode is selected.</p>
+        </div>
+      </div>
+
+      <button id="generateBtn" class="orange" onclick="generateBenchmark()">Generate QA benchmark</button>
+      <button id="stopBtn" class="danger" onclick="stopBenchmark()" disabled>Stop generation</button>
+      <button class="alt" onclick="loadOptions()">Refresh existing benchmarks</button>
+      <div class="note"><b>Safety:</b> this UI only starts the existing benchmark-generation job. It does not change the QA-generation logic, RAG retrieval, judge prompts, or paper-results analysis workflow.</div>
+      <details class="output-details">
+        <summary>QA construction result</summary>
+        <div class="details-body">
+          <p id="datasets">Loading benchmark datasets...</p>
+          <div id="generationStatus" class="status"></div>
+          <pre id="benchmarkOutput">{}</pre>
+        </div>
+      </details>
+    </section>
+  </div>
+</main>
+
+<script src="/static/support_help.js?v=20260725g"></script>
+  <script type="module" src="/static/support_benchmark.js?v=20260725g"></script>
+</body>
+</html>
+

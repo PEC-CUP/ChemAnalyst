@@ -1,0 +1,239 @@
+{
+  "schema_version": "experimental-sample-template.v2",
+  "sample_information_sheet": "sample_information",
+  "bulk_properties_sheet": "bulk_properties",
+  "sheets": [
+    {
+      "sheet_name": "sample_information",
+      "role": "sample_information",
+      "layout": "field_value",
+      "columns": [
+        "field",
+        "value"
+      ],
+      "example_rows": [
+        {
+          "field": "sample_id",
+          "value": "petroleum_fraction_db_001"
+        },
+        {
+          "field": "sample_name",
+          "value": "petroleum fraction 01"
+        },
+        {
+          "field": "sample_type",
+          "value": "petroleum fraction"
+        },
+        {
+          "field": "refinery"
+        },
+        {
+          "field": "project",
+          "value": "petroleum fraction historical experimental database"
+        },
+        {
+          "field": "raw_sample_id",
+          "value": "petroleum_fraction_01"
+        },
+        {
+          "field": "related_sample_id"
+        },
+        {
+          "field": "relation_type"
+        }
+      ]
+    },
+    {
+      "sheet_name": "bulk_properties",
+      "role": "bulk_properties",
+      "columns": [
+        "property_name",
+        "value",
+        "unit",
+        "method",
+        "property_group",
+        "source_column",
+        "description"
+      ],
+      "example_rows": [
+        {
+          "property_name": "density_20c",
+          "unit": "g/cm3",
+          "method": "20 deg C",
+          "property_group": "bulk_property",
+          "source_column": "Density",
+          "description": "Density at 20 deg C"
+        },
+        {
+          "property_name": "kinematic_viscosity_50c",
+          "unit": "mm2/s",
+          "method": "50 deg C",
+          "property_group": "bulk_property",
+          "source_column": "Kinematic viscosity",
+          "description": "Kinematic viscosity at 50 deg C"
+        },
+        {
+          "property_name": "solidification_point",
+          "unit": "deg C",
+          "property_group": "bulk_property",
+          "source_column": "Solidification point",
+          "description": "Solidification point"
+        },
+        {
+          "property_name": "wax_content",
+          "unit": "wt_percent",
+          "property_group": "bulk_property",
+          "source_column": "Wax content",
+          "description": "Wax content"
+        },
+        {
+          "property_name": "saturates",
+          "unit": "wt_percent",
+          "property_group": "sara",
+          "source_column": "Saturates",
+          "description": "SARA fraction"
+        },
+        {
+          "property_name": "aromatics",
+          "unit": "wt_percent",
+          "property_group": "sara",
+          "source_column": "Aromatics",
+          "description": "SARA fraction"
+        },
+        {
+          "property_name": "resins",
+          "unit": "wt_percent",
+          "property_group": "sara",
+          "source_column": "Resins",
+          "description": "SARA fraction"
+        },
+        {
+          "property_name": "C",
+          "unit": "wt_percent",
+          "method": "elemental composition",
+          "property_group": "elemental",
+          "source_column": "C wt%",
+          "description": "C wt%"
+        }
+      ]
+    },
+    {
+      "sheet_name": "gc_fid",
+      "role": "analysis",
+      "analysis_type": "gc_fid",
+      "columns": [
+        "time",
+        "intensity"
+      ],
+      "example_rows": [
+        {
+          "time": 0.000333333
+        }
+      ]
+    },
+    {
+      "sheet_name": "gc_scd",
+      "role": "analysis",
+      "analysis_type": "gc_scd",
+      "columns": [
+        "time",
+        "intensity"
+      ],
+      "example_rows": [
+        {
+          "time": 0.000333333
+        }
+      ]
+    },
+    {
+      "sheet_name": "gc_ncd",
+      "role": "analysis",
+      "analysis_type": "gc_ncd",
+      "columns": [
+        "time",
+        "intensity"
+      ],
+      "example_rows": [
+        {
+          "time": 0.000333333
+        }
+      ]
+    },
+    {
+      "sheet_name": "ir_spectrum",
+      "role": "analysis",
+      "analysis_type": "ir_spectrum",
+      "columns": [
+        "wave_number_cm-1",
+        "transmittance"
+      ],
+      "example_rows": [
+        {
+          "wave_number_cm-1": 3998.356867
+        }
+      ]
+    },
+    {
+      "sheet_name": "hydrocarbon_types",
+      "role": "analysis",
+      "analysis_type": "hydrocarbon_types",
+      "columns": [
+        "component",
+        "content",
+        "unit"
+      ],
+      "example_rows": [
+        {
+          "component": "paraffins",
+          "unit": "wt_percent"
+        },
+        {
+          "component": "monocycloparaffins",
+          "unit": "wt_percent"
+        },
+        {
+          "component": "dicycloparaffins",
+          "unit": "wt_percent"
+        },
+        {
+          "component": "tricycloparaffins",
+          "unit": "wt_percent"
+        },
+        {
+          "component": "tetracycloparaffins",
+          "unit": "wt_percent"
+        },
+        {
+          "component": "pentacycloparaffins",
+          "unit": "wt_percent"
+        },
+        {
+          "component": "hexacycloparaffins",
+          "unit": "wt_percent"
+        },
+        {
+          "component": "alkylbenzenes",
+          "unit": "wt_percent"
+        }
+      ]
+    },
+    {
+      "sheet_name": "sample_relations",
+      "role": "relations",
+      "columns": [
+        "related_sample_id",
+        "relation_type",
+        "description"
+      ],
+      "example_rows": [
+        {
+          "related_sample_id": "crude_001",
+          "relation_type": "fraction_of",
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "updated_at": "2026-07-11T14:29:33.090913+00:00",
+  "updated_from": "9980f76929974962b512a66bb697a014_chemanalyst_experimental_sample_template.xlsx"
+}

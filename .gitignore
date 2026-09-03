@@ -1,0 +1,28 @@
+/.env
+/knowledge
+/vectorstore
+/release_petroanalyst
+/histroy version
+
+# Python runtime artifacts
+__pycache__/
+*.py[cod]
+*.pyc.*
+.pycache_tmp/
+
+# Test and local tool caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Local logs, uploads, and temporary shards
+data/logs/
+app/tools/document_uploads/
+app/tools/quantplatform/data/uploads/
+tmp_*
+*_tmp_*
+*.tmp
+*.sqlite-journal
+
+# Local IDE files
+.vscode/

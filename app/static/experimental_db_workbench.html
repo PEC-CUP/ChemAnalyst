@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Experimental Database Workbench</title>
+  <link rel="stylesheet" href="/static/support_workbench.css?v=20260720a">
+</head>
+<body>
+  <header class="workbench-header">
+    <div class="workbench-header-row">
+      <div class="workbench-copy">
+        <h1>Experimental Database Workbench</h1>
+        <p>Manage sample-centered petroleum sample information and analysis data, then build historical-neighbor evidence for training-free property inference.</p>
+      </div>
+      <div class="header-actions">
+        <a class="button-link button-link-primary" href="/experimental-db-manager">Open sample manager</a>
+        <button id="dbManualBtn" class="manual-button" type="button">Experimental Database manual</button>
+      </div>
+    </div>
+  </header>
+  <div id="dbManual" class="modal-backdrop" aria-hidden="true">
+    <div class="manual-modal" role="dialog" aria-modal="true" aria-labelledby="dbManualTitle">
+      <div class="manual-head"><h2 id="dbManualTitle">Experimental Database manual</h2><button class="close-button" type="button" data-manual-close>Close</button></div>
+      <div class="manual-body">
+        <div class="manual-card"><h3>What this page does</h3><p>This workbench manages sample-centered historical experimental records and tests the historical-neighbor evidence workflow used for training-free property inference. It separates persistent database import from transient query evidence testing.</p></div>
+        <div class="manual-card"><h3>Sample-centered records</h3><p>Each imported record is keyed by <code>sample_id</code> and can retain sample information, bulk properties, analysis rows, relations, artifacts, and provenance. The goal is to keep each historical sample as one traceable database object rather than as scattered files.</p></div>
+        <div class="manual-card"><h3>Import and storage</h3><p>Excel workbooks are the normal import path. Imported content is written into sample records under <code>samples/</code> and indexed through registry files and <code>catalog/experimental_samples.sqlite</code> for browsing and search.</p></div>
+        <div class="manual-card"><h3>Sample Manager</h3><p>The separate Sample Manager is the maintenance interface for browsing, filtering, supplementing, and deleting persistent database records. Use this workbench when importing new records or running evidence tests.</p></div>
+        <div class="manual-card"><h3>Feature extraction path</h3><p>The evidence test converts available analysis data into comparable features before neighbor retrieval. Tabular properties can be used directly, while supported GC-FID or IR data follow the embedded featureization path already configured in the current implementation.</p></div>
+        <div class="manual-card"><h3>Historical-neighbor retrieval</h3><p>The evidence test compares the query sample with historical records in a shared feature space and returns the top-k nearest historical samples after weighted ranking. The query workbook remains transient during this process and is not inserted into the database automatically.</p></div>
+        <div class="manual-card"><h3>Training-free property inference</h3><p>No dedicated property regressor is retrained during the test. Retrieved neighbors are summarized into evidence ranges, weighted evidence centers, and supporting sample lists, which can then be interpreted with optional LLM analytical reasoning.</p></div>
+        <div class="manual-card"><h3>Evidence output</h3><p>The returned output is a structured evidence package for inspection, manuscript use, or downstream comparison. It includes the query profile, retrieved neighbors, property summaries, and raw JSON evidence rather than only a single final number.</p></div>
+        <div class="manual-card"><h3>Template governance</h3><p>The active Excel template defines the current import structure. Template update is an advanced governance path for redefining laboratory-specific sheets and fields and should be used only when the database schema itself needs to change.</p></div>
+      </div>
+    </div>
+  </div>
+  <main class="workbench-main">
+    <div class="row">
+      <section class="card">
+        <h2>Sample database import</h2>
+        <p class="action-guide">Import standardized historical sample workbooks into the Experimental Database. This panel is for persistent database entry rather than transient query testing.</p>
+        <p>The Excel template is the normal import path. Fill the <code>sample_information</code> sheet and analysis-data sheets, then upload the workbook.</p>
+        <a class="button-link button-link-primary" href="/support-layer/experimental-db/template">Download Excel template</a>
+        <label>Import sample workbook(s)</label>
+        <p>Select one or more Excel workbooks. If supported by your browser, you can also select a folder containing workbooks.</p>
+        <div class="file-picker">
+          <input id="dbWorkbook" class="native-file-input" type="file" accept=".xlsx,.xls" multiple>
+          <input id="dbWorkbookFolder" class="native-file-input" type="file" webkitdirectory directory multiple>
+          <button id="dbWorkbookButton" type="button">Choose workbook(s)</button>
+          <button id="dbWorkbookFolderButton" type="button">Choose folder</button>
+          <span id="dbWorkbookName" class="file-name">No workbook selected</span>
+        </div>
+        <button class="teal" onclick="dbImportWorkbook()">Import workbook(s)</button>
+        <details>
+          <summary><b>Advanced JSON import</b> - for API/debug use; manual JSON entry is not required for normal Excel imports.</summary>
+          <label>Import sample JSON payload</label>
+          <textarea id="dbSampleJson">{
+  "sample_information": {"sample_id": "sample_petroleum_fraction_001", "sample_type": "petroleum fraction", "origin": "pilot"},
+  "bulk_properties": [{"property_name": "density_20c", "value": 0.912, "unit": "g_cm-3"}],
+  "analyses": [{"analysis_type": "hydrocarbon_types", "rows": [{"component": "paraffins", "content": 36.2, "unit": "wt_percent"}]}]
+}</textarea>
+          <button onclick="dbImportJson()">Import JSON</button>
+        </details>
+        <details>
+          <summary><b>Template update</b> - hidden governance path for replacing the active Experimental Database template with a new lab-defined workbook.</summary>
+          <p>Upload a revised Excel template to redefine sheet structure for this Experimental Database. The workbench will persist the workbook and regenerate the active template definition used by import parsing.</p>
+          <div class="file-picker">
+            <input id="dbTemplateWorkbook" class="native-file-input" type="file" accept=".xlsx,.xls">
+            <button id="dbTemplateWorkbookButton" type="button">Choose template workbook</button>
+            <span id="dbTemplateWorkbookName" class="file-name">No file selected</span>
+          </div>
+          <button class="orange" onclick="dbUpdateTemplate()">Update active template</button>
+          <pre id="dbTemplateOut">{}</pre>
+        </details>
+        <div id="dbImportStatus" class="status"></div>
+      </section>
+      <section class="card" id="sample-update">
+        <h2>Imported sample update</h2>
+        <p class="action-guide">Update an already imported database record by supplementing relations, artifacts, or missing analysis information without rebuilding the whole workbook entry.</p>
+        <p>The workbook import already submits the sample. Use this panel to update or supplement analysis data and append relation or artifact evidence. Use the sample manager for full-list browsing.</p>
+        <div class="grid">
+          <div><label>Sample id</label><input id="dbInspectSample" placeholder="petroleum_fraction_db_001"></div>
+          <div class="action-stack">
+            <label>Sample manager</label>
+            <a class="button-link button-link-primary" href="/experimental-db-manager">Browse all samples</a>
+          </div>
+        </div>
+        <details>
+          <summary><b>Optional relation supplement</b> - add a crude/fraction/feedstock relation after import.</summary>
+          <label>Add sample relation</label>
+          <p>In the Excel template the same fields are available in <code>sample_information</code> and can be left blank.</p>
+          <div class="grid">
+            <div><input id="dbRelatedSample" placeholder="related sample id, e.g. crude_001"></div>
+            <div>
+              <select id="dbRelationType">
+                <option value="">Select relation type</option>
+                <option value="fraction_of">fraction_of</option>
+                <option value="product_of">product_of</option>
+                <option value="feedstock_of">feedstock_of</option>
+                <option value="has_fraction">has_fraction</option>
+                <option value="derived_from">derived_from</option>
+                <option value="blend_of">blend_of</option>
+                <option value="repeat_of">repeat_of</option>
+                <option value="same_feedstock">same_feedstock</option>
+              </select>
+            </div>
+          </div>
+          <input id="dbRelationDescription" placeholder="optional relation description">
+          <button onclick="dbAddRelation()">Add relation</button>
+        </details>
+        <details>
+          <summary><b>Optional artifact attachment</b> - bind an extra raw/processed file to the inspected sample.</summary>
+          <label>Attach analysis artifact to inspected sample</label>
+          <p>Use this when the database record should retain a source workbook, raw spectrum, chromatogram, or exported result file.</p>
+          <div class="grid">
+            <div><input id="dbArtifactType" placeholder="analysis type, e.g. gc_fid"></div>
+            <div>
+              <div class="file-picker file-picker-compact">
+                <input id="dbArtifactFile" class="native-file-input" type="file">
+                <button id="dbArtifactButton" type="button">Choose artifact</button>
+                <span id="dbArtifactName" class="file-name">No file selected</span>
+              </div>
+            </div>
+          </div>
+          <button onclick="dbAttachArtifact()">Attach artifact</button>
+        </details>
+        <pre id="dbSampleOut">{}</pre>
+      </section>
+    </div>
+    <div class="row">
+      <section class="card">
+        <h2>Experimental Database evidence test</h2>
+        <p class="action-guide">Run the historical-neighbor evidence workflow on a transient query workbook. The uploaded query stays outside the historical database unless it is explicitly imported elsewhere.</p>
+        <p>Upload a new query sample workbook, keep it outside the historical database, and compare its analysis data against historical samples for training-free property inference.</p>
+        <label>Query sample workbook</label>
+        <p class="field-help">Upload a temporary workbook for evidence testing. This file is compared with historical records but is not inserted into the Experimental Database during the test run.</p>
+        <div class="file-picker">
+          <input id="dbEvidenceWorkbook" class="native-file-input" type="file" accept=".xlsx,.xls">
+          <button id="dbEvidenceWorkbookButton" type="button">Choose query workbook</button>
+          <span id="dbEvidenceWorkbookName" class="file-name">No query workbook selected</span>
+        </div>
+        <div class="grid">
+          <div>
+            <label>Top-k similar historical samples</label>
+            <p class="field-help">Maximum number of nearest historical samples returned after weighted shared-feature ranking. Larger values broaden the evidence range but may introduce weaker neighbors.</p>
+            <input id="dbTopK" type="number" value="4" min="1" max="50">
+          </div>
+        </div>
+        <label>Property evidence query</label>
+        <p class="field-help">Describe which target properties should be inferred and which analysis channels should be used, so the evidence workflow can build the corresponding query profile.</p>
+        <textarea id="dbQuery">Use IR and GC-FID to infer density, distillation distribution, and saturates for this petroleum fraction sample.</textarea>
+        <label class="inline-check"><input id="dbUseLlmReasoning" type="checkbox" checked> Use LLM analytical reasoning</label>
+        <button class="teal" onclick="dbTest()">Build database evidence</button>
+        <button onclick="dbStatus()">Refresh database status</button>
+        <div class="note">Top-k means the maximum number of nearest historical samples returned after ranking by weighted shared PCA/PLS latent-feature distance. Property centers are obtained by inverse-distance weighted interpolation over the retrieved neighbors; the LLM reasoning step should explain how this evidence supports or limits the final conclusion.</div>
+      </section>
+      <section class="card">
+        <h2>Evidence presentation</h2>
+        <p class="action-guide">Inspect the returned evidence view and raw JSON output for manuscript use, debugging, or downstream comparison with other evidence sources.</p>
+        <div id="dbEvidenceView" class="evidence-view"></div>
+        <h3 style="margin-top:18px;">Database status / raw evidence JSON</h3>
+        <pre id="dbOut">{}</pre>
+      </section>
+    </div>
+  </main>
+  <script src="/static/support_help.js?v=20260720a"></script>
+  <script type="module" src="/static/support_experimental_db.js?v=20260712d"></script>
+</body>
+</html>

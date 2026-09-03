@@ -1,0 +1,459 @@
+{
+  "capability_id": "tool.hydrocarbon_type_calculator",
+  "description": "Calculate hydrocarbon type composition from saturated/aromatic MS tables and fraction mass percentages.",
+  "status": "success",
+  "message": "generic_python_function_completed",
+  "structured_tool_evidence": {
+    "schema_version": "hydrocarbon-type.v1",
+    "capability_id": "tool.hydrocarbon_type_calculator",
+    "evidence_type": "hydrocarbon_group_composition",
+    "method": "hydrocarbon type composition",
+    "source_file": "<local_path_removed>",
+    "structured_result": [
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "monocycloparaffins",
+        "drop_frac_gt_0_5_floor_sum": 16.2,
+        "floor_max": 16.4,
+        "floor_sum": 16.1,
+        "half_up_sum": 16.2
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "tricycloparaffins",
+        "drop_frac_gt_0_5_floor_sum": 5.0,
+        "floor_max": 4.9,
+        "floor_sum": 5.0,
+        "half_up_sum": 5.0
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "tricyclic_aromatics",
+        "drop_frac_gt_0_5_floor_sum": 0.8,
+        "floor_max": 0.8,
+        "floor_sum": 0.8,
+        "half_up_sum": 0.8
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "dicycloparaffins",
+        "drop_frac_gt_0_5_floor_sum": 12.9,
+        "floor_max": 12.7,
+        "floor_sum": 13.0,
+        "half_up_sum": 13.0
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "total_monoaromatics",
+        "drop_frac_gt_0_5_floor_sum": 18.1,
+        "floor_max": 18.4,
+        "floor_sum": 18.0,
+        "half_up_sum": 18.1
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "total_diaromatics",
+        "drop_frac_gt_0_5_floor_sum": 10.9,
+        "floor_max": 10.8,
+        "floor_sum": 10.8,
+        "half_up_sum": 10.8
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "total_cycloparaffins",
+        "drop_frac_gt_0_5_floor_sum": 34.1,
+        "floor_max": 34.0,
+        "floor_sum": 34.1,
+        "half_up_sum": 34.2
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "total_aromatics",
+        "drop_frac_gt_0_5_floor_sum": 29.8,
+        "floor_max": 30.0,
+        "floor_sum": 29.6,
+        "half_up_sum": 29.7
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "total_weight",
+        "drop_frac_gt_0_5_floor_sum": 100.0,
+        "floor_max": 100.0,
+        "floor_sum": 100.0,
+        "half_up_sum": 100.0
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "total_saturates",
+        "drop_frac_gt_0_5_floor_sum": 70.2,
+        "floor_max": 70.0,
+        "floor_sum": 70.4,
+        "half_up_sum": 70.3
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "alkylbenzenes",
+        "drop_frac_gt_0_5_floor_sum": 9.0,
+        "floor_max": 9.1,
+        "floor_sum": 9.0,
+        "half_up_sum": 8.9
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "fluorenes_or_cnh2n_16",
+        "drop_frac_gt_0_5_floor_sum": 2.4,
+        "floor_max": 2.2,
+        "floor_sum": 2.4,
+        "half_up_sum": 2.4
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "acenaphthenes_or_cnh2n_14",
+        "drop_frac_gt_0_5_floor_sum": 2.6,
+        "floor_max": 2.7,
+        "floor_sum": 2.6,
+        "half_up_sum": 2.6
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "indanes_or_tetralins",
+        "drop_frac_gt_0_5_floor_sum": 4.9,
+        "floor_max": 4.9,
+        "floor_sum": 4.8,
+        "half_up_sum": 5.1
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "indenes_or_cnh2n_10",
+        "drop_frac_gt_0_5_floor_sum": 4.2,
+        "floor_max": 4.3,
+        "floor_sum": 4.2,
+        "half_up_sum": 4.1
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "naphthalene",
+        "drop_frac_gt_0_5_floor_sum": 0.4,
+        "floor_max": 0.4,
+        "floor_sum": 0.4,
+        "half_up_sum": 0.4
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "naphthalenes",
+        "drop_frac_gt_0_5_floor_sum": 5.5,
+        "floor_max": 5.5,
+        "floor_sum": 5.4,
+        "half_up_sum": 5.4
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "paraffins",
+        "drop_frac_gt_0_5_floor_sum": 36.2,
+        "floor_max": 36.0,
+        "floor_sum": 36.3,
+        "half_up_sum": 36.2
+      }
+    ],
+    "quality_flags": []
+  },
+  "structured_result": [
+    {
+      "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+      "item": "monocycloparaffins",
+      "drop_frac_gt_0_5_floor_sum": 16.2,
+      "floor_max": 16.4,
+      "floor_sum": 16.1,
+      "half_up_sum": 16.2
+    },
+    {
+      "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+      "item": "tricycloparaffins",
+      "drop_frac_gt_0_5_floor_sum": 5.0,
+      "floor_max": 4.9,
+      "floor_sum": 5.0,
+      "half_up_sum": 5.0
+    },
+    {
+      "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+      "item": "tricyclic_aromatics",
+      "drop_frac_gt_0_5_floor_sum": 0.8,
+      "floor_max": 0.8,
+      "floor_sum": 0.8,
+      "half_up_sum": 0.8
+    },
+    {
+      "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+      "item": "dicycloparaffins",
+      "drop_frac_gt_0_5_floor_sum": 12.9,
+      "floor_max": 12.7,
+      "floor_sum": 13.0,
+      "half_up_sum": 13.0
+    },
+    {
+      "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+      "item": "total_monoaromatics",
+      "drop_frac_gt_0_5_floor_sum": 18.1,
+      "floor_max": 18.4,
+      "floor_sum": 18.0,
+      "half_up_sum": 18.1
+    },
+    {
+      "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+      "item": "total_diaromatics",
+      "drop_frac_gt_0_5_floor_sum": 10.9,
+      "floor_max": 10.8,
+      "floor_sum": 10.8,
+      "half_up_sum": 10.8
+    },
+    {
+      "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+      "item": "total_cycloparaffins",
+      "drop_frac_gt_0_5_floor_sum": 34.1,
+      "floor_max": 34.0,
+      "floor_sum": 34.1,
+      "half_up_sum": 34.2
+    },
+    {
+      "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+      "item": "total_aromatics",
+      "drop_frac_gt_0_5_floor_sum": 29.8,
+      "floor_max": 30.0,
+      "floor_sum": 29.6,
+      "half_up_sum": 29.7
+    },
+    {
+      "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+      "item": "total_weight",
+      "drop_frac_gt_0_5_floor_sum": 100.0,
+      "floor_max": 100.0,
+      "floor_sum": 100.0,
+      "half_up_sum": 100.0
+    },
+    {
+      "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+      "item": "total_saturates",
+      "drop_frac_gt_0_5_floor_sum": 70.2,
+      "floor_max": 70.0,
+      "floor_sum": 70.4,
+      "half_up_sum": 70.3
+    },
+    {
+      "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+      "item": "alkylbenzenes",
+      "drop_frac_gt_0_5_floor_sum": 9.0,
+      "floor_max": 9.1,
+      "floor_sum": 9.0,
+      "half_up_sum": 8.9
+    },
+    {
+      "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+      "item": "fluorenes_or_cnh2n_16",
+      "drop_frac_gt_0_5_floor_sum": 2.4,
+      "floor_max": 2.2,
+      "floor_sum": 2.4,
+      "half_up_sum": 2.4
+    },
+    {
+      "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+      "item": "acenaphthenes_or_cnh2n_14",
+      "drop_frac_gt_0_5_floor_sum": 2.6,
+      "floor_max": 2.7,
+      "floor_sum": 2.6,
+      "half_up_sum": 2.6
+    },
+    {
+      "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+      "item": "indanes_or_tetralins",
+      "drop_frac_gt_0_5_floor_sum": 4.9,
+      "floor_max": 4.9,
+      "floor_sum": 4.8,
+      "half_up_sum": 5.1
+    },
+    {
+      "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+      "item": "indenes_or_cnh2n_10",
+      "drop_frac_gt_0_5_floor_sum": 4.2,
+      "floor_max": 4.3,
+      "floor_sum": 4.2,
+      "half_up_sum": 4.1
+    },
+    {
+      "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+      "item": "naphthalene",
+      "drop_frac_gt_0_5_floor_sum": 0.4,
+      "floor_max": 0.4,
+      "floor_sum": 0.4,
+      "half_up_sum": 0.4
+    },
+    {
+      "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+      "item": "naphthalenes",
+      "drop_frac_gt_0_5_floor_sum": 5.5,
+      "floor_max": 5.5,
+      "floor_sum": 5.4,
+      "half_up_sum": 5.4
+    },
+    {
+      "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+      "item": "paraffins",
+      "drop_frac_gt_0_5_floor_sum": 36.2,
+      "floor_max": 36.0,
+      "floor_sum": 36.3,
+      "half_up_sum": 36.2
+    }
+  ],
+  "artifacts": {
+    "output_excel": "<local_path_removed>"
+  },
+  "result": {
+    "structured_result": [
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "monocycloparaffins",
+        "drop_frac_gt_0_5_floor_sum": 16.2,
+        "floor_max": 16.4,
+        "floor_sum": 16.1,
+        "half_up_sum": 16.2
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "tricycloparaffins",
+        "drop_frac_gt_0_5_floor_sum": 5.0,
+        "floor_max": 4.9,
+        "floor_sum": 5.0,
+        "half_up_sum": 5.0
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "tricyclic_aromatics",
+        "drop_frac_gt_0_5_floor_sum": 0.8,
+        "floor_max": 0.8,
+        "floor_sum": 0.8,
+        "half_up_sum": 0.8
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "dicycloparaffins",
+        "drop_frac_gt_0_5_floor_sum": 12.9,
+        "floor_max": 12.7,
+        "floor_sum": 13.0,
+        "half_up_sum": 13.0
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "total_monoaromatics",
+        "drop_frac_gt_0_5_floor_sum": 18.1,
+        "floor_max": 18.4,
+        "floor_sum": 18.0,
+        "half_up_sum": 18.1
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "total_diaromatics",
+        "drop_frac_gt_0_5_floor_sum": 10.9,
+        "floor_max": 10.8,
+        "floor_sum": 10.8,
+        "half_up_sum": 10.8
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "total_cycloparaffins",
+        "drop_frac_gt_0_5_floor_sum": 34.1,
+        "floor_max": 34.0,
+        "floor_sum": 34.1,
+        "half_up_sum": 34.2
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "total_aromatics",
+        "drop_frac_gt_0_5_floor_sum": 29.8,
+        "floor_max": 30.0,
+        "floor_sum": 29.6,
+        "half_up_sum": 29.7
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "total_weight",
+        "drop_frac_gt_0_5_floor_sum": 100.0,
+        "floor_max": 100.0,
+        "floor_sum": 100.0,
+        "half_up_sum": 100.0
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "total_saturates",
+        "drop_frac_gt_0_5_floor_sum": 70.2,
+        "floor_max": 70.0,
+        "floor_sum": 70.4,
+        "half_up_sum": 70.3
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "alkylbenzenes",
+        "drop_frac_gt_0_5_floor_sum": 9.0,
+        "floor_max": 9.1,
+        "floor_sum": 9.0,
+        "half_up_sum": 8.9
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "fluorenes_or_cnh2n_16",
+        "drop_frac_gt_0_5_floor_sum": 2.4,
+        "floor_max": 2.2,
+        "floor_sum": 2.4,
+        "half_up_sum": 2.4
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "acenaphthenes_or_cnh2n_14",
+        "drop_frac_gt_0_5_floor_sum": 2.6,
+        "floor_max": 2.7,
+        "floor_sum": 2.6,
+        "half_up_sum": 2.6
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "indanes_or_tetralins",
+        "drop_frac_gt_0_5_floor_sum": 4.9,
+        "floor_max": 4.9,
+        "floor_sum": 4.8,
+        "half_up_sum": 5.1
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "indenes_or_cnh2n_10",
+        "drop_frac_gt_0_5_floor_sum": 4.2,
+        "floor_max": 4.3,
+        "floor_sum": 4.2,
+        "half_up_sum": 4.1
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "naphthalene",
+        "drop_frac_gt_0_5_floor_sum": 0.4,
+        "floor_max": 0.4,
+        "floor_sum": 0.4,
+        "half_up_sum": 0.4
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "naphthalenes",
+        "drop_frac_gt_0_5_floor_sum": 5.5,
+        "floor_max": 5.5,
+        "floor_sum": 5.4,
+        "half_up_sum": 5.4
+      },
+      {
+        "sample": "02231c9ad08b4e1bbd604dd6da3a49c8_input_template",
+        "item": "paraffins",
+        "drop_frac_gt_0_5_floor_sum": 36.2,
+        "floor_max": 36.0,
+        "floor_sum": 36.3,
+        "half_up_sum": 36.2
+      }
+    ],
+    "output_excel": "<local_path_removed>"
+  },
+  "experimental_record": null
+}

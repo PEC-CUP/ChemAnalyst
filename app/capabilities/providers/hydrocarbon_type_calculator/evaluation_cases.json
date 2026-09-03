@@ -1,0 +1,24 @@
+[
+  {
+    "case_id": "tool_onboarding_hydrocarbon_type_calculator_1",
+    "evaluation_target": "tool",
+    "query": "Calculate hydrocarbon type composition from the uploaded workbook.",
+    "expected_route": "planner",
+    "expected_template": "data_analysis",
+    "expected_capabilities": [
+      "tool.hydrocarbon_type_calculator"
+    ],
+    "expected_evidence": [
+      "tool_evidence",
+      "artifacts"
+    ],
+    "expected_sufficiency_status": "sufficient",
+    "expected_action": null,
+    "expected_conclusion_fields": [
+      "direct_findings",
+      "uncertainty",
+      "confidence"
+    ],
+    "notes": "Generated during tool onboarding. The case checks whether the new tool can produce structured evidence for Planner."
+  }
+]

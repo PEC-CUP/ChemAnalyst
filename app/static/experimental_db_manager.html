@@ -1,0 +1,153 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Experimental Database Sample Manager</title>
+  <link rel="stylesheet" href="/static/support_workbench.css?v=20260710c">
+</head>
+<body>
+  <header class="workbench-header">
+    <div class="workbench-header-row">
+      <div class="workbench-copy">
+        <h1>Experimental Database Sample Manager</h1>
+        <p>Browse imported samples, inspect complete records, and review sample information together with bulk properties and other analysis data.</p>
+      </div>
+      <div class="header-actions">
+        <a class="button-link button-link-primary" href="/experimental-db-workbench">Back to workbench</a>
+      </div>
+    </div>
+  </header>
+  <main class="workbench-main">
+    <section class="card">
+      <h2>Sample Explorer</h2>
+      <div class="toolbar">
+        <div>
+          <label>Search sample id / name / type</label>
+          <input id="managerSearch" placeholder="petroleum_fraction_db_001 / petroleum fraction / pilot">
+        </div>
+        <div>
+          <label>Max samples returned</label>
+          <input id="managerLimit" type="number" value="200" min="1" max="1000">
+        </div>
+        <div>
+          <button class="teal" id="managerRefreshBtn" type="button">Refresh sample list</button>
+        </div>
+      </div>
+      <div class="toolbar toolbar-filters">
+        <div>
+          <label>Filter by sample type</label>
+          <select id="managerSampleTypeFilter">
+            <option value="">All sample types</option>
+          </select>
+        </div>
+        <div>
+          <label>Filter by analysis type</label>
+          <select id="managerAnalysisTypeFilter">
+            <option value="">All analysis types</option>
+          </select>
+        </div>
+        <div>
+          <label>Filter by artifact</label>
+          <select id="managerArtifactFilter">
+            <option value="">All samples</option>
+            <option value="with_artifact">With artifact</option>
+            <option value="without_artifact">Without artifact</option>
+          </select>
+        </div>
+      </div>
+      <div class="table-shell">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Sample ID</th>
+              <th>Sample name</th>
+              <th>Type</th>
+              <th>Origin</th>
+              <th>Updated</th>
+              <th>Properties</th>
+              <th>Analyses</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="managerTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <h2>Sample Detail</h2>
+        <button id="managerDeleteBtn" class="danger" type="button">Delete sample</button>
+      </div>
+      <p id="managerSummary">Select a sample from the table to inspect its full record.</p>
+      <div class="detail-grid">
+        <section class="detail-card">
+          <h3>Sample Information</h3>
+          <div id="managerInfo" class="kv-list"></div>
+        </section>
+        <section class="detail-card">
+          <h3>Analysis Data Summary</h3>
+          <div id="managerAnalysisSummary" class="kv-list"></div>
+        </section>
+      </div>
+      <div class="detail-grid" style="margin-top: 18px;">
+        <section class="detail-card">
+          <h3>Bulk Properties</h3>
+          <div class="table-shell compact-shell">
+            <table class="data-table compact-table">
+              <thead>
+                <tr>
+                  <th>Property</th>
+                  <th>Value</th>
+                  <th>Unit</th>
+                  <th>Method</th>
+                </tr>
+              </thead>
+              <tbody id="managerPropertiesBody"></tbody>
+            </table>
+          </div>
+        </section>
+        <section class="detail-card">
+          <h3>Analysis Records</h3>
+          <div class="table-shell compact-shell">
+            <table class="data-table compact-table">
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Method</th>
+                  <th>Rows</th>
+                  <th>Artifact</th>
+                </tr>
+              </thead>
+              <tbody id="managerAnalysesBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+      <div class="detail-grid" style="margin-top: 18px;">
+        <section class="detail-card">
+          <h3>Relations</h3>
+          <div class="table-shell compact-shell">
+            <table class="data-table compact-table">
+              <thead>
+                <tr>
+                  <th>Related sample</th>
+                  <th>Relation type</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody id="managerRelationsBody"></tbody>
+            </table>
+          </div>
+        </section>
+        <section class="detail-card">
+          <h3>Raw JSON Record</h3>
+          <pre id="managerRecord" class="json-box">{}</pre>
+        </section>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="/static/experimental_db_manager.js?v=20260710c"></script>
+</body>
+</html>
+
